@@ -1,10 +1,12 @@
-﻿//0.12 significant changes
-//
-// stopped joy1 Y motion from swallowing fwd/backwd keyboard keys
+﻿//Soulbound360
+//by Sinkissed
+//0.31
+//For Morii Unofficial Driver
+//All Classes Compatible
 //
 //key bindings should be default
 //these keys should be added
-//ctrl-f follow target
+//' follow target
 //ctrl-shift-t focus target
 //ctrl-t target focus
 
@@ -70,28 +72,33 @@ elseif pressed(Joystick1.y<0.5)
 endif
 
 //left shoulders mouse buttons
-    if Mouse.RightButton==0&&Joystick1.Button12==0&&Joystick1.Button13==0
-        Mouse.RightButton = Joystick1.Button5
-    elseif Mouse.RightButton==0&&Joystick1.Button12
-       Shift+Mouse.RightButton = pressed(Joystick1.Button5)+Joystick1.Button12
-    elseif Released(Joystick1.Button5)
-        Mouse.Rightbutton=0
-    endif
-
-    if Mouse.LeftButton==0&&Joystick1.Button12==0&&Joystick1.Button13==0
-       Mouse.LeftButton = Joystick1.Button11
-    elseif Mouse.LeftButton==0&&Joystick1.Button12
-       Shift+Mouse.LeftButton = pressed(Joystick1.Button11)+Joystick1.Button11
-    elseif Released(Joystick1.Button11)
-        Mouse.Leftbutton=0
-    endif
+		if pressed(Joystick1.Button5)&&Joystick1.Button12==0 then
+			pressed(Mouse.RightButton) = 1
+		elseif pressed(Joystick1.Button5)&&Joystick1.Button12 then
+			pressed(Shift+Mouse.RightButton) = 1
+		elseif released(Joystick1.Button5) then
+			released(Mouse.RightButton) = 1
+		endif
+		
+		if pressed(Joystick1.Button11)&&Joystick1.Button12==0 then
+			pressed(Mouse.LeftButton) = 1
+		elseif pressed(Joystick1.Button11)&&Joystick1.Button12 then
+			pressed(Shift+Mouse.LeftButton) = 1
+		elseif released(Joystick1.Button11) or released(Joystick1.Button6) then
+			released(Mouse.LeftButton) = 1
+		endif
 
 //shift button modifier assignment
-    if Joystick1.Button6==1&&Joystick1.Button12==1
-        Key.Spacebar=1
-    else
-        Key.Spacebar=0                          //quit jumping ffs
-    endif
+	if Joystick1.Button12&&Joystick1.Button6 then
+	   release(shift)
+	   Key.Spacebar = 1
+	   elseif released(Joystick1.Button6)&&Joystick1.Button12==1
+	   Key.Spacebar = 0
+	   toggle(shift)
+	   else
+	   Key.Spacebar=0
+	endif
+	
     if Joystick1.Button12==0
         Key.Minus = Joystick1.Button9
         Key.Equals = Joystick1.Button10
@@ -140,7 +147,11 @@ else
         Ctrl+Zero = pressed(Joystick1.Pov1Left)
         Key.Ctrl+L = pressed(Joystick1.Button9)
         if Pressed(Joystick1.Button10) then Toggle(Shift+T)
-        Mouse.Button4 = (-1.2 < Joystick1.y < -0.5)
-        Key.Ctrl+F = pressed(0.5 < Joystick1.y < 1.2)
+		if pressed(Joystick1.y<-.5) then 
+			Toggle(Mouse.Button4)
+		else 
+			Mouse.Button4=0
+		endif
+        Key.Apostrophe = pressed(0.5 < Joystick1.y < 1.2)
     endif
 endif

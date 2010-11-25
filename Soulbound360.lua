@@ -25,7 +25,6 @@ function s360_OnKey(key)
         else 
             GameTooltip:SetText(GetBindingAction(key),.10,.85,.0)    
     end
-    print(key)
     GameTooltip:Show()
  end
 end

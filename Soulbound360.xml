@@ -3,7 +3,7 @@
   <Frame name="Soulbound360Form" hidden="true" alpha="0" parent="UIPARENT" movable="true" enableMouse="true">
     <!--<FrameSkin skinid="dcb143e1-a4ab-4e7c-b934-1efa40101d21" frameid="2d508883-59c2-4f83-ae10-27aaad48391b" />-->
     <Size>
-      <AbsDimension x="59" y="67" />
+      <AbsDimension x="50" y="50" />
     </Size>
     <Anchors>
       <Anchor point="BOTTOMRIGHT">
@@ -71,7 +71,7 @@
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset>
-              <AbsDimension x="12" y="-20" />
+              <AbsDimension x="7" y="-7" />
             </Offset>
           </Anchor>
         </Anchors>
@@ -96,6 +96,7 @@ self: SetUserPlaced(1)
 </OnLoad>
       <OnEnter>UIFrameFadeIn(XIcon, 1, XIcon:GetAlpha(), 1.0)
 Soulbound360Form:EnableKeyboard(true)
+Soulbound360Form:EnableMouseWheel(true)
 GameTooltip_SetDefaultAnchor( GameTooltip, UIParent )
 GameTooltip:SetText("Soulbound360 Active Feedback Messages",.10,.85,.0,1.0,true)
 GameTooltip:Show()
@@ -117,8 +118,14 @@ GameTooltip:SetText(GetBindingAction(key),.10,.85,.0,1.0,true)
 end
 
 </OnMouseDown>
+      <OnMouseUp>self:StopMovingOrSizing()
+</OnMouseUp>
       <OnMouseWheel>GameTooltip_SetDefaultAnchor( GameTooltip, UIParent )
-GameTooltip:SetText("Mouse Wheel",.10,.85,.0,1.0,true)
+if (arg1 == 1) then
+GameTooltip:SetText("Mouse Wheel Up",.10,.85,.0,1.0,true)
+else
+GameTooltip:SetText("Mouse Wheel Down",.10,.85,.0,1.0,true)
+end
 GameTooltip:Show()
 </OnMouseWheel>
       <OnDragStart>self:StartMoving()
