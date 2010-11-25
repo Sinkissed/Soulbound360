@@ -1,17 +1,31 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.37
+//0.38
 //For Morii Unofficial Driver
 //All Classes Compatible
 //Key Bindings are Default
 
+//useful user-changeable values
+var.InvertMouse = false
+var.SwapJoysticks = false
+var.MouseDeadzone = .07
+var.MoveDeadzone = .05
+var.MouseSensitivity = screen.width/32
+//end useful user-changeable values
+
+//mess with lines below at your own risk!
+if var.SwapJoysticks == false then
 var.MouseX = Joystick1.pitch
 var.MouseY = Joystick1.yaw
 var.MoveX = Joystick1.x
 var.MoveY = Joystick1.y
-var.MouseDeadzone = .07
-var.MoveDeadzone = .05
-var.MouseSensitivity = screen.width/32
+else
+var.MoveX = Joystick1.pitch
+var.MoveY = Joystick1.yaw
+var.MouseX = Joystick1.x
+var.MouseY = Joystick1.y
+endif
+
 var.Vibrate1 = Joystick1.Vibration1
 var.Vibrate2 = Joystick1.Vibration2
 var.RB = Joystick1.Button6
@@ -32,15 +46,21 @@ Var.LThumb = Joystick1.Button9
 Var.RThumb = Joystick1.Button10
 Var.MiddleX = Joystick1.Button13
 
+
 //these keys are global and dont change with modifiers
 Key.q = (-1.2 < var.MoveX < -0.5)     //strafe left is left stick left
 Key.e = (0.5 < var.MoveX < 1.2)       //strafe right is left stick right
 
-//right analog stick mouse
+//mouse
 if (var.MouseX > .07) mouse.cursorPosx += var.MouseSensitivity^(var.MouseX)     //cursor right
 if (var.MouseX < -.07) mouse.cursorPosx -= -var.MouseSensitivity^1*(var.MouseX) //cursor left
+if var.InvertMouse == false then
 if (var.MouseY  > .07) mouse.cursorPosy += var.MouseSensitivity^(var.MouseY )         //cursor down
 if (var.MouseY  < -.07) mouse.cursorPosy -= -var.MouseSensitivity^1*(var.MouseY )     //cursor up
+else
+if (var.MouseY  < -.07) mouse.cursorPosy += var.MouseSensitivity^(-1*var.MouseY )         //cursor down
+if (var.MouseY  > .07) mouse.cursorPosy -= var.MouseSensitivity^(var.MouseY )         //cursor down
+endif
 
 //vibrate when action bar 1 is activated so we know without looking
 if pressed(Var.X ) && (Var.RT = 1) && (Var.MiddleX = 0)
@@ -49,6 +69,12 @@ var.Vibrate1 = .35
 wait 150ms
 var.Vibrate2 = 0
 var.Vibrate1 = 0
+endif
+
+if Var.RB&&Var.Rt&&var.middlex=0 then
+Key.Spacebar = 1
+elseif released(Var.RB) or released(Var.RT)
+Key.Spacebar = 0
 endif
 
 //left shoulders mouse buttons
@@ -75,7 +101,9 @@ if var.RT&&var.MiddleX then
 Mouse.Button4 = (-1.2 < var.MoveY < -var.MoveDeadzone)
 endif
 
-if key.w==0 and var.MoveY && var.RT==0 && var.MiddleX==0 then
+if key.w==0 and var.MoveY && (var.RT==0 && var.MiddleX==0) then
+key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
+elseif key.w==0 and var.MoveY && var.RT==1
 key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
 elseif pressed(var.MoveY>-var.MoveDeadzone)
 release(Mouse.Button4)
@@ -86,7 +114,9 @@ if var.RT&&var.MiddleX
 key.Apostrophe = (var.MoveDeadzone < var.MoveY < 1.2)
 endif
 
-if key.s==0 and var.MoveY && var.RT==0 && var.MiddleX==0 then
+if key.s==0 and var.MoveY && (var.RT==0 && var.MiddleX==0) then
+key.s = (var.MoveDeadzone < var.MoveY < 1.2)
+elseif key.s==0 and var.MoveY && var.RT==1
 key.s = (var.MoveDeadzone < var.MoveY < 1.2)
 elseif pressed(var.MoveY<var.MoveDeadzone)
 release(key.Apostrophe)
@@ -96,7 +126,7 @@ endif
 if Var.MiddleX==0
 //no modifier button assignment 1-0
 if Var.RT==0
-Key.One = Var.X 
+Key.One = Var.X
 Key.Two = Var.Y
 Key.Three = Var.A
 Key.Four = Var.B
@@ -110,7 +140,7 @@ Key.Minus = Var.LThumb
 Key.Equals = Var.RThumb
 Key.Tab = var.RB
 else
-Shift+One = pressed(Var.X )
+Shift+One = pressed(Var.X)
 Shift+Two = pressed(Var.Y)
 Shift+Three = pressed(Var.A)
 Shift+Four = pressed(Var.B)
@@ -122,11 +152,6 @@ Shift+Nine = pressed(Var.DRight)
 Shift+Zero = pressed(Var.DLeft)
 Mouse.WheelUp = pressed(Var.LThumb)+Var.RT
 Mouse.WheelDown = pressed(Var.RThumb)+Var.RT
-if Var.RB then
-Key.Spacebar = 1
-elseif released(Var.RB)
-Key.Spacebar = 0
-endif
 endif
 else
 //xbox guide button modifier

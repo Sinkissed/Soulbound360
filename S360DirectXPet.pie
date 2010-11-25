@@ -1,28 +1,43 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.37
+//0.38
 //For DirectX Driver
 //Hunters & Warlock Control Set
 //Key Bindings are Default
 
-//antalog mouse sensitivity set relative to screen size
-//try to change the mouse sensitivity in the game first if its wrong
+//useful user-changeable values
+var.InvertMouse = false
+var.SwapJoysticks = false
 var.MouseSensitivity = screen.width/32
+//end useful user-changeable values
 
+//mess with lines below at your own risk!
 if Xinput.Exists==0 then
-//Morii&non-360 controllers - swap pitch/yaw for x/y to change mouse joystick
+if var.SwapJoysticks == false then
 var.MouseX = Joystick1.pitch
 var.MouseY = Joystick1.yaw
 var.MoveX = Joystick1.x
 var.MoveY = Joystick1.y
+else
+var.MoveX = Joystick1.pitch
+var.MoveY = Joystick1.yaw
+var.MouseX = Joystick1.x
+var.MouseY = Joystick1.y
+endif
 var.MouseDeadzone = .07
 var.MoveDeadzone = .05
 else
-//For default DirectX driver - switch Joy2 to Joy1 to change mouse
+if var.SwapJoysticks == false then
 var.MouseX = Xinput1.Joy2x
 var.MouseY = -Xinput1.Joy2y
 var.MoveX = Xinput1.Joy1x
 var.MoveY = -Xinput1.Joy1y
+else
+var.MoveX = Xinput1.Joy2x
+var.MoveY = -Xinput1.Joy2y
+var.MouseX = Xinput1.Joy1x
+var.MouseY = -Xinput1.Joy1y
+endif
 var.MouseDeadzone = .13
 var.MoveDeadzone = .5
 var.TriggerDeadzone = 0.85
@@ -69,16 +84,20 @@ Var.RThumb = Xinput1.RightThumb
 endif
 
 
-
 //these keys are global and dont change with modifiers
 Key.q = (-1.2 < var.MoveX < -var.MoveDeadzone)     //strafe left is left stick left
 Key.e = (var.MoveDeadzone < var.MoveX < 1.2)       //strafe right is left stick right
 
-//right analog stick mouse
-if (var.MouseX > var.MouseDeadzone) mouse.cursorPosx += var.MouseSensitivity^(var.MouseX)     //cursor right
-if (var.MouseX < -var.MouseDeadzone) mouse.cursorPosx -= -var.MouseSensitivity^1*(var.MouseX) //cursor left
-if (var.MouseY > var.MouseDeadzone) mouse.cursorPosy += var.MouseSensitivity^(var.MouseY)         //cursor down
-if (var.MouseY < -var.MouseDeadzone) mouse.cursorPosy -= -var.MouseSensitivity^1*(var.MouseY)     //cursor up
+//mouse
+if (var.MouseX > .07) mouse.cursorPosx += var.MouseSensitivity^(var.MouseX)     //cursor right
+if (var.MouseX < -.07) mouse.cursorPosx -= -var.MouseSensitivity^1*(var.MouseX) //cursor left
+if var.InvertMouse == false then
+if (var.MouseY  > .07) mouse.cursorPosy += var.MouseSensitivity^(var.MouseY )         //cursor down
+if (var.MouseY  < -.07) mouse.cursorPosy -= -var.MouseSensitivity^1*(var.MouseY )     //cursor up
+else
+if (var.MouseY  < -.07) mouse.cursorPosy += var.MouseSensitivity^(-1*var.MouseY )         //cursor down
+if (var.MouseY  > .07) mouse.cursorPosy -= var.MouseSensitivity^(var.MouseY )         //cursor down
+endif
 
 //vibrate when action bar 1 is activated so we know without looking
 if pressed(Var.X) && (Var.RT == 1)
@@ -91,7 +110,7 @@ endif
 
 if Var.RT&&Var.RB then
 Key.Spacebar = 1
-elseif released(Var.RB)
+elseif released(Var.RB) or released(Var.RT)
 Key.Spacebar = 0
 endif
 
