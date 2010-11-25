@@ -1,10 +1,10 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.51
+//0.52
 
 //PushToTalkKey is your Ventrillo or Teamspeak push to talk key.
 //It stays on till pressed again.
-key.backspace = var.PushToTalkKey
+key.NUMPAD0 = var.PushToTalkKey
 
 //SwapJoysticks makes joysticks opposite.
 //Use if you are left handed.
@@ -285,16 +285,21 @@ elseif var.Type2==true then
      endif
      var.BarHalfModifiedHalf = var.Bar2 && pressed(var.type2) and not released(var.type3)
 elseif var.Type3==true then
-     Key.F1 = pressed(Var.Start)
-     Key.F2 = pressed(Var.X)
-     Key.F3 = pressed(Var.Y)
-     Key.F4 = pressed(Var.A)
-     Key.F5 = pressed(Var.B)
+     Key.F1 = pressed(Var.Start) and not Var.Bar3
+     Key.F2 = pressed(Var.X) and not Var.Bar3
+     Key.F3 = pressed(Var.Y) and not Var.Bar3
+     Key.F4 = pressed(Var.A) and not Var.Bar3
+     Key.F5 = pressed(Var.B) and not Var.Bar3
      Ctrl+F1 = pressed(Var.Back) and not Var.Bar3
      Ctrl+F2 = pressed(Var.DUp) and not Var.Bar3
      Ctrl+F3 = pressed(Var.DDown) and not Var.Bar3
      Ctrl+F4 = pressed(Var.DRight) and not Var.Bar3
      Ctrl+F5 = pressed(Var.DLeft) and not Var.Bar3
+     Key.NUMPAD5 = pressed(Var.Start) and Var.Bar3
+     Key.NUMPAD1 = pressed(Var.X) and Var.Bar3
+     Key.NUMPAD2 = pressed(Var.Y) and Var.Bar3
+     Key.NUMPAD3 = pressed(Var.A) and Var.Bar3
+     Key.NUMPAD4 = pressed(Var.B) and Var.Bar3
      Ctrl+F6 = pressed(Var.Back) and Var.Bar3
      Ctrl+F7 = pressed(Var.DUp)  and Var.Bar3
      Ctrl+F8 = pressed(Var.DDown) and Var.Bar3
