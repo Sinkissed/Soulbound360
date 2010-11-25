@@ -1,77 +1,59 @@
-This is an addon designed to almost completely replace your mouse and keyboard with your Xbox 360 controller and many other gamepads/joysticks. With some patience and practice you can raid and PvP with it. It is built for total character control using the maximum amount of buttons available for the quickest reflexes possible, so its prepared to play any casual or end-game role right away. Its free and still manages to have more functionality than Pinnacle Game Profiler or Switchblade.
-
-To Install -
-
-1 Install the Addon in your /interface/addons folder.
-
-2 'http://glovepie.org/poiuytrewq.php'GlovePIE by Carl Kenner is required for the PIE files to set the controls. Run GlovePIE (on vista you need admin access so it can send keys to fullscreen programs) and open a .PIE file located in the interface/addons/Soulbound360 directory: 
-
-S360DirectX.pie will work with the normal DirectX plug and play driver. Pet controls are not set in this configuration.
-S360DirectXPet.pie is for Hunters/Warlocks with the normal driver. Party member and some targeting functions are not set in this configuration.
-S360Morii.pie is for 'http://translate.google.com/translate?js=y&prev=_t&hl=en&ie=UTF-8&layout=1&eotf=1&u=http://www.katch.ne.jp/~morii/&sl=auto&tl=en The Unofficial Xbox 360 Controller Driver by Morii. All controls are available and you can use the Middle X button. This file will do nothing unless you have installed Morii's driver.
+Soulbound360 is a World of Warcraft addon for playing WoW with your Xbox360 controller. The addon itself is text files however USING THE CONTROLLER WITH WOW REQUIRES ANOTHER PROGRAM.
 
 
-All of the files work with Morii's driver. Open the file you want and click RUN. You can also click the [.] on the menu so that the window minimizes to your system tray.
-
-3 Run the game and type /s360 to enable or disable the hover icon.
-
-Then just grab your controller. Other controllers similar to the Xbox 360 controller or even generic gamepads and joysticks might also work as well. NOTE! You no longer need to reset your bindings to default.
-
-If your using the plug and play DirectX driver and the mouse cursor doesn't move after you run the GlovePie script and press the Right thumb stick, make sure you've installed the 'http://www.microsoft.com/hardware/download/download.aspx?category=gaming' Xbox 360 Accessories software.
-
-Morii's driver installation instructions
-
-This is an optional step but you get a lot more buttons from it and a very detailed configuration page in the Game Controllers control panel. First 'http://translate.google.com/translate?js=y&prev=_t&hl=en&ie=UTF-8&layout=1&eotf=1&u=http://www.katch.ne.jp/~morii/&sl=auto&tl=en' download the proper driver for your pad and os from this link. Then-
-
-1. Go to Control Panel -> Hardware and Sound -> Device Manager 
-2. When User Account Control shows up click "Continue"
-3. Under the "Human Interface Devices" tree, find "Microsoft Xbox 360 Controller". Right click and select Update Driver Software
-4. Update Driver Software window appears, select Browse my computer for driver software
-5. On the next screen select "Let me pick from a list of drivers"
-6. At select driver click "Have Disk"
-7. "Install From Disk" appears, click Browse.
-8. Choose the INF file in the folder that you unzipped to and hit open
-09. Then hit OK
-10. Drops back to "Update Driver Software", from there go to "Next" 
-11. "Windows Security" will pop up, hit Next.
-12. Finally it should say updated driver software successfully, just hit close
-
-When you first install the driver sometimes the calibration is wonky on the analog sticks. If this happens, rename \Windows\System32\x360cps.dll to \Windows\System32\x360cps.bak and calibrate it in the 'Game Controllers' control panel. Don't forget to rename the dll file back when its done! 
-
-When its installed, you'll have to change the 'Xbox Guilde Button' to Button13 in Game Controllers -> Properties -> Buttons tab. In the Triggers tab, change the Z axis to Button 11 and 12 as well. When you start GlovePIE, you can run any PIE file you want, but the S360Morii file will give you the most buttons. Its a bit of a hassle but you have an extra 15 controls from it, and the calibration is much smoother. You also won't have to reload the pie files for pet classes. 
+Setup
 
 
-To Use
+1 Install the addon into your Interface/AddOns directory as usual.
 
-Hover over the icon and press buttons or combination of buttons on the controller. While the mouse hovers over the icon, the screen will display the actions assigned to the buttons you press. This will help you get a 'feel' for your controls, and help you learn the bindings. If you practice and memorize the abilities as displayed while on the icon you will find it a much easier transition from keyboard and mouse to your controller. Your keyboard and mouse are also not disabled so you can switch back to type or navigate at any time, though you'll have to move the mouse off the icon first.
+2 Download http://glovepie.org/GlovePIEWithoutEmotiv043.zip GLOVEPIE and open the S360.PIE file inside of the Interface/AddOns/Soulbound360 directory.
 
-Every configuration uses all of the top buttons and thumb stick buttons to trigger actions. The 4 primary D-Pad directions are also assigned buttons. The thumb sticks control movement by default. The left shoulder and trigger are assigned to left/right mouse clicks. The right trigger is a button modifier, allowing a second set of keys when pressed together with another. Pressing both right shoulders is jump.
+3 Click RUN in GLOVEPIE and start World of Warcraft
 
-In the DirectX configs the right shoulder is a second modifier. In Morii's configuration, this button is target instead and the Middle X is the second modifier that can combine with the right trigger as well to add a third modifier and even more possible combinations. Unassigned combinations will display as not assigned when pressing them while over the icon. You can keybind these to auras or totems or whatever you like. You can also create /cast macros for functions not assigned if you have a lot or you'd rather stick them on your action bar.
-
-On installation, the buttons are mapped to WoW's default keys. If you want to change what the buttons do in Key Bindings, make sure you go to the addon configuration options and check enable user defined keys, or they won't set. 
-
-To access more than the first twelve actions on the main action bar, hold the right trigger down and press one of the first 6 action buttons. Swapping between action bars is very fast this way and with some practice it can become second nature.
-
-If you're a healer, you should also try the party targeting buttons. They will make your life a lot easier than mousing everything with the joystick. However in raid situations you'll want to continue using healbot or grid, since the party targeting buttons only target your current party.
-
-You can now edit the raw PIE files easily as well. Press STOP to cease running the file, then edit one of the table entries for calibration, joystick axis, or joystick assignment for mouse & movement.
-
-Why Its Nice
-
- more buttons
- its simple to install
- its set up to play immediately, without having to install and then set every button
- the addon simplifies learning and changing bindings
- its made from an end-game perspective, not casual and 'maybe' it works for other things
- its free
+GLOVEPIE is Windows only. The addon and the instructions sent to GLOVEPIE are all completely visible inside of the Interface/Addons folder. This is in compliance with Blizzard's AddOn policy. Controls have 1-to-1 functionality, THERE ARE NO SCRIPTED OR AUTOMATED CONTROLS.
 
 
 
+Play
 
+
+Push the left joystick to move.
+
+Push the right joystick for the cursor/to turn.
+
+XYAB,Back,Start,Dpad dirctions and pressing in the joysticks are actions 1-12.
+
+Shoulder Buttons are mouse click, target, action bars, and a modifier. Switching actionbars is required for accessing all abilities.
+
+Bottom left shoulder modifies all the other buttons
+-Pressing halfway gives you pet controls on 1-12 and left click.
+-Pressing all the way gives you party targeting, aura/stance/shapeshift, and menus.
+-Pressing both right or left shoulders lets you jump or autorun.
+
+There are many more controls and combinations handed by the gamepad. Some controls can also be altered in the PIE file. A full diagram is displayed in game and can be toggled inside of the Interface/Addons menu. Have fun!
+
+v0.5
+*PIE file redone. Cleaner, neater, readable.
+*Control is now centered around analog trigger range as modifiers.
+*All controls almost identical for Microsoft and Morii drivers. 74 mappable actions total.
+*New interface and new interactivity, much closer to original concepts.
+
+v0.44
+* Fixed 'Interface action failed' error when bindings updated in combat
+
+v0.43
+* Changed Autorun/Follow to both mouseclick press with/without modifier. Makes DirectX setup less likely to accidentally trigger it while running, and easier and more ergonomic to trigger in Morii setup.
+* Added Ctrl-Click for second modifier held while clicking.
+
+v0.42
+* JoyToKey setup for Morii driver included, for easier editing of which keys are sent.
+* Vibration working again for Morii configs. Can be toggled in PIE file.
+* Fixed control map image labels.
+
+v0.41
+* Controls now displayed in Interface Options
 v0.4
 * Enable User Bindings allows default binds to be individually overwritten in Key Bindings
-
 v0.39
 * Added RT as SHIFT for quick item comparisons
 * Mouse is now far more responsive and accurate at lower thresholds
@@ -80,9 +62,9 @@ v0.39
 v0.38 
 * Spacebar sticking gets fixed and PIE file easier to edit
 v0.37
-* PIE files corrected for mouse clicking&dragging;, shift-clicking, autorun, jump, and attack toggle functions
+*  PIE files corrected for mouse clicking&dragging, shift-clicking, autorun, jump, and attack toggle functions
 v0.36
-* PIE file debugging for follow/autorun
+*  PIE file debugging for follow/autorun
 * General cleaning up of code
 * Easier to edit for joystick assignment and calibration
 * Added reset position and attributes for icon
@@ -117,15 +99,3 @@ v0.11
 * Middle X functioning as modifier for slightly less important functions than easier-to-press Right Trigger
 * Tested successfully in WotLK
 * Stopped Left Thumb Y motion from eating W/S keyboard keys, so if you panic and revert to keyboard you still have control
-
-
-Known Issues
-
-Stuff I can probably fix
-
-DirectX won't Force Feedback on action bar switch.
-
-
-Stuff I probably can't fix
-Can't type (no chatpad support)
-Hard learning curve; get wtfpwnt bad for a month

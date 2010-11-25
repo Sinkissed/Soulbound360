@@ -7,43 +7,69 @@ function RegisterKeys:OnEvent(event, arg1)
             EnableUserKeys = 0
             BindingOverrideSequence() 
         elseif EnableUserKeys == 0 then
-            BindingOverrideSequence() 
+            BindingOverrideSequence()
         else
             BindingOverrideSequence()
             BindingChainOverrideSequence()
         end
         if HideButton == nil then
             HideButton = 1
-            Soulbound360Form:Show()
-            XIcon:Show()
-            UIFrameFadeIn(XIcon, 2, 0, .50)
+            s360_ShowDiagram()
         elseif HideButton == 0 then
-            Soulbound360Form:Hide()
-            XIcon:Hide()
+            s360_HideDiagram()
         elseif HideButton == 1 then
-            Soulbound360Form:Show()
-            XIcon:Show()
-            UIFrameFadeIn(XIcon, 2, 0, .50)
+            s360_ShowDiagram()
         end
-    end
+        if EnableActiveMap == nil then 
+            EnableActiveMap = 1
+            XIcon:EnableKeyboard(true)
+            XIcon:EnableMouse(true)
+            XIcon:EnableMouseWheel(1) 
+        elseif EnableActiveMap == 1 then
+            XIcon:EnableKeyboard(true)
+            XIcon:EnableMouse(true)
+            XIcon:EnableMouseWheel(1) 
+        else
+            XIcon:EnableKeyboard(false)
+            XIcon:EnableMouse(false)
+            XIcon:EnableMouseWheel(0) 
+        end
     EnableUserKeysButton:SetChecked(EnableUserKeys)
-    Hide360Button:SetChecked(HideButton)
+    Hide360Button:SetChecked(HideButton)        
+    ActiveButton:SetChecked(EnableActiveMap)
+    end
 end
 
 RegisterKeys:SetScript("OnEvent", RegisterKeys.OnEvent);
 
-SLASH_S3601, SLASH_S3602 = '/s360', '/soulbound360'; -- 3.
+SLASH_S3601, SLASH_S3602 = '/s360', '/soulbound360';
 
-function SlashCmdList.S360(msg, editbox) -- 4.
-    if Soulbound360Form:IsShown() then 
-        Soulbound360Form:Hide()
-        XIcon:Hide()
-        UIFrameFadeOut(XIcon, 2, .50, 0)
-    else 
-        Soulbound360Form:Show()
-        XIcon:Show()
-        UIFrameFadeIn(XIcon, 2, 0, .50)
+function SlashCmdList.S360(msg, editbox)
+    if XIcon:IsShown() then 
+        s360_HideDiagram()
+    else
+       s360_ShowDiagram()  
     end
+end
+
+function s360_HideDiagram()
+    UIFrameFadeOut(XIcon, 2, .50, 0)
+    XIcon:EnableKeyboard(false)
+    XIcon:EnableMouse(false)
+    XIcon:EnableMouseWheel(0) 
+    GameTooltip:Hide()
+    XIcon:Hide()
+end
+
+function s360_ShowDiagram()
+    UIFrameFadeIn(XIcon, 2, XIcon:GetAlpha(), .50)
+    if EnableActiveMap == 1 then
+        XIcon:EnableKeyboard(true)
+        XIcon:EnableMouse(true)
+        XIcon:EnableMouseWheel(1) 
+        s360_Greet()
+    end
+    XIcon:Show()
 end
 
 function s360_OnLeave()
@@ -51,15 +77,42 @@ function s360_OnLeave()
 end
 
 function s360_OnKey(key)
-  GameTooltip_SetDefaultAnchor( GameTooltip, UIParent )
-  if (key ~= "LSHIFT") and (key ~= "RSHIFT") and (key ~= "LCTRL") and (key ~= "RCTRL") then
+  GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 527, -425)
+  if (key ~= "LSHIFT") and (key ~= "RSHIFT") and (key ~= "LCTRL") and (key ~= "RCTRL") and (key ~= "RALT") and (key ~= "LALT")  then
     if ( IsShiftKeyDown() ) then key = "SHIFT-"..tostring(key) end
     if ( IsControlKeyDown() ) then key = "CTRL-"..tostring(key) end
+    if (key == "1") or (key == "F2") or (key == "CTRL-1") then GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 270, -331) end
+    if (key == "2") or (key == "F3") or (key == "CTRL-2") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -292) end
+    if (key == "3") or (key == "F4") or (key == "CTRL-3") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -369) end
+    if (key == "4") or (key == "F5") or (key == "CTRL-4") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 388, -331) end
+    if (key == "5") or (key == "F1") or (key == "CTRL-5") or (key == "I") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 225, -341 ) end
+    if (key == "6") or (key == "CTRL-F1") or (key == "CTRL-F6") or (key == "CTRL-6") or (key == "L") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 115, -341 ) end
+    if (key == "7") or (key == "CTRL-F2") or (key == "CTRL-F7") or (key == "CTRL-7") or (key == "P") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -370 ) end
+    if (key == "8") or (key == "CTRL-F3") or (key == "CTRL-F8") or (key == "CTRL-8") or (key == "N") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -461) end
+    if (key == "9") or (key == "CTRL-F4") or (key == "CTRL-F9") or (key == "CTRL-9") or (key == "Y") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 170, -420) end
+    if (key == "0") or (key == "CTRL-F5") or (key == "CTRL-F10") or (key == "CTRL-0") or (key == "O") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 5, -420 ) end
+    if (key == "-") or (key == "CTRL-NUMPADMINUS") or (key == "CTRL-NUMPADDIVIDE") or (key == "CTRL-SHIFT-T") or (key == "M") or (key == "C") or (key == "Q") or (key == "E") or (key == "W") or (key =="S") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT",12 ,-328 ) end
+    if (key == "=") or (key == "CTRL-NUMPADPLUS") or (key == "CTRL-NUMPADMULTIPLY") or (key == "SHIFT-B") or (key == "LSHIFT") or (key == "CTRL-T") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 ) end
+    if (key == "TAB") or (key == "SHIFT-TAB") or (key == "SPACE") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 360, -239) end
+    if (key == "SHIFT-1") or (key == "SHIFT-2") or (key == "SHIFT-3") or (key == "SHIFT-4") or (key == "SHIFT-5") or (key == "SHIFT-6") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 568, -271 ) end
+    if (key == "'") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 622, -239 ) end
     if GetBindingAction(key,true) == "" then 
-            GameTooltip:SetText(tostring(key).." Not Assigned",.10,.85,.0,1.0,true)
+            GameTooltip:SetText(tostring(key).." Not Assigned",1.0,1.0,1.0,true)
         else 
-            GameTooltip:SetText(GetBindingAction(key,true),.10,.85,.0)    
+            GameTooltip:SetText(GetBindingAction(key,true),1.0,1.0,1.0)    
     end
+    GameTooltip:Show()
+ elseif (key == "LSHIFT") or (key == "RSHIFT") then 
+    GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 )
+    GameTooltip:SetText("ITEM COMPARISON",1.0,1.0,1.0)
+    GameTooltip:Show()
+ elseif (key == "LALT") or (key == "RALT") then 
+    GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 242, -331 )
+    GameTooltip:SetText("ALT",1.0,1.0,1.0)
+    GameTooltip:Show()
+ elseif (key == "LCTRL") or (key == "RCTRL") then 
+    GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 242, -331 )
+    GameTooltip:SetText("CTRL",1.0,1.0,1.0)
     GameTooltip:Show()
  end
 end
@@ -86,46 +139,31 @@ InterfaceOptions_AddCategory(s360.panel);
 PanelLabel = s360.panel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 PanelLabel:SetText("Soulbound360");
 PanelLabel:SetPoint("TOPLEFT", 24, -16);
-s360.panel.texture = s360.panel:CreateTexture(nil,"BACKGROUND");
-s360.panel.texture:SetTexture("Interface\\Addons\\Soulbound360\\controller.tga");
-s360.panel.texture:SetAllPoints(s360.panel)
-s360.panel.overlay = s360.panel:CreateTexture(nil,"OVERLAY");
-s360.panel.overlay:SetTexture("Interface\\Addons\\Soulbound360\\controllertext.tga");
-s360.panel.overlay:SetAllPoints(s360.panel)
 
-
+function s360_Greet()
+        GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 527, -425)
+        GameTooltip:SetText("Mouseover To Activate",1.0,1.0,1.0)
+        GameTooltip:Show()
+end
 
 function HideClick()
     if HideButton == 1 then
         HideButton = 0
-        Soulbound360Form:Hide()
-        XIcon:Hide()
-        UIFrameFadeOut(XIcon, 2, .50, 0)
     else
         HideButton = 1
-        Soulbound360Form:Show()
-        XIcon:Show()
-        UIFrameFadeIn(XIcon, 2, XIcon:GetAlpha(), .50)
     end
 end
 
-function PosClick()
-    Soulbound360Form:StopMovingOrSizing();
-    Soulbound360Form.isMoving = false;
-    Soulbound360Form:ClearAllPoints();
-    Soulbound360Form:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-    UIFrameFadeIn(XIcon, 0, 0, .50)
-    Soulbound360Form:Show()
-end
 
 function ResetClick()
-    PosClick();
     HideButton = 1
     EnableUserKeys = 0
+    EnableActiveMap = 1
     ClearOverrideBindings(UIParent)
     BindingOverrideSequence() 
     EnableUserKeysButton:SetChecked(EnableUserKeys)
     Hide360Button:SetChecked(HideButton)
+    ActiveButton:SetChecked(ActiveButton)
 end
 
 function UserKeys()
@@ -139,41 +177,65 @@ function UserKeys()
     end
 end
 
+function ActiveMap()
+    if EnableActiveMap == 1 then
+        EnableActiveMap = 0
+        XIcon:EnableKeyboard(false)
+        XIcon:EnableMouse(false)
+        XIcon:EnableMouseWheel(1) 
+    else
+        EnableActiveMap = 1
+        XIcon:EnableKeyboard(true)
+        XIcon:EnableMouse(true)
+        XIcon:EnableMouseWheel(1) 
+    end
+end
+
+ActiveButton = CreateFrame("CheckButton", "ActiveMap", s360.panel, "ChatConfigCheckButtonTemplate")
+ActiveButton:SetScript("OnClick",ActiveMap);
+ActiveButton:SetPoint("TOPLEFT", 20, -49);
+ActiveButton.tooltip = "Check to allow key or button input on the controller map";
+ButtonLabel0 = ActiveButton:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+ButtonLabel0:SetText("Active controller map");
+ButtonLabel0:SetPoint("TOPLEFT", 24, -6);
+ActiveButton:SetFontString(ButtonLabel0);
+
 Hide360Button = CreateFrame("CheckButton", "Hide360", s360.panel, "ChatConfigCheckButtonTemplate")
 Hide360Button:SetScript("OnClick",HideClick);
-Hide360Button:SetPoint("TOPLEFT", 20, -49);
-Hide360Button.tooltip = "Show or hide the icon when loaded";
+Hide360Button:SetPoint("TOPLEFT", 20, -74);
+Hide360Button.tooltip = "Show or hide the controller map when logging in";
 ButtonLabel1 = Hide360Button:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-ButtonLabel1:SetText("Always show icon");
+ButtonLabel1:SetText("Controller map displayed at login");
 ButtonLabel1:SetPoint("TOPLEFT", 24, -6);
 Hide360Button:SetFontString(ButtonLabel1);
 
 EnableUserKeysButton = CreateFrame("CheckButton", "EnableUserKeysButton", s360.panel, "ChatConfigCheckButtonTemplate");
-EnableUserKeysButton:SetPoint("TOPLEFT", 20, -74);
+EnableUserKeysButton:SetPoint("TOPLEFT", 20, -99);
 EnableUserKeysButton.tooltip = "Check to allow Key Bindings set in WoW to take priority over Soulbound360's automatic bindings";
 EnableUserKeysButton:SetScript("OnClick",UserKeys);
 ButtonLabel2 = EnableUserKeysButton:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-ButtonLabel2:SetText("Enable user-defined keys");
+ButtonLabel2:SetText("Allow user-defined key bindings");
 ButtonLabel2:SetPoint("TOPLEFT", 24, -6);
 EnableUserKeysButton:SetFontString(ButtonLabel2)
 
-Pos360Button = CreateFrame("Button", "PosButton", s360.panel, "UIPanelButtonTemplate");
-Pos360Button:SetPoint("TOPLEFT", 20, -102);
-Pos360Button:SetWidth(120);
-Pos360Button:SetHeight(22);
-Pos360Button.tooltip = "Set position to default";
-Pos360Button:SetText("Reset Position");
-Pos360Button:SetScript("OnClick", PosClick);
-Pos360Button:SetNormalFontObject(GameFontNormalSmall)
+ToggleDiagramButton = CreateFrame("Button", "ToggleWindow", s360.panel, "UIPanelButtonTemplate");
+ToggleDiagramButton:SetPoint("TOPLEFT", 20, -127);
+ToggleDiagramButton:SetWidth(200);
+ToggleDiagramButton:SetHeight(22);
+ToggleDiagramButton.tooltip = "Click to hide or display the controller map";
+ToggleDiagramButton:SetText("Toggle Controller Map");
+ToggleDiagramButton:SetScript("OnClick",SlashCmdList.S360);
+ToggleDiagramButton:SetNormalFontObject(GameFontNormalSmall)
 
 Reset360Button = CreateFrame("Button", "ResetButton", s360.panel, "UIPanelButtonTemplate");
-Reset360Button:SetPoint("TOPLEFT", 140, -102);
-Reset360Button:SetWidth(120);
+Reset360Button:SetPoint("TOPLEFT", 20, -151);
+Reset360Button:SetWidth(200);
 Reset360Button:SetHeight(22);
-Reset360Button.tooltip = "Set position and options to default";
+Reset360Button.tooltip = "Set all options to their initial settings";
 Reset360Button:SetText("Reset All Defaults");
 Reset360Button:SetScript("OnClick", ResetClick);
 Reset360Button:SetNormalFontObject(GameFontNormalSmall)
+
 
 function BindingOverrideSequence()
         SetOverrideBinding(UIParent,false,"W", "MOVEFORWARD")

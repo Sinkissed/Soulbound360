@@ -1,0 +1,343 @@
+﻿//Soulbound360
+//by Sinkissed
+//0.5
+
+//SwapJoysticks makes the mouse and move joysticks opposite
+//which could be useful if you are left handed.
+var.SwapJoysticks = false
+
+//SwapShoulders makes shoulder actions work on the opposite sides
+//which could be useful if you are left-handed.
+var.SwapShoulders = false
+
+//These values change the order of the actionbars.
+//Its easier to remap the action bars in the Key Bindings menu
+//if you use your keyboard to hit the keys instead of the pad.
+//Otherwise its harder to isolate each value.
+//
+//The variables are labeled by where the trigger activates it
+//and ordered by the degree of difficulty required to activate.
+//'Bar' refers to right trigger and 'Modified' refers to left,
+//assuming SwapShoulders is false.
+//
+//Most important bars should go on the top of this list
+//Replace the # to change a bar number
+shift+key.1+release(shift) = var.BarOff
+shift+key.2+release(shift) = var.BarFull
+shift+key.5+release(shift) = var.BarFullModifiedFull
+shift+key.3+release(shift) = var.BarHalf
+shift+key.4+release(shift) = var.BarHalfModifiedFull
+shift+key.6+release(shift) = var.BarHalfModifiedHalf
+
+//SwapMouseButtons makes either left or right mouse click
+//available only under a modifier.
+//If you move or heal a lot to have a specific click
+//more available than the other might help. It also might not.
+//
+//set to true to set Left Click LB, Right LB with modifier
+//set to false to set Right Click LB, Left LB with modifier
+var.SwapMouseButtons = false
+
+//This changes the speed that the mouse moves across the screen
+//A lower value will make the mouse move faster
+//Play with the sensitivity in WoW's mouse menu first
+//this number is very delicate
+var.MouseSensitivity = screen.width/32
+
+//InvertMouse flips the mouse's Y/vertical axis
+//You can also do it in WoW's mouse menu
+var.InvertMouse = false
+
+//WARNING
+//EDITING LINES BELOW CAN BREAK FUNCTIONALITY
+//ITS SAFER TO CHANGE BUTTON ASSIGNMENTS FROM INSIDE WOW
+
+//joystick alias assignments
+//case check for driver
+if Xinput.Exists==0 then
+   if var.SwapJoysticks == false then
+      var.MouseX = Joystick1.pitch
+      var.MouseY = Joystick1.yaw
+      var.MoveX = Joystick1.x
+      var.MoveY = Joystick1.y
+   else
+      var.MoveX = Joystick1.pitch
+      var.MoveY = Joystick1.yaw
+      var.MouseX = Joystick1.x
+      var.MouseY = Joystick1.y
+   endif
+   var.MouseDeadzone = .07
+   var.MoveDeadzone = .05
+   var.TriggerDeadzone = 0.05
+else
+    if var.SwapJoysticks == false then
+       var.MouseX = Xinput1.Joy2x
+       var.MouseY = -Xinput1.Joy2y
+       var.MoveX = Xinput1.Joy1x
+       var.MoveY = -Xinput1.Joy1y
+    else
+       var.MoveX = Xinput1.Joy2x
+       var.MoveY = -Xinput1.Joy2y
+       var.MouseX = Xinput1.Joy1x
+       var.MouseY = -Xinput1.Joy1y
+    endif
+    var.MouseDeadzone = .18
+    var.MoveDeadzone = .18
+    var.TriggerDeadzone = 0.85
+endif
+
+var.SwitchDeadzone = .25
+//button alias assignments
+//case check for driver
+if Xinput.Exists==0 then
+   if var.SwapShoulders = false then
+      Var.RB = Joystick1.Button6
+      Var.RT = Joystick1.z>Var.TriggerDeadzone
+      Var.LB = Joystick1.Button5
+      Var.LT = Joystick1.roll>var.TriggerDeadzone
+   else
+      Var.LB = Joystick1.Button6
+      Var.LT = Joystick1.z>Var.TriggerDeadzone
+      Var.RB = Joystick1.Button5
+      Var.RT = Joystick1.roll>var.TriggerDeadzone
+   endif
+   Var.X = Joystick1.Button3
+   Var.Y = Joystick1.Button4
+   Var.A = Joystick1.Button1
+   Var.B = Joystick1.Button2
+   Var.Start = Joystick1.Button8
+   Var.Back = Joystick1.Button7
+   Var.DUp = Joystick1.Pov1Up
+   Var.DDown = Joystick1.Pov1Down
+   Var.DLeft = Joystick1.Pov1Left
+   Var.DRight = Joystick1.Pov1Right
+   if var.SwapJoysticks == false then
+      Var.LThumb = Joystick1.Button9
+      Var.RThumb = Joystick1.Button10
+   else
+       Var.RThumb = Joystick1.Button9
+       Var.LThumb = Joystick1.Button10
+   endif
+   Var.MiddleX = Joystick1.Button13
+   Var.Bar1 = (Joystick1.z < var.SwitchDeadzone)
+   Var.Bar2 = (var.SwitchDeadzone < Joystick1.z < 1)
+   Var.Bar3 = (1 == Joystick1.z)
+   Var.Type1 = (Joystick1.roll < var.SwitchDeadzone)
+   Var.Type2 = (var.SwitchDeadzone < Joystick1.roll < 1)
+   Var.Type3 = (1 == Joystick1.roll)
+   else
+   if var.SwapShoulders = false then
+      Var.RB = Xinput1.RightShoulder
+      Var.RT = (Xinput1.RightTrigger > var.TriggerDeadzone)
+      Var.LB = Xinput1.LeftShoulder
+      Var.LT = (Xinput1.LeftTrigger > var.TriggerDeadzone)
+      else
+      Var.LB = Xinput1.RightShoulder
+      Var.LT = (Xinput1.RightTrigger > var.TriggerDeadzone)
+      Var.RB =  Xinput1.LeftShoulder
+      Var.RT = (Xinput1.LeftTrigger > var.TriggerDeadzone)
+   endif
+   Var.X = Xinput1.X
+   Var.Y = Xinput1.Y
+   Var.A = Xinput1.A
+   Var.B = Xinput1.B
+   Var.Start = Xinput1.Start
+   Var.Back = Xinput1.Back
+   Var.DUp = Xinput1.Up
+   Var.DDown = Xinput1.Down
+   Var.DLeft = Xinput1.Left
+   Var.DRight = Xinput1.Right
+   if var.SwapJoysticks == false then
+      Var.LThumb = Xinput1.LeftThumb
+      Var.RThumb = Xinput1.RightThumb
+   else
+      Var.RThumb = Xinput1.LeftThumb
+      Var.LThumb = Xinput1.RightThumb
+   endif
+   Var.Bar1 = (Xinput1.RightTrigger < var.SwitchDeadzone)
+   Var.Bar2 = (var.SwitchDeadzone < Xinput1.RightTrigger < 1)
+   Var.Bar3 = (1 == Xinput1.RightTrigger)
+   Var.Type1 = (Xinput1.LeftTrigger < var.SwitchDeadzone)
+   Var.Type2 = (var.SwitchDeadzone < Xinput1.LeftTrigger < 1)
+   Var.Type3 = (1 == Xinput1.LeftTrigger)
+endif
+
+  'Var.LT = var.Type3 && Var.RB
+  'Var.MiddleX = (var.TriggerDeadZone < Xinput1.LeftTrigger < 1)
+ 
+//mouse
+if (var.MouseX > var.MouseDeadZone) mouse.cursorPosx += var.MouseSensitivity^(DeadZone(Var.MouseX, var.MouseDeadZone))     //cursor right
+if (var.MouseX < -var.MouseDeadzone) mouse.cursorPosx -= -var.MouseSensitivity^1*(DeadZone(Var.MouseX, var.MouseDeadZone)) //cursor left
+if var.InvertMouse == false then
+   if (var.MouseY  > var.MouseDeadZone) mouse.cursorPosy += var.MouseSensitivity^(DeadZone(Var.MouseY, var.MouseDeadZone))         //cursor down
+   if (var.MouseY  < -var.MouseDeadZone) mouse.cursorPosy -= -var.MouseSensitivity^1*(DeadZone(Var.MouseY, var.MouseDeadZone))     //cursor up
+else
+   if (var.MouseY  < -var.MouseDeadZone) mouse.cursorPosy += var.MouseSensitivity^(-1*DeadZone(Var.MouseY, var.MouseDeadZone) )         //cursor down
+   if (var.MouseY  > var.MouseDeadZone) mouse.cursorPosy -= var.MouseSensitivity^(DeadZone(Var.MouseY, var.MouseDeadZone))         //cursor down
+endif
+
+//move
+Key.q = (-1.2 < var.MoveX < -0.5)
+Key.e = (0.5 < var.MoveX < 1.2)
+key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
+key.s = (var.MoveDeadzone < var.MoveY < 1.2)
+
+//autorun + follow
+if Var.LB and doubleclicked(var.lt) then
+   if var.bar2 or var.bar3 then
+      press(key.Apostrophe)
+      release(key.Apostrophe)
+   else
+      press(Mouse.Button4)
+      release(Mouse.Button4)
+   endif
+endif
+
+//jump
+if Var.RB&&Var.bar3 then
+   if helddown(Var.RB,.5) then Keyboard.RepeatFakeKeys = False
+   Key.Spacebar = 1
+elseif released(Var.RB) or released(Var.RT) or (HeldDown(var.RB,.1))
+       Key.Spacebar = 0
+endif
+
+
+if var.SwapMouseButtons == true then
+   //right mouse button
+   if Mouse.RightButton==false&&var.LB&&var.LT==true then
+      if Var.LB then release(Mouse.LeftButton)
+         press(Mouse.RightButton)
+      elseif Mouse.RightButton==true&&var.LB then
+         Mouse.RightButton=1
+      elseif Mouse.RightButton==true&&released(var.LB) then
+         release(Mouse.RightButton)
+   endif
+   //left mouse button
+   if Mouse.LeftButton==false&&var.LB&&var.LT==false&&Mouse.RightButton==false then
+      press(Mouse.LeftButton)
+   elseif Mouse.LeftButton==true&&var.LB then
+      Mouse.LeftButton=1
+   elseif Mouse.LeftButton==true&&released(var.LB) then
+      release(Mouse.LeftButton)
+   endif
+else
+   //right mouse button
+   if Mouse.RightButton==false&&var.LB&&var.LT==false then
+      if Mouse.LeftButton then release(Mouse.LeftButton)
+      Mouse.RightButton=1
+   elseif Mouse.RightButton==true&&var.LB then
+      if Mouse.LeftButton then release(Mouse.LeftButton)
+      Mouse.RightButton=1
+   elseif Mouse.RightButton==true&&released(var.LB) then
+      release(Mouse.RightButton)
+   endif
+   if Mouse.LeftButton==false&&var.LB&&var.LT==true&&Mouse.RightButton==false then
+      press(Mouse.LeftButton)
+   elseif Mouse.LeftButton==true&&var.LB&&Mouse.RightButton==false then
+      Mouse.LeftButton=1
+   elseif Mouse.LeftButton==true&&(released(var.LB) or released(var.LT) or pressed(Mouse.RightButton)) then
+      release(Mouse.LeftButton)
+   endif
+endif
+
+if var.MiddleX&&var.LT then
+   var.MiddleX = alt
+elseif var.MiddleX then
+   var.MiddleX = ctrl
+endif
+
+if Var.Type1==true then
+     Key.One = pressed(Var.X)
+     Key.Two = pressed(Var.Y)
+     Key.Three = pressed(Var.A)
+     Key.Four = pressed(Var.B)
+     Key.Five = pressed(Var.Start)
+     Key.Six = pressed(Var.Back)
+     Key.Seven = pressed(Var.DUp)
+     Key.Eight = pressed(Var.DDown)
+     Key.Nine = pressed(Var.DRight)
+     Key.Zero = pressed(Var.DLeft)
+     Key.Minus = pressed(Var.LThumb)
+     Key.Equals = pressed(Var.RThumb)
+     if var.RT=0 then Key.Tab = pressed(var.RB)
+     var.BarOff = pressed(var.Bar1)
+     var.BarFull = pressed(var.Bar3)
+     var.BarHalf = pressed(var.Bar2)
+elseif var.Type2==true then
+     Ctrl+One = pressed(Var.X)
+     Ctrl+Two = pressed(Var.Y)
+     Ctrl+Three =  pressed(Var.A)
+     Ctrl+Four =  pressed(Var.B)
+     Ctrl+Five =  pressed(Var.Start) and not Var.Bar3
+     Ctrl+Six = pressed(Var.Back) and not Var.Bar3
+     Ctrl+Seven = pressed(Var.DUp) and not Var.Bar3
+     Ctrl+Eight = pressed(Var.DDown) and not Var.Bar3
+     Ctrl+Nine = pressed(Var.DRight) and not Var.Bar3
+     Ctrl+Zero = pressed(Var.DLeft) and not Var.Bar3
+     key.h = pressed(Var.Start) and Var.Bar2
+     key.i = pressed(Var.Start) and Var.Bar3
+     key.l = pressed(Var.Back) and Var.Bar3
+     key.p = pressed(Var.DUp) and Var.Bar3
+     key.n = pressed(Var.DDown) and Var.Bar3
+     key.y = pressed(Var.DRight) and Var.Bar3
+     key.j = pressed(Var.DLeft) and Var.Bar2
+     key.o = pressed(Var.DLeft) and Var.Bar3
+     if var.bar3 then
+        ctrl+divide = pressed(Var.Lthumb)
+        ctrl+numpadplus = pressed(Var.Rthumb)
+     elseif var.bar2 then
+        ctrl+numpadminus = pressed(Var.Lthumb)
+        ctrl+multiply = pressed(Var.Rthumb)
+     else
+        ctrl+shift+t = pressed(Var.Lthumb)
+        ctrl+t = pressed(Var.Rthumb)
+     endif
+     var.BarHalfModifiedHalf = var.Bar2 && pressed(var.type2) and not released(var.type3)
+elseif var.Type3==true then
+     Key.F1 = pressed(Var.Start)
+     Key.F2 = pressed(Var.X)
+     Key.F3 = pressed(Var.Y)
+     Key.F4 = pressed(Var.A)
+     Key.F5 = pressed(Var.B)
+     Ctrl+F1 = pressed(Var.Back) and not Var.Bar3
+     Ctrl+F2 = pressed(Var.DUp) and not Var.Bar3
+     Ctrl+F3 = pressed(Var.DDown) and not Var.Bar3
+     Ctrl+F4 = pressed(Var.DRight) and not Var.Bar3
+     Ctrl+F5 = pressed(Var.DLeft) and not Var.Bar3
+     Ctrl+F6 = pressed(Var.Back) and Var.Bar3
+     Ctrl+F7 = pressed(Var.DUp) and Var.Bar3
+     Ctrl+F8 = pressed(Var.DDown) and Var.Bar3
+     Ctrl+F9 = pressed(Var.DRight) and Var.Bar3
+     Ctrl+F10 = pressed(Var.DLeft) and Var.Bar3
+     if var.RT=0 then Shift+Tab = pressed(var.RB)
+     if var.bar2 then
+        key.m = pressed(Var.Lthumb)
+        shift = Var.Rthumb
+     elseif var.bar3 then
+        key.c = pressed(Var.Lthumb)
+        shift+b = pressed(Var.Rthumb)
+     else
+        Mouse.WheelUp = pressed(Var.LThumb)
+        Mouse.WheelDown = pressed(Var.RThumb)
+     endif
+     var.BarHalfModifiedFull = var.Bar2 && pressed(var.type3)
+     var.BarFullModifiedFull = var.Bar3 && pressed(var.type3)
+endif
+
+if pressed(HeldDown(Var.Start,3)) then
+   enter = 1
+   enter = 0
+   slash = 1
+   slash = 0
+   key.s=1
+   key.s=0
+   type(360)
+   enter = 1
+   enter = 0
+endif
+
+if pressed(HeldDown(Var.Back,3)) then
+   key.escape=1
+   key.escape=0
+endif
+
