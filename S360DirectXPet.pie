@@ -11,7 +11,7 @@
 //analog mouse sensitivity set relative to screen size
 //try to change the mouse sensitivity in the game first if its wrong
 var.MouseSensitivity = screen.width/32
-if Joystick1.Attached=1 then
+if Xinput.Exists==0 then
 
 	//these keys are global and dont change with modifiers
 	Key.q = (-1.2 < Joystick1.x < -0.5)     //strafe left is left stick left
@@ -126,10 +126,10 @@ else
 	Key.e = (0.5 < Xinput1.Joy1x < 1.2)       //strafe right is left stick right
 
 	//right analog stick mouse
-	if (Xinput1.Joy2x > .07) mouse.DirectInputX += var.MouseSensitivity^(Xinput1.Joy2x)     //cursor right
-	if (Xinput1.Joy2x < -.07) mouse.DirectInputX -= -var.MouseSensitivity^1*(Xinput1.Joy2x) //cursor left
-	if (Xinput1.Joy2y > .07) mouse.DirectInputY += var.MouseSensitivity^(Xinput1.Joy2x)         //cursor down
-	if (Xinput1.Joy2y < -.07) mouse.DirectInputY -= -var.MouseSensitivity^1*(Xinput1.Joy2x)     //cursor up
+	if (Xinput1.Joy2x > .13) mouse.cursorposX += var.MouseSensitivity^(Xinput1.Joy2x)     //cursor right
+	if (Xinput1.Joy2x < -.13) mouse.cursorposX -= -var.MouseSensitivity^1*(Xinput1.Joy2x) //cursor left
+	if (Xinput1.Joy2y > .13) mouse.cursorposY -= var.MouseSensitivity^*(Xinput1.Joy2y)         //cursor down
+	if (Xinput1.Joy2y < -.13) mouse.cursorposY += -var.MouseSensitivity^1*(Xinput1.Joy2y)     //cursor up
 
 	//vibrate when action bar 1 is activated so we know without looking
 	if pressed(Xinput1.X) && ((0.85 < Xinput1.RightTrigger) = 1)
