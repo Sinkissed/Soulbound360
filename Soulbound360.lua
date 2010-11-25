@@ -18,16 +18,14 @@ end
 function s360_OnKey(key)
   GameTooltip_SetDefaultAnchor( GameTooltip, UIParent )
   if (key ~= "LSHIFT") and (key ~= "RSHIFT") and (key ~= "LCTRL") and (key ~= "RCTRL") then
-    if ( IsShiftKeyDown() ) then 
-        key = "SHIFT-"..tostring(key)
-    elseif ( IsControlKeyDown() ) then
-        key = "CTRL-"..tostring(key)
-    end 
+    if ( IsShiftKeyDown() ) then key = "SHIFT-"..tostring(key) end
+    if ( IsControlKeyDown() ) then key = "CTRL-"..tostring(key) end
     if GetBindingAction(key) == "" then 
             GameTooltip:SetText(tostring(key).." Not Assigned",.10,.85,.0,1.0,true)
         else 
             GameTooltip:SetText(GetBindingAction(key),.10,.85,.0)    
     end
+    print(key)
     GameTooltip:Show()
  end
 end
