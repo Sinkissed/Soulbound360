@@ -1,6 +1,6 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.35
+//0.36
 //For DirectX Driver
 //Specific Target Control Set
 //Key Bindings are Default
@@ -8,238 +8,186 @@
 //analog mouse sensitivity set relative to screen size
 //try to change the mouse sensitivity in the game first if its wrong
 var.MouseSensitivity = screen.width/32
+
 if Xinput.Exists==0 then
-
-	//these keys are global and dont change with modifiers
-	Key.q = (-1.2 < Joystick1.x < -0.5)     //strafe left is left stick left
-	Key.e = (0.5 < Joystick1.x < 1.2)       //strafe right is left stick right
-
-	//right analog stick mouse
-	if (Joystick1.pitch > .07) mouse.cursorPosx += var.MouseSensitivity^(Joystick1.pitch)     //cursor right
-	if (Joystick1.pitch < -.07) mouse.cursorPosx -= -var.MouseSensitivity^1*(Joystick1.pitch) //cursor left
-	if (Joystick1.yaw > .07) mouse.cursorPosy += var.MouseSensitivity^(Joystick1.yaw)         //cursor down
-	if (Joystick1.yaw < -.07) mouse.cursorPosy -= -var.MouseSensitivity^1*(Joystick1.yaw)     //cursor up
-
-	//vibrate when action bar 1 is activated so we know without looking
-	if pressed(Joystick1.Button3) && (Joystick1.Button12 == 1)
-	   Joystick1.Vibration2 = .35
-	   Joystick1.Vibration1 = .35
-	   wait 150ms
-	   Joystick1.Vibration2 = 0
-	   Joystick1.Vibration1 = 0
-	endif
-
-	if Joystick1.Button12&&Joystick1.Button6 then
-	   release(shift)
-	   Key.Spacebar = 1
-	   elseif released(Joystick1.Button6)&&Joystick1.Button12==1
-	   Key.Spacebar = 0
-	   toggle(shift)
-	   else
-	   Key.Spacebar=0
-	endif
-
-	//left shoulders mouse buttons
-		if Joystick1.Button5&&Joystick1.Button12==0 then
-			pressed(Mouse.RightButton) = 1
-		elseif Joystick1.Button5&&Joystick1.Button12 then
-			pressed(Shift+Mouse.RightButton) = 1
-		elseif released(Joystick1.Button5) then
-			released(Mouse.RightButton) = 1
-		endif
-		
-		if Joystick1.Button11&&Joystick1.Button12==0 then
-			pressed(Mouse.LeftButton) = 1
-		elseif Joystick1.Button11&&Joystick1.Button12 then
-			pressed(Shift+Mouse.LeftButton) = 1
-		elseif released(Joystick1.Button11) then
-			released(Mouse.LeftButton) = 1
-		endif
-		
-	if Joystick1.Button6==0
-	//no modifier button assignment 1-0
-		if Joystick1.Button12==0
-		Key.One = Joystick1.Button3
-		Key.Two = Joystick1.Button4
-		Key.Three = Joystick1.Button1
-		Key.Four = Joystick1.Button2
-		Key.Five = Joystick1.Button8
-		Key.Six = Joystick1.Button7
-		Key.Seven = Joystick1.Pov1Up
-		Key.Eight = Joystick1.Pov1Down
-		Key.Nine = Joystick1.Pov1Right
-		Key.Zero = Joystick1.Pov1Left
-		else
-		Shift+One = pressed(Joystick1.Button3)
-		Shift+Two = pressed(Joystick1.Button4)
-		Shift+Three = pressed(Joystick1.Button1)
-		Shift+Four = pressed(Joystick1.Button2)
-		Shift+Five = pressed(Joystick1.Button8)
-		Shift+Six = pressed(Joystick1.Button7)
-		Shift+Seven = pressed(Joystick1.Pov1Up)
-		Shift+Eight = pressed(Joystick1.Pov1Down)
-		Shift+Nine = pressed(Joystick1.Pov1Right)
-		Shift+Zero = pressed(Joystick1.Pov1Left)
-		endif
-		//left analog stick forward and backward
-
-	if key.w==0 and Joystick1.y
-	   key.w = (-1.2 < Joystick1.y < -0.5)
-	elseif pressed(Joystick1.y>-0.5)
-	   release(key.w)
-	endif
-
-	if key.s==0 and Joystick1.y
-	   key.s = (0.5 < Joystick1.y < 1.2)
-	elseif pressed(Joystick1.y<0.5)
-	   release(key.s)
-	endif
-	
-	//shift button modifier assignment
-		if Joystick1.Button12==0
-			Key.Minus = Joystick1.Button9
-			Key.Equals = Joystick1.Button10
-		else
-			Mouse.WheelUp = pressed(Joystick1.Button9)+Joystick1.Button12
-			Mouse.WheelDown = pressed(Joystick1.Button10)+Joystick1.Button12
-		endif
-	else
-	//xbox shoulder button modifier
-			Key.F1 = Joystick1.Button8
-			Key.F2 = Joystick1.Button3
-			Key.F3 = Joystick1.Button4
-			Key.F4 = Joystick1.Button1
-			Key.F5 = Joystick1.Button2
-			Key.F = pressed(Joystick1.Button9)
-			Tab = pressed(Joystick1.Button7)
-			Shift+Tab = pressed(Joystick1.Pov1Up)
-			CtrL+L =  pressed(Joystick1.Pov1Down)
-			Ctrl+T =  pressed(Joystick1.Pov1Right)
-			Ctrl+Shift+T =  pressed(Joystick1.Pov1Left)
-			if pressed(Joystick1.Button10) then Toggle(Key.T)
-			if pressed(Joystick1.y<-.5) then 
-				Toggle(Mouse.Button4)
-			else 
-				Mouse.Button4=0
-			endif
-			Key.Apostrophe = pressed(0.5 < Joystick1.y)
-	endif
+//Morii&non-360 controllers - swap pitch/yaw for x/y to change mouse joystick
+var.MouseX = Joystick1.pitch
+var.MouseY = Joystick1.yaw
+var.MoveX = Joystick1.x
+var.MoveY = Joystick1.y
+var.MouseDeadzone = .07
+var.MoveDeadzone = .05
 else
-	//these keys are global and dont change with modifiers
-	Key.q = (-1.2 < Xinput1.Joy1x < -0.5)     //strafe left is left stick left
-	Key.e = (0.5 < Xinput1.Joy1x < 1.2)       //strafe right is left stick right
-
-	//right analog stick mouse
-	if (Xinput1.Joy2x > .13) mouse.cursorposX += var.MouseSensitivity^(Xinput1.Joy2x)     //cursor right
-	if (Xinput1.Joy2x < -.13) mouse.cursorposX -= -var.MouseSensitivity^1*(Xinput1.Joy2x) //cursor left
-	if (Xinput1.Joy2y > .13) mouse.cursorposY -= var.MouseSensitivity^*(Xinput1.Joy2y)         //cursor down
-	if (Xinput1.Joy2y < -.13) mouse.cursorposY += -var.MouseSensitivity^1*(Xinput1.Joy2y)     //cursor up
-
-	//vibrate when action bar 1 is activated so we know without looking
-	if pressed(Xinput1.X) && ((0.85 < Xinput1.RightTrigger) == 1)
-	   XInput1.Vibration2 = .35
-	   XInput1.Vibration1 = .35
-	   wait 150ms
-	   XInput1.Vibration2 = 0
-	   XInput1.Vibration1 = 0
-	endif
-
-	if (0.85 < Xinput1.RightTrigger)&&Xinput1.RightShoulder then
-	   release(shift)
-	   Key.Spacebar = 1
-	   elseif released(Xinput1.RightShoulder)&&(0.85 < Xinput1.RightTrigger)==1
-	   Key.Spacebar = 0
-	   toggle(shift)
-	   else
-	   Key.Spacebar=0
-	endif
-
-	//left shoulders mouse buttons
-	if pressed(Xinput1.LeftShoulder)&&(0.85 < Xinput1.RightTrigger)==0 then
-		pressed(Mouse.RightButton) = 1
-	elseif pressed(Xinput1.LeftShoulder)&&(0.85 < Xinput1.RightTrigger) then
-		pressed(Shift+Mouse.RightButton) = 1
-	elseif released(Xinput1.LeftShoulder) then
-		released(Mouse.RightButton) = 1
-	endif
-	
-	if pressed(Xinput1.LeftTrigger)&&(0.85 < Xinput1.RightTrigger)==0 then
-		pressed(Mouse.LeftButton) = 1
-	elseif pressed(Xinput1.LeftTrigger)&&(0.85 < Xinput1.RightTrigger) then
-		pressed(Shift+Mouse.LeftButton) = 1
-	elseif released(Xinput1.LeftTrigger) then
-		released(Mouse.LeftButton) = 1
-	endif	
-
-	if Xinput1.RightShoulder==0
-	//no modifier button assignment 1-0
-		if (0.85 < Xinput1.RightTrigger)==0
-		Key.One = Xinput1.X
-		Key.Two = Xinput1.Y
-		Key.Three = Xinput1.A
-		Key.Four = Xinput1.B
-		Key.Five = Xinput1.Start
-		Key.Six = Xinput1.Back
-		Key.Seven = Xinput1.Up
-		Key.Eight = Xinput1.Down
-		Key.Nine = Xinput1.Right
-		Key.Zero = Xinput1.Left
-		else
-		Shift+One = pressed(Xinput1.X)
-		Shift+Two = pressed(Xinput1.Y)
-		Shift+Three = pressed(Xinput1.A)
-		Shift+Four = pressed(Xinput1.B)
-		Shift+Five = pressed(Xinput1.Start)
-		Shift+Six = pressed(Xinput1.Back)
-		Shift+Seven = pressed(Xinput1.Up)
-		Shift+Eight = pressed(Xinput1.Down)
-		Shift+Nine = pressed(Xinput1.Right)
-		Shift+Zero = pressed(Xinput1.Left)
-		endif
-		//left analog stick forward and backward
-
-	if key.w==0 and (Xinput1.Joy1y > 0.5)
-	   key.w = (0.5 < Xinput1.Joy1y < 1.2)
-	elseif pressed(Xinput1.Joy1y<0.5)
-	   release(key.w)
-	endif
-
-	if key.s==0 and (Xinput1.Joy1y <0.5)
-	   key.s = (-1.2 < Xinput1.Joy1y < -0.5)
-	elseif pressed(Xinput1.Joy1y>-0.5)
-	   release(key.s)
-	endif
-
-
-	//shift button modifier assignment
-		if (0.85 < Xinput1.RightTrigger)==0
-			Key.Minus = Xinput1.LeftThumb
-			Key.Equals = Xinput1.RightThumb
-		else
-			Mouse.WheelUp = pressed(Xinput1.LeftThumb)+(0.85 < Xinput1.RightTrigger)
-			Mouse.WheelDown = pressed(Xinput1.RightThumb)+(0.85 < Xinput1.RightTrigger)
-		endif
-	else
-	//xbox shoulder button modifier
-			Key.F1 = Xinput1.Start
-			Key.F2 = Xinput1.X
-			Key.F3 = Xinput1.Y
-			Key.F4 = Xinput1.A
-			Key.F5 = Xinput1.B
-			Key.F = pressed(Xinput1.LeftThumb)
-			Tab = pressed(Xinput1.Back)
-			Shift+Tab = pressed(Xinput1.Up)
-			CtrL+L =  pressed(Xinput1.Down)
-			Ctrl+T =  pressed(Xinput1.Right)
-			Ctrl+Shift+T =  pressed(Xinput1.Left)
-			if pressed(Xinput1.RightThumb) then Toggle(Key.T)
-			Key.Apostrophe = (-1.2 < Xinput1.Joy1y < -0.5)
-			if pressed(0.5 < Xinput1.Joy1y) then 
-				Toggle(Mouse.Button4)
-			else 
-				Mouse.Button4=0
-			endif
-			if (0.5 > Xinput1.Joy1y) release(Mouse.Button4)
-	endif
+//For default DirectX driver - switch Joy2 to Joy1 to change mouse
+var.MouseX = Xinput1.Joy2x
+var.MouseY = -Xinput1.Joy2y
+var.MoveX = Xinput1.Joy1x
+var.MoveY = -Xinput1.Joy1y
+var.MouseDeadzone = .13
+var.MoveDeadzone = .5
+var.TriggerDeadzone = 0.85
 endif
 
+if Xinput.Exists==0 then
+var.Vibrate1 = Joystick1.Vibration1
+var.Vibrate2 = Joystick1.Vibration2
+var.RB = Joystick1.Button6
+Var.RT = Joystick1.Button12
+Var.LB = Joystick1.Button5
+Var.LT = Joystick1.Button11
+Var.X = Joystick1.Button3
+Var.Y = Joystick1.Button4
+Var.A = Joystick1.Button1
+Var.B = Joystick1.Button2
+Var.Start = Joystick1.Button8
+Var.Back = Joystick1.Button7
+Var.DUp = Joystick1.Pov1Up
+Var.DDown = Joystick1.Pov1Down
+Var.DLeft = Joystick1.Pov1Left
+Var.DRight = Joystick1.Pov1Right
+Var.LThumb = Joystick1.Button9
+Var.RThumb = Joystick1.Button10
+else
+var.Vibrate1 = XInput1.Vibration1
+var.Vibrate2 = XInput1.Vibration2
+var.RB = Xinput1.RightShoulder
+Var.RT = (Xinput1.RightTrigger > var.TriggerDeadzone)
+Var.LB = Xinput1.LeftShoulder
+Var.LT = (Xinput1.LeftTrigger > var.TriggerDeadzone)
+Var.X = Xinput1.X
+Var.Y = Xinput1.Y
+Var.A = Xinput1.A
+Var.B = Xinput1.B
+Var.Start = Xinput1.Start
+Var.Back = Xinput1.Back
+Var.DUp = Xinput1.Up
+Var.DDown = Xinput1.Down
+Var.DLeft = Xinput1.Left
+Var.DRight = Xinput1.Right
+Var.LThumb = Xinput1.LeftThumb
+Var.RThumb = Xinput1.RightThumb
+endif
+
+
+//these keys are global and dont change with modifiers
+Key.q = (-1.2 < var.MoveX < -var.MoveDeadzone)     //strafe left is left stick left
+Key.e = (var.MoveDeadzone < var.MoveX < 1.2)       //strafe right is left stick right
+
+//right analog stick mouse
+if (var.MouseX > var.MouseDeadzone) mouse.cursorPosx += var.MouseSensitivity^(var.MouseX)     //cursor right
+if (var.MouseX < -var.MouseDeadzone) mouse.cursorPosx -= -var.MouseSensitivity^1*(var.MouseX) //cursor left
+if (var.MouseY > var.MouseDeadzone) mouse.cursorPosy += var.MouseSensitivity^(var.MouseY)         //cursor down
+if (var.MouseY < -var.MouseDeadzone) mouse.cursorPosy -= -var.MouseSensitivity^1*(var.MouseY)     //cursor up
+
+//vibrate when action bar 1 is activated so we know without looking
+if pressed(Var.X) && (Var.RT == 1)
+var.Vibrate2 = .35
+var.Vibrate1 = .35
+wait 150ms
+var.Vibrate2 = 0
+var.Vibrate1 = 0
+endif
+
+if Var.RT&&Var.RB then
+Key.Spacebar = 1
+elseif released(Var.RB)
+Key.Spacebar = 0
+endif
+
+//left shoulders mouse buttons
+if Mouse.RightButton==false&&pressed(var.LB) then
+if Var.RT then press(shift)
+press(Mouse.RightButton)
+elseif Mouse.RightButton==true&&var.LB then
+if Var.RT then press(shift)
+press(Mouse.RightButton)
+elseif Mouse.RightButton==true&&released(var.LB) then
+if Var.RT then release(shift)
+release(Mouse.RightButton)
+endif
+
+if Mouse.LeftButton==false&&Var.LT then
+if Var.RT then press(shift)
+press(Mouse.LeftButton)
+elseif Mouse.LeftButton==true&&var.LT then
+if Var.RT then press(shift)
+press(Mouse.LeftButton)
+elseif Mouse.LeftButton==true&&released(var.LT) then
+if Var.RT then release(shift)
+release(Mouse.LeftButton)
+endif
+
+if key.w==0 and var.MoveY
+if var.RB
+Mouse.Button4 = (-1.2 < var.MoveY < -var.MoveDeadzone)
+else
+key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
+endif
+elseif pressed(var.MoveY>-var.MoveDeadzone)
+release(Mouse.Button4)
+release(key.w)
+endif
+
+if key.s==0 and var.MoveY
+if var.RB
+key.Apostrophe = (var.MoveDeadzone < var.MoveY < 1.2)
+else
+key.s = (var.MoveDeadzone < var.MoveY < 1.2)
+endif
+elseif pressed(var.MoveY<var.MoveDeadzone)
+release(key.Apostrophe)
+release(key.s)
+endif
+
+
+
+if Var.RB==0
+//no modifier button assignment 1-0
+if Var.RT==0
+Key.One = Var.X
+Key.Two = Var.Y
+Key.Three = Var.A 
+Key.Four = Var.B
+Key.Five = Var.Start
+Key.Six = Var.Back
+Key.Seven = Var.DUp
+Key.Eight = Var.DDown
+Key.Nine = Var.DRight
+Key.Zero = Var.DLeft
+else
+Shift+One = pressed(Var.X)
+Shift+Two = pressed(Var.Y)
+Shift+Three = pressed(Var.A )
+Shift+Four = pressed(Var.B)
+Shift+Five = pressed(Var.Start)
+Shift+Six = pressed(Var.Back)
+Shift+Seven = pressed(Var.DUp)
+Shift+Eight = pressed(Var.DDown)
+Shift+Nine = pressed(Var.DRight)
+Shift+Zero = pressed(Var.DLeft)
+endif
+//left analog stick forward and backward
+
+//shift button modifier assignment
+if Var.RT==0
+Key.Minus = Var.LThumb
+Key.Equals = Var.RThumb
+else
+Mouse.WheelUp = pressed(Var.LThumb)+Var.RT
+Mouse.WheelDown = pressed(Var.RThumb)+Var.RT
+endif
+else
+//xbox shoulder button modifier
+Key.F1 = Var.Start
+Key.F2 = Var.X
+Key.F3 = Var.Y
+Key.F4 = Var.A 
+Key.F5 = Var.B
+Key.F = pressed(Var.LThumb)
+Tab = pressed(Var.Back)
+Shift+Tab = pressed(Var.DUp)
+CtrL+Comma =  pressed(Var.DDown)
+Ctrl+T =  pressed(Var.DRight)
+Ctrl+Shift+T =  pressed(Var.DLeft)
+if pressed(Var.RThumb) then Toggle(Key.T)
+endif
