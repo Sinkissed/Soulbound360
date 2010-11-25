@@ -1,6 +1,6 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.36
+//0.37
 //For DirectX Driver
 //Specific Target Control Set
 //Key Bindings are Default
@@ -96,49 +96,45 @@ endif
 
 //left shoulders mouse buttons
 if Mouse.RightButton==false&&pressed(var.LB) then
-if Var.RT then press(shift)
 press(Mouse.RightButton)
 elseif Mouse.RightButton==true&&var.LB then
-if Var.RT then press(shift)
-press(Mouse.RightButton)
+Mouse.RightButton=1
 elseif Mouse.RightButton==true&&released(var.LB) then
-if Var.RT then release(shift)
+if Var.RT then press(shift)
 release(Mouse.RightButton)
 endif
 
-if Mouse.LeftButton==false&&Var.LT then
-if Var.RT then press(shift)
+if Mouse.LeftButton==false&&pressed(Var.LT) then
 press(Mouse.LeftButton)
 elseif Mouse.LeftButton==true&&var.LT then
-if Var.RT then press(shift)
-press(Mouse.LeftButton)
+Mouse.LeftButton=1
 elseif Mouse.LeftButton==true&&released(var.LT) then
-if Var.RT then release(shift)
+if Var.RT then press(shift)
 release(Mouse.LeftButton)
 endif
 
-if key.w==0 and var.MoveY
-if var.RB
+//left analog stick forward,backward,autorun,follow
+if var.RB then
 Mouse.Button4 = (-1.2 < var.MoveY < -var.MoveDeadzone)
-else
-key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
 endif
+
+if key.w==0 and var.MoveY && var.RB==0 then
+key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
 elseif pressed(var.MoveY>-var.MoveDeadzone)
 release(Mouse.Button4)
 release(key.w)
 endif
 
-if key.s==0 and var.MoveY
-if var.RB
+if var.RB then
 key.Apostrophe = (var.MoveDeadzone < var.MoveY < 1.2)
-else
-key.s = (var.MoveDeadzone < var.MoveY < 1.2)
 endif
+
+if key.s==0 and var.MoveY && var.RB==0 then
+key.s = (var.MoveDeadzone < var.MoveY < 1.2)
 elseif pressed(var.MoveY<var.MoveDeadzone)
 release(key.Apostrophe)
 release(key.s)
 endif
-
 
 
 if Var.RB==0
@@ -154,7 +150,10 @@ Key.Seven = Var.DUp
 Key.Eight = Var.DDown
 Key.Nine = Var.DRight
 Key.Zero = Var.DLeft
+Key.Minus = Var.LThumb
+Key.Equals = Var.RThumb
 else
+//shift button modifier assignment
 Shift+One = pressed(Var.X)
 Shift+Two = pressed(Var.Y)
 Shift+Three = pressed(Var.A )
@@ -165,19 +164,11 @@ Shift+Seven = pressed(Var.DUp)
 Shift+Eight = pressed(Var.DDown)
 Shift+Nine = pressed(Var.DRight)
 Shift+Zero = pressed(Var.DLeft)
-endif
-//left analog stick forward and backward
-
-//shift button modifier assignment
-if Var.RT==0
-Key.Minus = Var.LThumb
-Key.Equals = Var.RThumb
-else
 Mouse.WheelUp = pressed(Var.LThumb)+Var.RT
 Mouse.WheelDown = pressed(Var.RThumb)+Var.RT
 endif
 else
-//xbox shoulder button modifier
+//right shoulder button modifier
 Key.F1 = Var.Start
 Key.F2 = Var.X
 Key.F3 = Var.Y
@@ -189,5 +180,6 @@ Shift+Tab = pressed(Var.DUp)
 CtrL+Comma =  pressed(Var.DDown)
 Ctrl+T =  pressed(Var.DRight)
 Ctrl+Shift+T =  pressed(Var.DLeft)
-if pressed(Var.RThumb) then Toggle(Key.T)
+if pressed(var.RThumb) then press(Key.T)
+if released(var.RThumb) then release(Key.T)
 endif

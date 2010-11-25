@@ -1,6 +1,6 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.36
+//0.37
 //For Morii Unofficial Driver
 //All Classes Compatible
 //Key Bindings are Default
@@ -53,44 +53,41 @@ endif
 
 //left shoulders mouse buttons
 if Mouse.RightButton==false&&pressed(var.LB) then
-if Var.RT then press(shift)
 press(Mouse.RightButton)
 elseif Mouse.RightButton==true&&var.LB then
-if Var.RT then press(shift)
-press(Mouse.RightButton)
+Mouse.RightButton=1
 elseif Mouse.RightButton==true&&released(var.LB) then
-if Var.RT then release(shift)
+if Var.RT then press(shift)
 release(Mouse.RightButton)
 endif
 
-if Mouse.LeftButton==false&&Var.LT then
-if Var.RT then press(shift)
+if Mouse.LeftButton==false&&pressed(Var.LT) then
 press(Mouse.LeftButton)
 elseif Mouse.LeftButton==true&&var.LT then
-if Var.RT then press(shift)
-press(Mouse.LeftButton)
+Mouse.LeftButton=1
 elseif Mouse.LeftButton==true&&released(var.LT) then
-if Var.RT then release(shift)
+if Var.RT then press(shift)
 release(Mouse.LeftButton)
 endif
 
-if key.w==0 and var.MoveY
-if var.RB&&var.MiddleX
+//left analog stick forward,backward,autorun,follow
+if var.RT&&var.MiddleX then
 Mouse.Button4 = (-1.2 < var.MoveY < -var.MoveDeadzone)
-else
-key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
 endif
+
+if key.w==0 and var.MoveY && var.RT==0 && var.MiddleX==0 then
+key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
 elseif pressed(var.MoveY>-var.MoveDeadzone)
 release(Mouse.Button4)
 release(key.w)
 endif
 
-if key.s==0 and var.MoveY
-if var.RB&&var.MiddleX
+if var.RT&&var.MiddleX
 key.Apostrophe = (var.MoveDeadzone < var.MoveY < 1.2)
-else
-key.s = (var.MoveDeadzone < var.MoveY < 1.2)
 endif
+
+if key.s==0 and var.MoveY && var.RT==0 && var.MiddleX==0 then
+key.s = (var.MoveDeadzone < var.MoveY < 1.2)
 elseif pressed(var.MoveY<var.MoveDeadzone)
 release(key.Apostrophe)
 release(key.s)
@@ -109,6 +106,9 @@ Key.Seven = Var.DUp
 Key.Eight = Var.DDown
 Key.Nine = Var.DRight
 Key.Zero = Var.DLeft
+Key.Minus = Var.LThumb
+Key.Equals = Var.RThumb
+Key.Tab = var.RB
 else
 Shift+One = pressed(Var.X )
 Shift+Two = pressed(Var.Y)
@@ -120,21 +120,13 @@ Shift+Seven = pressed(Var.DUp)
 Shift+Eight = pressed(Var.DDown)
 Shift+Nine = pressed(Var.DRight)
 Shift+Zero = pressed(Var.DLeft)
-endif
-
-if Var.RT&&Var.RB then
+Mouse.WheelUp = pressed(Var.LThumb)+Var.RT
+Mouse.WheelDown = pressed(Var.RThumb)+Var.RT
+if Var.RB then
 Key.Spacebar = 1
 elseif released(Var.RB)
 Key.Spacebar = 0
 endif
-
-if Var.RT==0
-Key.Minus = Var.LThumb
-Key.Equals = Var.RThumb
-Key.Tab = var.RB
-else
-Mouse.WheelUp = pressed(Var.LThumb)+Var.RT
-Mouse.WheelDown = pressed(Var.RThumb)+Var.RT
 endif
 else
 //xbox guide button modifier
@@ -151,7 +143,8 @@ Ctrl+NumPadPlus = pressed(Var.DUp)
 Ctrl+NumPadMinus =  pressed(Var.DDown)
 Ctrl+Multiply =  pressed(Var.DRight)
 Ctrl+Divide =  pressed(Var.DLeft)
-if pressed(Var.RThumb) then Toggle(Key.T)
+if pressed(Var.RThumb) then Press(Key.T)
+if released(Var.RThumb) then Release(Key.T)
 else
 Ctrl+T = pressed(var.RB)
 Ctrl+One =  pressed(Var.X )
@@ -168,3 +161,4 @@ Key.Ctrl+Comma = pressed(Var.LThumb)
 if Pressed(Var.RThumb) then Toggle(Shift+T)
 endif
 endif
+
