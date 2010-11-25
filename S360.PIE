@@ -1,10 +1,10 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.6
+//0.61
 
-//This variable allows you to heal or attack with one press of any
-//spell while your mouse hover over your target. Its like clique
-//and its extremely useful for healing.
+//Setting this variable to true allows you to heal or attack a
+//target by pressing any spell while hovering over a target.
+//Its like clique addon and its extremely useful for healing.
 var.HoverAction=false
 
 //This is the order of the action bars when the trigger is pressed.
@@ -20,6 +20,20 @@ shift+key.6+release(shift) = var.BarHalfModifiedHalf
 //When triggered from the gamepad it stays on till pressed again.
 key.NUMPAD6 = var.PushToTalkKey
 
+//SwapJoysticks makes joystick functions switch sides.
+//Use if you are left handed.
+var.SwapJoysticks = false
+
+//SwapShoulders makes shoulder functions switch sides.
+//Use if you are left-handed.
+var.SwapShoulders = false
+
+//A lower value here will make the mouse move faster.
+var.MouseSensitivity = screen.width/32
+
+//InvertMouse flips the mouse's Y/vertical axis
+var.InvertMouse = false
+
 //SeparateClicks moves left click to the top right shoulder
 //instead of under a modifier. If false, Right Click MUST
 //be relased before left click can be pressed. If true,
@@ -34,20 +48,6 @@ var.SeparateClicks = false
 //This is an alternate way to free up Left Click for healing.
 //It makes moving harder though.
 var.SwapMouseButtons = false
-
-//SwapJoysticks makes joystick functions switch sides.
-//Use if you are left handed.
-var.SwapJoysticks = false
-
-//SwapShoulders makes shoulder functions switch sides.
-//Use if you are left-handed.
-var.SwapShoulders = false
-
-//A lower value here will make the mouse move faster.
-var.MouseSensitivity = screen.width/32
-
-//InvertMouse flips the mouse's Y/vertical axis
-var.InvertMouse = false
 
 //JOYSTICK ALIAS
 //case check for driver
@@ -78,7 +78,7 @@ else
        var.MouseX = Xinput1.Joy1x
        var.MouseY = -Xinput1.Joy1y
     endif
-    var.MouseDeadzone = .18
+    var.MouseDeadzone = .185
     var.MoveDeadzone = .18
     var.TriggerDeadzone = 0.25
 endif
@@ -172,10 +172,10 @@ else
 endif
 
 //move
-Key.q = (-1.2 < var.MoveX < -0.5)
-Key.e = (0.5 < var.MoveX < 1.2)
-key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
-key.s = (var.MoveDeadzone < var.MoveY < 1.2)
+release(ctrl)+Key.q = (-1.2 < var.MoveX < -0.5)
+release(ctrl)+Key.e = (0.5 < var.MoveX < 1.2)
+release(ctrl)+key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
+release(ctrl)+key.s = (var.MoveDeadzone < var.MoveY < 1.2)
 
 //jump
 key.Spacebar = Var.RB&&Var.RT
@@ -373,13 +373,35 @@ elseif var.Type3==true then
         key.m = pressed(Var.Lthumb)
         shift = Var.Rthumb
      elseif var.bar3 then
-        Mouse.WheelUp = pressed(Var.LThumb)
-        Mouse.WheelDown = pressed(Var.RThumb)
+        if var.Lthumb then
+           wait 5ms
+           Mouse.WheelUp = 1
+           wait 5ms
+           Mouse.WheelUp = 0
+        elseif released(var.Lthumb)
+           Mouse.WheelUp = 0
+        else
+           Mouse.WheelUp = 0
+        endif
+        if var.Rthumb then
+           wait 5ms
+           Mouse.WheelDown = 1
+           wait 5ms
+           Mouse.WheelDown = 0
+        elseif released(var.Rthumb)
+           Mouse.WheelDown = 0
+        else
+           Mouse.WheelDown = 0
+        endif
      else
         key.esc = pressed(Var.Lthumb)
         if pressed(var.Rthumb)&&var.TogglePushToTalk==0 then
+           press(key.ScrollLock)
+           release(key.ScrollLock)
            var.TogglePushToTalk = 1
         elseif pressed(var.Rthumb)&&var.TogglePushToTalk==1 then
+           press(key.ScrollLock)
+           release(key.ScrollLock)
            var.TogglePushToTalk = 0
         endif
      endif

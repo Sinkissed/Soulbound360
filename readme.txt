@@ -35,11 +35,19 @@ Bottom left shoulder modifies all the other buttons
 
 There are many more controls and combinations handed by the gamepad. Some controls can also be altered in the PIE file. A full diagram is displayed in game and can be toggled inside of the Interface/Addons menu. Have fun!
 
+v0.61
+* fixed mislabeled diagram
+* fixed CTRL-S occasionally getting triggered by movement controls
+* scroll lock LED blinks indicate push-to-talk ON/OFF
+* ctrl/shift click indicated on diagram
+* zoom button zooms when held down; more like a mouse wheel
+
 v0.6
 * Hover Action setting allows you to mouseover target while pressing abilities to easily heal or attack
 * Redesigned controller map, photograph by Chris Hecker
 * Controller map now displays user-defined key bindings
 * Brought back shift and ctrl click when joined with actionbar press
+* return of attack/assist controls
 
 v0.52b
 * Fixed spacebar flooding the server when pressed repeatedly while pressing the left stick
