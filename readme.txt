@@ -2,6 +2,11 @@ Soulbound360 is a World of Warcraft addon for playing WoW with your Xbox360 cont
 
 Setup
 
+The addon requires:
+
+* An Xbox360 Wired controller, or an Xbox 360 Reciever for a Wireless controller
+* http://www.microsoft.com/hardware/download/download.aspx?category=Gaming&type=Gaming The Microsoft Xbox360 Accessories Software installed.
+
 1 Install the addon into your Interface/AddOns directory as usual.
 
 2 Download http://glovepie.org/GlovePIEWithoutEmotiv043.zip GLOVEPIE and open the S360.PIE file inside of the Interface/AddOns/Soulbound360 directory.
@@ -10,6 +15,7 @@ Setup
 
 GLOVEPIE is Windows only. The addon and the instructions sent to GLOVEPIE are all completely visible inside of the Interface/Addons folder. This is in compliance with Blizzard's AddOn policy. Controls have 1-to-1 functionality, THERE ARE NO SCRIPTED OR AUTOMATED CONTROLS.
 
+For previous users who have switched to Morii driver, you need to set your Triggers to LEFT Z Rotation and RIGHT Z Axis in the control panel. You can also choose to rollback to the Microsoft driver since the controls are now identical. This will also allow a headset to plug into the controller.
 
 Play
 
@@ -28,6 +34,14 @@ Bottom left shoulder modifies all the other buttons
 -Pressing both right or left shoulders lets you jump or autorun.
 
 There are many more controls and combinations handed by the gamepad. Some controls can also be altered in the PIE file. A full diagram is displayed in game and can be toggled inside of the Interface/Addons menu. Have fun!
+
+v0.52b
+* Fixed spacebar flooding the server when pressed repeatedly while pressing the left stick
+* Removed MiddleX from morii driver. Any 360 driver will be completely identical.
+* Menus will now be bound appropriately
+* Moved PushToTalk to NUMPAD6 becuase 5 was also taken
+* Moved Shaman totem calls to NUMPAD 7,8,9,2 because of vehicle controls
+* Moved Pvp menu to Dpad Right
 
 v0.52a
 * Changed PushToTalk to NUMPAD5, 0 was taken

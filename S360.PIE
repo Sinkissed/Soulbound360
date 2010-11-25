@@ -1,33 +1,40 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.52a
+//0.52b
 
 //PushToTalkKey is your Ventrilo or Teamspeak push to talk key.
-//It stays on till pressed again.
-key.NUMPAD5 = var.PushToTalkKey
+//When triggered from the gamepad it stays on till pressed again.
+key.NUMPAD6 = var.PushToTalkKey
 
 //This is the order of the action bars when the trigger is pressed.
+//default is 1 2 3 4 5 6
 shift+key.1+release(shift) = var.BarOff
 shift+key.2+release(shift) = var.BarFull
-shift+key.5+release(shift) = var.BarFullModifiedFull
-shift+key.3+release(shift) = var.BarHalf
+shift+key.5+release(shift) = var.BarHalf
 shift+key.4+release(shift) = var.BarHalfModifiedFull
+shift+key.3+release(shift) = var.BarFullModifiedFull
 shift+key.6+release(shift) = var.BarHalfModifiedHalf
 
-//SeparateClicks makes left click on top of the top right shoulder
-//instead of under a modifier
-//this makes it much easier to click heal
+//SeparateClicks moves left click to the top right shoulder
+//instead of under a modifier. If false, Right Click MUST
+//be relased before left click can be pressed. If true,
+//Left Click has a dedicated butting allowing simpler healing
+//and left/right together to run. This will move target so that
+//it is under the modifier for Left Click. Jumping with this
+//setting will end autorun unless the modifier is also held.
 var.SeparateClicks = false
 
 //SwapMouseButtons switches the position of the mouse click button.
 //One click can only be available with a modifier.
+//This is an alternate way to free up Left Click for healing.
+//It makes moving harder though.
 var.SwapMouseButtons = false
 
-//SwapJoysticks makes joysticks opposite.
+//SwapJoysticks makes joystick functions switch sides.
 //Use if you are left handed.
 var.SwapJoysticks = false
 
-//SwapShoulders makes shoulders opposite
+//SwapShoulders makes shoulder functions switch sides.
 //Use if you are left-handed.
 var.SwapShoulders = false
 
@@ -105,7 +112,6 @@ if Xinput.Exists==0 then
        Var.RThumb = Joystick1.Button9
        Var.LThumb = Joystick1.Button10
    endif
-   Var.MiddleX = Joystick1.Button13
    Var.Bar1 = (Joystick1.z < var.SwitchDeadzone)
    Var.Bar2 = (var.SwitchDeadzone < Joystick1.z < 1)
    Var.Bar3 = (1 == Joystick1.z)
@@ -166,6 +172,9 @@ Key.e = (0.5 < var.MoveX < 1.2)
 key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
 key.s = (var.MoveDeadzone < var.MoveY < 1.2)
 
+//jump
+key.Spacebar = Var.RB&&Var.RT
+
 //autorun + follow
 if Var.LB and doubleclicked(var.lt) then
    if var.bar2 or var.bar3 then
@@ -177,50 +186,28 @@ if Var.LB and doubleclicked(var.lt) then
    endif
 endif
 
-//jump
-if Var.RB&&Var.RT then
-   if helddown(Var.RB,.5) then Keyboard.RepeatFakeKeys = False
-   Key.Spacebar = 1
-elseif released(Var.RB) or released(Var.RT) or (HeldDown(var.RB,.1))
-       Key.Spacebar = 0
-endif
-
 //CLICK BINDINGS
 if var.SeparateClicks == false
 if var.SwapMouseButtons == true then
-   //right mouse button
+   //right mouse button BELOW
    if Mouse.RightButton==false&&var.LB&&var.LT==true then
       if Var.LB then release(Mouse.LeftButton)
          press(Mouse.RightButton)
       elseif Mouse.RightButton==true&&var.LB then
          Mouse.RightButton=1
       elseif Mouse.RightButton==true&&released(var.LB) then
-                  if var.MiddleX&&var.LT then
-            alt = 1
-         elseif var.MiddleX then
-            ctrl = 1
-         endif
          release(Mouse.RightButton)
-               release(ctrl)
-      release(alt)
    endif
-   //left mouse button
+   //left mouse button ABOVE
    if Mouse.LeftButton==false&&var.LB&&var.LT==false&&Mouse.RightButton==false then
       press(Mouse.LeftButton)
    elseif Mouse.LeftButton==true&&var.LB then
       Mouse.LeftButton=1
    elseif Mouse.LeftButton==true&&released(var.LB) then
-            if var.MiddleX&&var.LT then
-            alt = 1
-         elseif var.MiddleX then
-            ctrl = 1
-         endif
       release(Mouse.LeftButton)
-            release(ctrl)
-      release(alt)
    endif
 else
-   //right mouse button
+   //right mouse button ABOVE
    if Mouse.RightButton==false&&var.LB&&var.LT==false then
       if Mouse.LeftButton then release(Mouse.LeftButton)
       Mouse.RightButton=1
@@ -228,88 +215,51 @@ else
       if Mouse.LeftButton then release(Mouse.LeftButton)
          Mouse.RightButton=1
       elseif Mouse.RightButton==true&&released(var.LB) then
-         if var.MiddleX&&var.LT then
-            alt = 1
-         elseif var.MiddleX then
-            ctrl = 1
-         endif
       release(Mouse.RightButton)
-      release(ctrl)
-      release(alt)
    endif
+  //left mouse button BELOW
    if Mouse.LeftButton==false&&var.LB&&var.LT==true&&Mouse.RightButton==false then
       press(Mouse.LeftButton)
    elseif Mouse.LeftButton==true&&var.LB&&Mouse.RightButton==false then
       Mouse.LeftButton=1
    elseif Mouse.LeftButton==true&&(released(var.LB) or released(var.LT) or pressed(Mouse.RightButton))  then
-      if var.MiddleX&&var.LT then
-         alt = 1
-      elseif var.MiddleX then
-         ctrl = 1
-      endif
       release(Mouse.LeftButton)
-      release(ctrl)
-      release(alt)
    endif
 endif
 else
 if var.SwapMouseButtons == true then
+   //left mouse button LEFT
    if Mouse.LeftButton==false&&var.LB&&var.LT==false then
       Mouse.LeftButton=1
    elseif Mouse.LeftButton==true&&var.LB then
          Mouse.LeftButton=1
       elseif Mouse.LeftButton==true&&released(var.LB) then
-         if var.MiddleX&&var.LT then
-            alt = 1
-         elseif var.MiddleX then
-            ctrl = 1
-         endif
       release(Mouse.LeftButton)
-      release(ctrl)
-      release(alt)
    endif
+   //right mouse button RIGHT
    if Mouse.RightButton==false&&var.RB==true&&var.Type3==false then
       press(Mouse.RightButton)
    elseif Mouse.RightButton==true&&var.RB&&var.Type3==false then
       Mouse.RightButton=1
    elseif Mouse.RightButton==true&&released(var.RB) then
-      if var.MiddleX&&var.LT then
-         alt = 1
-      elseif var.MiddleX then
-         ctrl = 1
-      endif
       release(Mouse.RightButton)
-      release(ctrl)
-      release(alt)
    endif
 else
+   //right mouse button LEFT
    if Mouse.RightButton==false&&var.LB&&var.LT==false then
       Mouse.RightButton=1
    elseif Mouse.RightButton==true&&var.LB then
          Mouse.RightButton=1
       elseif Mouse.RightButton==true&&released(var.LB) then
-         if var.MiddleX&&var.LT then
-            alt = 1
-         elseif var.MiddleX then
-            ctrl = 1
-         endif
       release(Mouse.RightButton)
-      release(ctrl)
-      release(alt)
    endif
+   //left mouse button RIGHT
    if Mouse.LeftButton==false&&var.RB==true&&var.Type3==false then
       press(Mouse.LeftButton)
    elseif Mouse.LeftButton==true&&var.RB&&var.Type3==false then
       Mouse.LeftButton=1
    elseif Mouse.LeftButton==true&&released(var.RB) then
-      if var.MiddleX&&var.LT then
-         alt = 1
-      elseif var.MiddleX then
-         ctrl = 1
-      endif
       release(Mouse.LeftButton)
-      release(ctrl)
-      release(alt)
    endif
 endif
 endif
@@ -337,19 +287,19 @@ elseif var.Type2==true then
      Ctrl+Two = pressed(Var.Y)
      Ctrl+Three =  pressed(Var.A)
      Ctrl+Four =  pressed(Var.B)
-     Ctrl+Five =  pressed(Var.Start) and not Var.Bar3 and not Var.Bar2
+     Ctrl+Five =  pressed(Var.Start) and not Var.Bar3
      Ctrl+Six = pressed(Var.Back) and not Var.Bar3
      Ctrl+Seven = pressed(Var.DUp) and not Var.Bar3 and not Var.Bar2
      Ctrl+Eight = pressed(Var.DDown) and not Var.Bar3 and not Var.Bar2
-     Ctrl+Nine = pressed(Var.DRight) and not Var.Bar3
+     Ctrl+Nine = pressed(Var.DRight) and not Var.Bar3 and not Var.Bar2
      Ctrl+Zero = pressed(Var.DLeft) and not Var.Bar3 and not Var.Bar2
-     key.h = pressed(Var.Start) and Var.Bar2
      key.i = pressed(Var.Start) and Var.Bar3
      key.l = pressed(Var.Back) and Var.Bar3
      key.c = pressed(Var.DUp) and Var.Bar2
      key.p = pressed(Var.DUp) and Var.Bar3
-     shift+b = pressed(Var.DDown) and Var.Bar2
+     key.b = pressed(Var.DDown) and Var.Bar2
      key.n = pressed(Var.DDown) and Var.Bar3
+     key.h = pressed(Var.DRight) and Var.Bar2
      key.y = pressed(Var.DRight) and Var.Bar3
      key.j = pressed(Var.DLeft) and Var.Bar2
      key.o = pressed(Var.DLeft) and Var.Bar3
@@ -365,7 +315,7 @@ elseif var.Type2==true then
      endif
      var.BarHalfModifiedHalf = var.Bar2 && pressed(var.type2) and not released(var.type3)
 elseif var.Type3==true then
-     Key.F1 = pressed(Var.Start) and not Var.Bar3
+     Key.F1 = pressed(Var.Start) and not Var.Bar2 and not Var.Bar3
      Key.F2 = pressed(Var.X) and not Var.Bar3
      Key.F3 = pressed(Var.Y) and not Var.Bar3
      Key.F4 = pressed(Var.A) and not Var.Bar3
@@ -375,11 +325,12 @@ elseif var.Type3==true then
      Ctrl+F3 = pressed(Var.DDown) and not Var.Bar3
      Ctrl+F4 = pressed(Var.DRight) and not Var.Bar3
      Ctrl+F5 = pressed(Var.DLeft) and not Var.Bar3
-     Key.f = pressed(Var.Start) and Var.Bar3
-     Key.NUMPAD1 = pressed(Var.X) and Var.Bar3
-     Key.NUMPAD2 = pressed(Var.Y) and Var.Bar3
-     Key.NUMPAD3 = pressed(Var.A) and Var.Bar3
-     Key.NUMPAD4 = pressed(Var.B) and Var.Bar3
+     Key.F = pressed(Var.Start) and Var.Bar2
+     Key.T = pressed(Var.Start) and Var.Bar3
+     Key.NUMPAD7 = pressed(Var.X) and Var.Bar3
+     Key.NUMPAD8 = pressed(Var.Y) and Var.Bar3
+     Key.NUMPAD9 = pressed(Var.A) and Var.Bar3
+     Key.NUMPAD2 = pressed(Var.B) and Var.Bar3
      Ctrl+F6 = pressed(Var.Back) and Var.Bar3
      Ctrl+F7 = pressed(Var.DUp)  and Var.Bar3
      Ctrl+F8 = pressed(Var.DDown) and Var.Bar3

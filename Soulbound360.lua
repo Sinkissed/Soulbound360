@@ -78,21 +78,21 @@ end
 
 function s360_OnKey(key)
   GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 527, -425)
-  if (key ~= "LSHIFT") and (key ~= "RSHIFT") and (key ~= "LCTRL") and (key ~= "RCTRL") and (key ~= "RALT") and (key ~= "LALT") and (key ~= "BACKSPACE") then
+  if (key ~= "LSHIFT") and (key ~= "RSHIFT") and (key ~= "LCTRL") and (key ~= "RCTRL") and (key ~= "RALT") and (key ~= "LALT") and (key ~= "NUMPAD6") then
     if ( IsShiftKeyDown() ) then key = "SHIFT-"..tostring(key) end
     if ( IsControlKeyDown() ) then key = "CTRL-"..tostring(key) end
-    if (key == "1") or (key == "F2") or (key == "CTRL-1") or (key == "NUMPAD1") then GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 270, -331) end
-    if (key == "2") or (key == "F3") or (key == "CTRL-2") or (key == "NUMPAD2") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -292) end
-    if (key == "3") or (key == "F4") or (key == "CTRL-3") or (key == "NUMPAD3") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -369) end
-    if (key == "4") or (key == "F5") or (key == "CTRL-4") or (key == "NUMPAD4") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 388, -331) end
-    if (key == "5") or (key == "F1") or (key == "CTRL-5") or (key == "I") or (key == "NUMPAD0") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 225, -341 ) end
+    if (key == "1") or (key == "F2") or (key == "CTRL-1") or (key == "NUMPAD7") then GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 270, -331) end
+    if (key == "2") or (key == "F3") or (key == "CTRL-2") or (key == "NUMPAD8") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -292) end
+    if (key == "3") or (key == "F4") or (key == "CTRL-3") or (key == "NUMPAD9") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -369) end
+    if (key == "4") or (key == "F5") or (key == "CTRL-4") or (key == "NUMPAD2") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 388, -331) end
+    if (key == "5") or (key == "F1") or (key == "CTRL-5") or (key == "I") or (key == "T") or (key == "F") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 225, -341 ) end
     if (key == "6") or (key == "CTRL-F1") or (key == "CTRL-F6") or (key == "CTRL-6") or (key == "L") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 115, -341 ) end
-    if (key == "7") or (key == "CTRL-F2") or (key == "CTRL-F7") or (key == "CTRL-7") or (key == "P") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -370 ) end
-    if (key == "8") or (key == "CTRL-F3") or (key == "CTRL-F8") or (key == "CTRL-8") or (key == "N") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -461) end
-    if (key == "9") or (key == "CTRL-F4") or (key == "CTRL-F9") or (key == "CTRL-9") or (key == "Y") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 170, -420) end
-    if (key == "0") or (key == "CTRL-F5") or (key == "CTRL-F10") or (key == "CTRL-0") or (key == "O") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 5, -420 ) end
-    if (key == "-") or (key == "CTRL-NUMPADMINUS") or (key == "CTRL-NUMPADDIVIDE") or (key == "CTRL-SHIFT-T") or (key == "M") or (key == "C") or (key == "Q") or (key == "E") or (key == "W") or (key =="S") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT",12 ,-328 ) end
-    if (key == "=") or (key == "CTRL-NUMPADPLUS") or (key == "CTRL-NUMPADMULTIPLY") or (key == "SHIFT-B") or (key == "LSHIFT") or (key == "CTRL-T") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 ) end
+    if (key == "7") or (key == "CTRL-F2") or (key == "CTRL-F7") or (key == "CTRL-7") or (key == "P") or (key == "C") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -370 ) end
+    if (key == "8") or (key == "CTRL-F3") or (key == "CTRL-F8") or (key == "CTRL-8") or (key == "N") or (key == "B") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -461) end
+    if (key == "9") or (key == "CTRL-F4") or (key == "CTRL-F9") or (key == "CTRL-9") or (key == "Y") or (key =="H") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 170, -420) end
+    if (key == "0") or (key == "CTRL-F5") or (key == "CTRL-F10") or (key == "CTRL-0") or (key == "O") or (key =="J") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 5, -420 ) end
+    if (key == "-") or (key == "CTRL-NUMPADMINUS") or (key == "CTRL-NUMPADDIVIDE") or (key == "CTRL-SHIFT-T") or (key == "M") or (key == "Q") or (key == "E") or (key == "W") or (key =="S") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT",12 ,-328 ) end
+    if (key == "=") or (key == "CTRL-NUMPADPLUS") or (key == "CTRL-NUMPADMULTIPLY") or (key == "LSHIFT") or (key == "CTRL-T") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 ) end
     if (key == "TAB") or (key == "SHIFT-TAB") or (key == "SPACE") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 360, -239) end
     if (key == "SHIFT-1") or (key == "SHIFT-2") or (key == "SHIFT-3") or (key == "SHIFT-4") or (key == "SHIFT-5") or (key == "SHIFT-6") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 568, -271 ) end
     if (key == "'") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 622, -239 ) end
@@ -114,9 +114,9 @@ function s360_OnKey(key)
     GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 242, -331 )
     GameTooltip:SetText("CTRL",1.0,1.0,1.0)
     GameTooltip:Show()
- elseif (key == "NUMPAD5") then 
+ elseif (key == "NUMPAD6") then 
     GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 )
-    GameTooltip:SetText("NUMPAD5",1.0,1.0,1.0)
+    GameTooltip:SetText("NUMPAD6",1.0,1.0,1.0)
 	GameTooltip:AddLine("voice chat push to talk",1.0,1.0,1.0)
 	GameTooltip:AddLine("toggles on or off",1.0,1.0,1.0)
     GameTooltip:Show()
@@ -295,11 +295,22 @@ function BindingOverrideSequence()
         SetOverrideBinding(UIParent,false,"T", "ATTACKTARGET")
         SetOverrideBinding(UIParent,false,"F", "ASSISTTARGET")
 		SetOverrideBinding(UIParent,false,"ESCAPE", "TOGGLEGAMEMENU")	
-        SetOverrideBinding(UIParent,false,"NUMPAD5", "")
-        SetOverrideBinding(UIParent,false,"NUMPAD1", "MULTICASTSUMMONBUTTON1")
-        SetOverrideBinding(UIParent,false,"NUMPAD2", "MULTICASTSUMMONBUTTON2")
-        SetOverrideBinding(UIParent,false,"NUMPAD3", "MULTICASTSUMMONBUTTON3")
-        SetOverrideBinding(UIParent,false,"NUMPAD4", "MULTICASTRECALLBUTTON1")
+        SetOverrideBinding(UIParent,false,"NUMPAD6")
+        SetOverrideBinding(UIParent,false,"NUMPAD7", "MULTICASTSUMMONBUTTON1")
+        SetOverrideBinding(UIParent,false,"NUMPAD8", "MULTICASTSUMMONBUTTON2")
+        SetOverrideBinding(UIParent,false,"NUMPAD9", "MULTICASTSUMMONBUTTON3")
+        SetOverrideBinding(UIParent,false,"NUMPAD2", "MULTICASTRECALLBUTTON1")
+        SetOverrideBinding(UIParent,false,"I", "TOGGLELFGPARENT")
+        SetOverrideBinding(UIParent,false,"L", "TOGGLEQUESTLOG")
+        SetOverrideBinding(UIParent,false,"C", "TOGGLECHARACTER0")
+        SetOverrideBinding(UIParent,false,"P", "TOGGLESPELLBOOK")
+        SetOverrideBinding(UIParent,false,"B", "OPENALLBAGS")
+        SetOverrideBinding(UIParent,false,"N", "TOGGLETALENTS")
+        SetOverrideBinding(UIParent,false,"H", "TOGGLECHARACTER4")        
+        SetOverrideBinding(UIParent,false,"Y", "TOGGLEACHIEVEMENT")
+        SetOverrideBinding(UIParent,false,"J", "TOGGLEGUILDTAB")
+        SetOverrideBinding(UIParent,false,"O", "TOGGLESOCIAL")
+        SetOverrideBinding(UIParent,false,"M", "TOGGLEWORLDMAP")
 end
 
 function BindingChainOverrideSequence()
@@ -353,9 +364,20 @@ function BindingChainOverrideSequence()
         if GetBindingAction("T") ~= "" then SetOverrideBinding(UIParent,true,"T", GetBindingAction("T")) end
         if GetBindingAction("F") ~= "" then SetOverrideBinding(UIParent,true,"F", GetBindingAction("F")) end
 		if GetBindingAction("ESCAPE") ~= "" then SetOverrideBinding(UIParent,true,"ESCAPE", GetBindingAction("ESCAPE")) end
-        if GetBindingAction("NUMPAD5")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD5", GetBindingAction("NUMPAD5")) end
-        if GetBindingAction("NUMPAD1")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD1", GetBindingAction("NUMPAD1")) end
+        if GetBindingAction("NUMPAD6")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD6", GetBindingAction("NUMPAD6")) end
+        if GetBindingAction("NUMPAD7")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD7", GetBindingAction("NUMPAD7")) end
+        if GetBindingAction("NUMPAD8")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD8", GetBindingAction("NUMPAD8")) end
+        if GetBindingAction("NUMPAD9")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD9", GetBindingAction("NUMPAD9")) end
         if GetBindingAction("NUMPAD2")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD2", GetBindingAction("NUMPAD2")) end
-        if GetBindingAction("NUMPAD3")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD3", GetBindingAction("NUMPAD3")) end
-        if GetBindingAction("NUMPAD4")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD4", GetBindingAction("NUMPAD4")) end
+        if GetBindingAction("I")  ~= "" then SetOverrideBinding(UIParent,true,"I", GetBindingAction("I")) end
+        if GetBindingAction("L")  ~= "" then SetOverrideBinding(UIParent,true,"L", GetBindingAction("L")) end
+        if GetBindingAction("C")  ~= "" then SetOverrideBinding(UIParent,true,"C", GetBindingAction("C")) end
+        if GetBindingAction("P")  ~= "" then SetOverrideBinding(UIParent,true,"P", GetBindingAction("P")) end
+        if GetBindingAction("B")  ~= "" then SetOverrideBinding(UIParent,true,"B", GetBindingAction("B")) end
+        if GetBindingAction("N")  ~= "" then SetOverrideBinding(UIParent,true,"N", GetBindingAction("N")) end
+        if GetBindingAction("H")  ~= "" then SetOverrideBinding(UIParent,true,"H", GetBindingAction("H")) end
+        if GetBindingAction("Y")  ~= "" then SetOverrideBinding(UIParent,true,"Y", GetBindingAction("Y")) end
+        if GetBindingAction("J")  ~= "" then SetOverrideBinding(UIParent,true,"J", GetBindingAction("J")) end
+        if GetBindingAction("O")  ~= "" then SetOverrideBinding(UIParent,true,"O", GetBindingAction("O")) end
+        if GetBindingAction("M")  ~= "" then SetOverrideBinding(UIParent,true,"M", GetBindingAction("M")) end
 end
