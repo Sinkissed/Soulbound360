@@ -1,6 +1,6 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.42
+//0.43
 //For Morii Unofficial Driver
 //All Classes Compatible
 //Key Bindings are Default
@@ -86,11 +86,11 @@ elseif Mouse.RightButton==true&&var.LB then
 Mouse.RightButton=1
 elseif Mouse.RightButton==true&&released(var.LB) then
 if Var.RT then press(shift)
+if Var.MiddleX then press(ctrl)
 release(Mouse.RightButton)
-if(leftshift or rightshift) then
-shift = 1
-else
 shift = 0
+ctrl = 0
+endif
 endif
 endif
 
@@ -100,40 +100,51 @@ elseif Mouse.LeftButton==true&&var.LT then
 Mouse.LeftButton=1
 elseif Mouse.LeftButton==true&&released(var.LT) then
 if Var.RT then press(shift)
+if Var.MiddleX then press(control)
 release(Mouse.LeftButton)
-if(leftshift or rightshift) then
-shift = 1
-else
 shift = 0
+control = 0
+endif
+endif
+endif
+
+//autorun + follow
+if Var.LB and released(Var.LT==0) then
+if var.MiddleX then
+press(key.Apostrophe)
+release(key.Apostrophe)
+else
+press(Mouse.Button4)
+release(Mouse.Button4)
 endif
 endif
 
 //left analog stick forward,backward,autorun,follow
-if var.RT&&var.MiddleX then
-Mouse.Button4 = released(-1.2 < var.MoveY < -var.MoveDeadzone)
-endif
+//if var.RT&&var.MiddleX then
+//Mouse.Button4 = released(-1.2 < var.MoveY < -var.MoveDeadzone)
+//endif
 
-if key.w==0 and var.MoveY && (var.RT==0 && var.MiddleX==0) then
+//if key.w==0 and var.MoveY && (var.RT==0 && var.MiddleX==0) then
 key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
-elseif key.w==0 and var.MoveY && var.RT==1
-key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
-elseif pressed(var.MoveY>-var.MoveDeadzone)
-release(Mouse.Button4)
-release(key.w)
-endif
+//elseif key.w==0 and var.MoveY && var.RT==1
+//key.w = (-1.2 < var.MoveY < -var.MoveDeadzone)
+//elseif pressed(var.MoveY>-var.MoveDeadzone)
+//release(Mouse.Button4)
+//release(key.w)
+//endif
 
-if var.RT&&var.MiddleX
-key.Apostrophe = released(var.MoveDeadzone < var.MoveY < 1.2)
-endif
+//if var.RT&&var.MiddleX
+//key.Apostrophe = released(var.MoveDeadzone < var.MoveY < 1.2)
+//endif
 
-if key.s==0 and var.MoveY && (var.RT==0 && var.MiddleX==0) then
+//if key.s==0 and var.MoveY && (var.RT==0 && var.MiddleX==0) then
 key.s = (var.MoveDeadzone < var.MoveY < 1.2)
-elseif key.s==0 and var.MoveY && var.RT==1
-key.s = (var.MoveDeadzone < var.MoveY < 1.2)
-elseif pressed(var.MoveY<var.MoveDeadzone)
-release(key.Apostrophe)
-release(key.s)
-endif
+//elseif key.s==0 and var.MoveY && var.RT==1
+//key.s = (var.MoveDeadzone < var.MoveY < 1.2)
+//elseif pressed(var.MoveY<var.MoveDeadzone)
+//release(key.Apostrophe)
+//release(key.s)
+//endif
 
 if released(rightshift)
 shift = 0
