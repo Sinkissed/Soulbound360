@@ -1,9 +1,10 @@
 ## Interface: 30300
 ## Title: Soulbound360
 ## Author: Sinkissed
-## Version: 0.33
+## Version: 0.35
 ## Notes: Play WoW with your Xbox 360 Controller!
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
+## SavedVariables: EnableUserKeys,HideButton 
 Soulbound360.lua
 Soulbound360.xml
