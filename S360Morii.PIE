@@ -1,6 +1,6 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.41
+//0.42
 //For Morii Unofficial Driver
 //All Classes Compatible
 //Key Bindings are Default
@@ -11,6 +11,7 @@ var.SwapJoysticks = false
 var.MouseDeadzone = .07
 var.MoveDeadzone = .05
 var.MouseSensitivity = screen.width/32
+var.Vibrate = true
 //end useful user-changeable values
 
 //mess with lines below at your own risk!
@@ -26,8 +27,6 @@ var.MouseX = Joystick1.x
 var.MouseY = Joystick1.y
 endif
 
-var.Vibrate1 = Joystick1.Vibration1
-var.Vibrate2 = Joystick1.Vibration2
 var.RB = Joystick1.Button6
 Var.RT = Joystick1.Button12
 Var.LB = Joystick1.Button5
@@ -64,11 +63,13 @@ endif
 
 //vibrate when action bar 1 is activated so we know without looking
 if pressed(Var.X ) && (Var.RT = 1) && (Var.MiddleX = 0)
-var.Vibrate2 = .35
-var.Vibrate1 = .35
+if var.Vibrate = true then
+Joystick1.Vibration2 = .35
+Joystick1.Vibration1 = .35
 wait 150ms
-var.Vibrate2 = 0
-var.Vibrate1 = 0
+Joystick1.Vibration2 = 0
+Joystick1.Vibration1 = 0
+endif
 endif
 
 if Var.RB&&Var.Rt&&var.middlex=0 then

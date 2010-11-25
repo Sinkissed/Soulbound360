@@ -1,6 +1,6 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.41
+//0.42
 //For DirectX Driver
 //Specific Target Control Set
 //Key Bindings are Default
@@ -9,6 +9,7 @@
 var.InvertMouse = false
 var.SwapJoysticks = false
 var.MouseSensitivity = screen.width/32
+var.Vibrate = true
 //end useful user-changeable values
 
 //mess with lines below at your own risk!
@@ -44,8 +45,6 @@ var.TriggerDeadzone = 0.85
 endif
 
 if Xinput.Exists==0 then
-var.Vibrate1 = Joystick1.Vibration1
-var.Vibrate2 = Joystick1.Vibration2
 var.RB = Joystick1.Button6
 Var.RT = Joystick1.Button12
 Var.LB = Joystick1.Button5
@@ -63,8 +62,6 @@ Var.DRight = Joystick1.Pov1Right
 Var.LThumb = Joystick1.Button9
 Var.RThumb = Joystick1.Button10
 else
-var.Vibrate1 = XInput1.Vibration1
-var.Vibrate2 = XInput1.Vibration2
 var.RB = Xinput1.RightShoulder
 Var.RT = (Xinput1.RightTrigger > var.TriggerDeadzone)
 Var.LB = Xinput1.LeftShoulder
@@ -101,11 +98,21 @@ endif
 
 //vibrate when action bar 1 is activated so we know without looking
 if pressed(Var.X) && (Var.RT == 1)
-var.Vibrate2 = .35
-var.Vibrate1 = .35
+if var.Vibrate = true then
+if Xinput.Exists==0 then
+Joystick1.Vibration2 = .35
+Joystick1.Vibration1 = .35
 wait 150ms
-var.Vibrate2 = 0
-var.Vibrate1 = 0
+Joystick1.Vibration2 = 0
+Joystick1.Vibration1 = 0
+else
+XInput1.Vibration2 = .35
+XInput1.Vibration1 = .35
+wait 150ms
+XInput1.Vibration2 = 0
+XInput1.Vibration1 = 0
+endif
+endif
 endif
 
 if Var.RT&&Var.RB then
