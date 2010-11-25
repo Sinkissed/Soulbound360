@@ -1,14 +1,9 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.31
+//0.33
 //For DirectX Driver
 //Specific Target Control Set
-//
-//key bindings should be default
-//these keys should be added
-//' follow target
-//ctrl-shift-t focus target
-//ctrl-t target focus
+//Key Bindings are Default
 
 //analog mouse sensitivity set relative to screen size
 //try to change the mouse sensitivity in the game first if its wrong

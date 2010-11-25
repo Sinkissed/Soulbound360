@@ -1,14 +1,9 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.31
+//0.33
 //For Morii Unofficial Driver
 //All Classes Compatible
-//
-//key bindings should be default
-//these keys should be added
-//' follow target
-//ctrl-shift-t focus target
-//ctrl-t target focus
+//Key Bindings are Default
 
 //analog mouse sensitivity set relative to screen size
 //try to change the mouse sensitivity in the game first if its wrong
@@ -46,7 +41,7 @@ endif
 			pressed(Mouse.LeftButton) = 1
 		elseif pressed(Joystick1.Button11)&&Joystick1.Button12 then
 			pressed(Shift+Mouse.LeftButton) = 1
-		elseif released(Joystick1.Button11) or released(Joystick1.Button6) then
+		elseif released(Joystick1.Button11) then
 			released(Mouse.LeftButton) = 1
 		endif
 
