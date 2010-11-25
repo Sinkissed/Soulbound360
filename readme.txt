@@ -3,7 +3,6 @@ Soulbound360 is a World of Warcraft addon for playing WoW with your Xbox360 cont
 
 Setup
 
-
 1 Install the addon into your Interface/AddOns directory as usual.
 
 2 Download http://glovepie.org/GlovePIEWithoutEmotiv043.zip GLOVEPIE and open the S360.PIE file inside of the Interface/AddOns/Soulbound360 directory.
@@ -11,7 +10,6 @@ Setup
 3 Click RUN in GLOVEPIE and start World of Warcraft
 
 GLOVEPIE is Windows only. The addon and the instructions sent to GLOVEPIE are all completely visible inside of the Interface/Addons folder. This is in compliance with Blizzard's AddOn policy. Controls have 1-to-1 functionality, THERE ARE NO SCRIPTED OR AUTOMATED CONTROLS.
-
 
 
 Play
@@ -32,11 +30,16 @@ Bottom left shoulder modifies all the other buttons
 
 There are many more controls and combinations handed by the gamepad. Some controls can also be altered in the PIE file. A full diagram is displayed in game and can be toggled inside of the Interface/Addons menu. Have fun!
 
+V0.51
+* Added push-to-talk for voice chat
+* Added esc to cancel spellcasts when rooted
+* Moved zoom in/out below modifiers
+
 v0.5
-*PIE file redone. Cleaner, neater, readable.
-*Control is now centered around analog trigger range as modifiers.
-*All controls almost identical for Microsoft and Morii drivers. 74 mappable actions total.
-*New interface and new interactivity, much closer to original concepts.
+* PIE file redone. Cleaner, neater, readable.
+* Control is now centered around analog trigger range as modifiers.
+* All controls almost identical for Microsoft and Morii drivers. 74 mappable actions total.
+* New interface and new interactivity, much closer to original concepts.
 
 v0.44
 * Fixed 'Interface action failed' error when bindings updated in combat

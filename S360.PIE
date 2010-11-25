@@ -1,27 +1,25 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.5
+//0.51
 
-//SwapJoysticks makes the mouse and move joysticks opposite
-//which could be useful if you are left handed.
+//PushToTalkKey is your Ventrillo or Teamspeak push to talk key.
+//It stays on till pressed again.
+key.backspace = var.PushToTalkKey
+
+//SwapJoysticks makes joysticks opposite.
+//Use if you are left handed.
 var.SwapJoysticks = false
 
-//SwapShoulders makes shoulder actions work on the opposite sides
-//which could be useful if you are left-handed.
+//SwapShoulders makes shoulders opposite
+//Use if you are left-handed.
 var.SwapShoulders = false
 
-//These values change the order of the actionbars.
-//Its easier to remap the action bars in the Key Bindings menu
-//if you use your keyboard to hit the keys instead of the pad.
-//Otherwise its harder to isolate each value.
-//
-//The variables are labeled by where the trigger activates it
-//and ordered by the degree of difficulty required to activate.
-//'Bar' refers to right trigger and 'Modified' refers to left,
-//assuming SwapShoulders is false.
-//
-//Most important bars should go on the top of this list
-//Replace the # to change a bar number
+//SwapMouseButtons changes the mouse click button.
+//One click can only be available with a modifier.
+//If you're melee use false. If you heal use true.
+var.SwapMouseButtons = false
+
+//This is the order of the action bars when the trigger is pressed.
 shift+key.1+release(shift) = var.BarOff
 shift+key.2+release(shift) = var.BarFull
 shift+key.5+release(shift) = var.BarFullModifiedFull
@@ -29,30 +27,13 @@ shift+key.3+release(shift) = var.BarHalf
 shift+key.4+release(shift) = var.BarHalfModifiedFull
 shift+key.6+release(shift) = var.BarHalfModifiedHalf
 
-//SwapMouseButtons makes either left or right mouse click
-//available only under a modifier.
-//If you move or heal a lot to have a specific click
-//more available than the other might help. It also might not.
-//
-//set to true to set Left Click LB, Right LB with modifier
-//set to false to set Right Click LB, Left LB with modifier
-var.SwapMouseButtons = false
-
-//This changes the speed that the mouse moves across the screen
-//A lower value will make the mouse move faster
-//Play with the sensitivity in WoW's mouse menu first
-//this number is very delicate
+//A lower value here will make the mouse move faster.
 var.MouseSensitivity = screen.width/32
 
 //InvertMouse flips the mouse's Y/vertical axis
-//You can also do it in WoW's mouse menu
 var.InvertMouse = false
 
-//WARNING
-//EDITING LINES BELOW CAN BREAK FUNCTIONALITY
-//ITS SAFER TO CHANGE BUTTON ASSIGNMENTS FROM INSIDE WOW
-
-//joystick alias assignments
+//JOYSTICK ALIAS
 //case check for driver
 if Xinput.Exists==0 then
    if var.SwapJoysticks == false then
@@ -83,11 +64,13 @@ else
     endif
     var.MouseDeadzone = .18
     var.MoveDeadzone = .18
-    var.TriggerDeadzone = 0.85
+    var.TriggerDeadzone = 0.25
 endif
 
+//Trigger sensitivity
 var.SwitchDeadzone = .25
-//button alias assignments
+
+//BUTTON ALIAS
 //case check for driver
 if Xinput.Exists==0 then
    if var.SwapShoulders = false then
@@ -162,10 +145,7 @@ if Xinput.Exists==0 then
    Var.Type3 = (1 == Xinput1.LeftTrigger)
 endif
 
-  'Var.LT = var.Type3 && Var.RB
-  'Var.MiddleX = (var.TriggerDeadZone < Xinput1.LeftTrigger < 1)
- 
-//mouse
+//MOUSE BINDINGS
 if (var.MouseX > var.MouseDeadZone) mouse.cursorPosx += var.MouseSensitivity^(DeadZone(Var.MouseX, var.MouseDeadZone))     //cursor right
 if (var.MouseX < -var.MouseDeadzone) mouse.cursorPosx -= -var.MouseSensitivity^1*(DeadZone(Var.MouseX, var.MouseDeadZone)) //cursor left
 if var.InvertMouse == false then
@@ -194,14 +174,14 @@ if Var.LB and doubleclicked(var.lt) then
 endif
 
 //jump
-if Var.RB&&Var.bar3 then
+if Var.RB&&Var.RT then
    if helddown(Var.RB,.5) then Keyboard.RepeatFakeKeys = False
    Key.Spacebar = 1
 elseif released(Var.RB) or released(Var.RT) or (HeldDown(var.RB,.1))
        Key.Spacebar = 0
 endif
 
-
+//CLICK BINDINGS
 if var.SwapMouseButtons == true then
    //right mouse button
    if Mouse.RightButton==false&&var.LB&&var.LT==true then
@@ -228,24 +208,33 @@ else
    elseif Mouse.RightButton==true&&var.LB then
       if Mouse.LeftButton then release(Mouse.LeftButton)
       Mouse.RightButton=1
-   elseif Mouse.RightButton==true&&released(var.LB) then
+      elseif Mouse.RightButton==true&&released(var.LB) then
+      if var.MiddleX&&var.LT then
+         alt = 1
+      elseif var.MiddleX then
+         ctrl = 1
+      endif
       release(Mouse.RightButton)
+      release(ctrl)
+      release(alt)
    endif
    if Mouse.LeftButton==false&&var.LB&&var.LT==true&&Mouse.RightButton==false then
       press(Mouse.LeftButton)
    elseif Mouse.LeftButton==true&&var.LB&&Mouse.RightButton==false then
       Mouse.LeftButton=1
    elseif Mouse.LeftButton==true&&(released(var.LB) or released(var.LT) or pressed(Mouse.RightButton)) then
+      if var.MiddleX&&var.LT then
+         alt = 1
+      elseif var.MiddleX then
+         ctrl = 1
+      endif
       release(Mouse.LeftButton)
+      release(ctrl)
+      release(alt)
    endif
 endif
 
-if var.MiddleX&&var.LT then
-   var.MiddleX = alt
-elseif var.MiddleX then
-   var.MiddleX = ctrl
-endif
-
+//KEYBOARD BINDINGS
 if Var.Type1==true then
      Key.One = pressed(Var.X)
      Key.Two = pressed(Var.Y)
@@ -268,16 +257,18 @@ elseif var.Type2==true then
      Ctrl+Two = pressed(Var.Y)
      Ctrl+Three =  pressed(Var.A)
      Ctrl+Four =  pressed(Var.B)
-     Ctrl+Five =  pressed(Var.Start) and not Var.Bar3
+     Ctrl+Five =  pressed(Var.Start) and not Var.Bar3 and not Var.Bar2
      Ctrl+Six = pressed(Var.Back) and not Var.Bar3
-     Ctrl+Seven = pressed(Var.DUp) and not Var.Bar3
-     Ctrl+Eight = pressed(Var.DDown) and not Var.Bar3
+     Ctrl+Seven = pressed(Var.DUp) and not Var.Bar3 and not Var.Bar2
+     Ctrl+Eight = pressed(Var.DDown) and not Var.Bar3 and not Var.Bar2
      Ctrl+Nine = pressed(Var.DRight) and not Var.Bar3
-     Ctrl+Zero = pressed(Var.DLeft) and not Var.Bar3
+     Ctrl+Zero = pressed(Var.DLeft) and not Var.Bar3 and not Var.Bar2
      key.h = pressed(Var.Start) and Var.Bar2
      key.i = pressed(Var.Start) and Var.Bar3
      key.l = pressed(Var.Back) and Var.Bar3
+     key.c = pressed(Var.DUp) and Var.Bar2
      key.p = pressed(Var.DUp) and Var.Bar3
+     shift+b = pressed(Var.DDown) and Var.Bar2
      key.n = pressed(Var.DDown) and Var.Bar3
      key.y = pressed(Var.DRight) and Var.Bar3
      key.j = pressed(Var.DLeft) and Var.Bar2
@@ -305,7 +296,7 @@ elseif var.Type3==true then
      Ctrl+F4 = pressed(Var.DRight) and not Var.Bar3
      Ctrl+F5 = pressed(Var.DLeft) and not Var.Bar3
      Ctrl+F6 = pressed(Var.Back) and Var.Bar3
-     Ctrl+F7 = pressed(Var.DUp) and Var.Bar3
+     Ctrl+F7 = pressed(Var.DUp)  and Var.Bar3
      Ctrl+F8 = pressed(Var.DDown) and Var.Bar3
      Ctrl+F9 = pressed(Var.DRight) and Var.Bar3
      Ctrl+F10 = pressed(Var.DLeft) and Var.Bar3
@@ -314,11 +305,15 @@ elseif var.Type3==true then
         key.m = pressed(Var.Lthumb)
         shift = Var.Rthumb
      elseif var.bar3 then
-        key.c = pressed(Var.Lthumb)
-        shift+b = pressed(Var.Rthumb)
-     else
         Mouse.WheelUp = pressed(Var.LThumb)
         Mouse.WheelDown = pressed(Var.RThumb)
+     else
+        key.esc = pressed(Var.Lthumb)
+        if pressed(var.Rthumb)&&var.TogglePushToTalk==0 then
+           var.TogglePushToTalk = 1
+        elseif pressed(var.Rthumb)&&var.TogglePushToTalk==1 then
+           var.TogglePushToTalk = 0
+        endif
      endif
      var.BarHalfModifiedFull = var.Bar2 && pressed(var.type3)
      var.BarFullModifiedFull = var.Bar3 && pressed(var.type3)
@@ -339,5 +334,11 @@ endif
 if pressed(HeldDown(Var.Back,3)) then
    key.escape=1
    key.escape=0
+endif
+
+if var.TogglePushToTalk == 1 then
+   var.PushToTalkKey = true
+elseif var.TogglePushToTalk == 0 then
+   var.PushToTalkKey = false
 endif
 

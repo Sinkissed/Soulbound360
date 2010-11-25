@@ -1,7 +1,7 @@
 ## Interface: 40000
 ## Title: Soulbound360
 ## Author: Sinkissed
-## Version: 0.5
+## Version: 0.51
 ## Notes: Play WoW with your Xbox 360 Controller!
 ## eMail: sinkissed@gmail.com
 ## DefaultState: Enabled

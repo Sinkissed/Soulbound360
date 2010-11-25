@@ -78,7 +78,7 @@ end
 
 function s360_OnKey(key)
   GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 527, -425)
-  if (key ~= "LSHIFT") and (key ~= "RSHIFT") and (key ~= "LCTRL") and (key ~= "RCTRL") and (key ~= "RALT") and (key ~= "LALT")  then
+  if (key ~= "LSHIFT") and (key ~= "RSHIFT") and (key ~= "LCTRL") and (key ~= "RCTRL") and (key ~= "RALT") and (key ~= "LALT") and (key ~= "BACKSPACE") then
     if ( IsShiftKeyDown() ) then key = "SHIFT-"..tostring(key) end
     if ( IsControlKeyDown() ) then key = "CTRL-"..tostring(key) end
     if (key == "1") or (key == "F2") or (key == "CTRL-1") then GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 270, -331) end
@@ -113,6 +113,12 @@ function s360_OnKey(key)
  elseif (key == "LCTRL") or (key == "RCTRL") then 
     GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 242, -331 )
     GameTooltip:SetText("CTRL",1.0,1.0,1.0)
+    GameTooltip:Show()
+ elseif (key == "BACKSPACE") then 
+    GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 )
+    GameTooltip:SetText("BACKSPACE",1.0,1.0,1.0)
+	GameTooltip:AddLine("voice chat push to talk",1.0,1.0,1.0)
+	GameTooltip:AddLine("toggles on or off",1.0,1.0,1.0)
     GameTooltip:Show()
  end
 end
@@ -161,6 +167,7 @@ function ResetClick()
     EnableActiveMap = 1
     ClearOverrideBindings(UIParent)
     BindingOverrideSequence() 
+	s360_ShowDiagram()   
     EnableUserKeysButton:SetChecked(EnableUserKeys)
     Hide360Button:SetChecked(HideButton)
     ActiveButton:SetChecked(ActiveButton)
@@ -287,6 +294,8 @@ function BindingOverrideSequence()
         SetOverrideBinding(UIParent,false,"SHIFT-T", "PETATTACK")
         SetOverrideBinding(UIParent,false,"T", "ATTACKTARGET")
         SetOverrideBinding(UIParent,false,"F", "ASSISTTARGET")
+		SetOverrideBinding(UIParent,false,"ESCAPE", "TOGGLEGAMEMENU")
+		SetOverrideBinding(UIParent,false,"BACKSPACE", "")
 end
 
 function BindingChainOverrideSequence()
@@ -339,4 +348,6 @@ function BindingChainOverrideSequence()
         if GetBindingAction("SHIFT-T") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-T", GetBindingAction("SHIFT-T")) end
         if GetBindingAction("T") ~= "" then SetOverrideBinding(UIParent,true,"T", GetBindingAction("T")) end
         if GetBindingAction("F") ~= "" then SetOverrideBinding(UIParent,true,"F", GetBindingAction("F")) end
+		if GetBindingAction("ESCAPE") ~= "" then SetOverrideBinding(UIParent,true,"ESCAPE", GetBindingAction("ESCAPE")) end
+		if GetBindingAction("BACKSPACE") ~= "" then SetOverrideBinding(UIParent,true,"BACKSPACE", GetBindingAction("BACKSPACE")) end
 end
