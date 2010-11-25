@@ -66,13 +66,15 @@ end
 
 function BindingRefresh(event)
     if event == "UPDATE_BINDINGS" then
-        if EnableUserKeys == 0 then
-            ClearOverrideBindings(UIParent)
-            BindingOverrideSequence() 
-        else
-            ClearOverrideBindings(UIParent)
-            BindingOverrideSequence() 
-            BindingChainOverrideSequence() 
+        if InCombatLockdown() ~= 1 then
+            if EnableUserKeys == 0 then
+                ClearOverrideBindings(UIParent)
+                BindingOverrideSequence() 
+            else
+                ClearOverrideBindings(UIParent)
+                BindingOverrideSequence() 
+                BindingChainOverrideSequence() 
+            end
         end
     end
 end
