@@ -89,23 +89,25 @@ XIcon:SetPoint("CENTER", UIParent, -350,-350)
 if EnableActiveMap == 1 then
 XIcon:EnableKeyboard(true)
 XIcon:EnableMouse(true)
-XIcon:EnableMouseWheel(1) 
+XIcon:EnableMouseWheel(1)
 s360_Greet()
 else
 XIcon:EnableKeyboard(false)
 XIcon:EnableMouse(false)
-XIcon:EnableMouseWheel(0) 
+XIcon:EnableMouseWheel(0)
 end
 </OnLoad>
           <OnShow>if EnableActiveMap == 1 then
 s360_Greet()
+else
 end
+ShowMap()
 </OnShow>
           <OnEnter>if EnableActiveMap == 1 then
 if MouseIsOver(XIcon,-156,148,0,0) then
 XIcon:EnableKeyboard(true)
 XIcon:EnableMouse(true)
-XIcon:EnableMouseWheel(1) 
+XIcon:EnableMouseWheel(1)
 else
 XIcon:EnableKeyboard(false)
 XIcon:EnableMouse(false)
@@ -117,8 +119,9 @@ GameTooltip:Show()
 else
 XIcon:EnableKeyboard(false)
 XIcon:EnableMouse(false)
-XIcon:EnableMouseWheel(0) 
+XIcon:EnableMouseWheel(0)
 end
+ShowMap()
 UIFrameFadeIn(XIcon, 1, XIcon:GetAlpha(), 1.0)
 </OnEnter>
           <OnLeave>UIFrameFadeOut(XIcon, 1, XIcon:GetAlpha(), .50)
@@ -126,34 +129,39 @@ XIcon:EnableKeyboard(false)
 GameTooltip:Hide()
 </OnLeave>
           <OnMouseDown>if EnableActiveMap == 1 then
+SetXTipAlpha()
 local key = GetMouseButtonClicked();
-GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 622, -239 )
+GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 50, -239 )
 if ( IsShiftKeyDown() ) then key = "SHIFT-"..tostring(key); end
 if( IsControlKeyDown() ) then key = "CTRL-"..tostring(key); end
 if GetBindingAction(key,true) == "" then
 GameTooltip:SetText(tostring(key).." Mouse Click",1.0,1.0,1.0,true)
+XTip14:SetAlpha(.75)
 else
 GameTooltip:SetText(GetBindingAction(key,true),1.0,1.0,1.0,true)
+XTip14:SetAlpha(.75)
 end
 else
 XIcon:EnableKeyboard(false)
 XIcon:EnableMouse(false)
-XIcon:EnableMouseWheel(0) 
+XIcon:EnableMouseWheel(0)
 end
 </OnMouseDown>
           <OnMouseWheel>if EnableActiveMap == 1 then
-	if (delta == 1) then
-		GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 12 , -328 )
-		GameTooltip:SetText(GetBindingAction("MOUSEWHEELUP",true),1.0,1.0,1.0,true)
-	else
-		GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 )
-		GameTooltip:SetText(GetBindingAction("MOUSEWHEELDOWN",true),1.0,1.0,1.0,true)
-	end
-	GameTooltip:Show()
+if (delta == 1) then
+GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 12 , -328 )
+GameTooltip:SetText(GetBindingAction("MOUSEWHEELUP",true),1.0,1.0,1.0,true)
+XTip11:SetAlpha(.75)
 else
-	XIcon:EnableKeyboard(false)
-	XIcon:EnableMouse(false)
-	XIcon:EnableMouseWheel(0) 
+GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 )
+GameTooltip:SetText(GetBindingAction("MOUSEWHEELDOWN",true),1.0,1.0,1.0,true)
+XTip12:SetAlpha(.75)
+end
+GameTooltip:Show()
+else
+XIcon:EnableKeyboard(false)
+XIcon:EnableMouse(false)
+XIcon:EnableMouseWheel(0)
 end
 </OnMouseWheel>
           <OnKeyDown>if EnableActiveMap == 1 then
@@ -170,7 +178,7 @@ end
 else
 XIcon:EnableKeyboard(false)
 XIcon:EnableMouse(false)
-XIcon:EnableMouseWheel(0) 
+XIcon:EnableMouseWheel(0)
 end
 </OnKeyDown>
         </Scripts>

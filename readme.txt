@@ -1,4 +1,4 @@
-Soulbound360 is a World of Warcraft addon for playing WoW with your Xbox360 controller. The addon itself is text files however USING THE CONTROLLER WITH WOW REQUIRES ANOTHER PROGRAM.
+﻿Soulbound360 is a World of Warcraft addon for playing WoW with your Xbox360 controller. The addon itself is text files however USING THE CONTROLLER WITH WOW REQUIRES ANOTHER PROGRAM.
 
 Setup
 
@@ -35,13 +35,19 @@ Bottom left shoulder modifies all the other buttons
 
 There are many more controls and combinations handed by the gamepad. Some controls can also be altered in the PIE file. A full diagram is displayed in game and can be toggled inside of the Interface/Addons menu. Have fun!
 
+v0.6
+* Hover Action setting allows you to mouseover target while pressing abilities to easily heal or attack
+* Redesigned controller map, photograph by Chris Hecker
+* Controller map now displays user-defined key bindings
+* Brought back shift and ctrl click when joined with actionbar press
+
 v0.52b
 * Fixed spacebar flooding the server when pressed repeatedly while pressing the left stick
 * Removed MiddleX from morii driver. Any 360 driver will be completely identical.
 * Menus will now be bound appropriately
 * Moved PushToTalk to NUMPAD6 becuase 5 was also taken
-* Moved Shaman totem calls to NUMPAD 7,8,9,2 because of vehicle controls
-* Moved Pvp menu to Dpad Right
+* Moved Shaman totem calls to 7,8,9,2 because of vehicle controls
+* Moved Pvp menu to Dpad
 
 v0.52a
 * Changed PushToTalk to NUMPAD5, 0 was taken

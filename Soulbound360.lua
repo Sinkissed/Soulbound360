@@ -68,34 +68,84 @@ function s360_ShowDiagram()
         XIcon:EnableMouse(true)
         XIcon:EnableMouseWheel(1) 
         s360_Greet()
+    else
+    SetXTipInactiveAlpha()
     end
+    ShowMap()
     XIcon:Show()
 end
 
 function s360_OnLeave()
+  SetXTipAlpha()
   GameTooltip:Hide()
 end
 
 function s360_OnKey(key)
+  SetXTipAlpha()
   GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 527, -425)
-  if (key ~= "LSHIFT") and (key ~= "RSHIFT") and (key ~= "LCTRL") and (key ~= "RCTRL") and (key ~= "RALT") and (key ~= "LALT") and (key ~= "NUMPAD6") then
+  if (key ~= "LSHIFT") and (key ~= "RSHIFT")and (key ~= "NUMPAD6") then
     if ( IsShiftKeyDown() ) then key = "SHIFT-"..tostring(key) end
     if ( IsControlKeyDown() ) then key = "CTRL-"..tostring(key) end
-    if (key == "1") or (key == "F2") or (key == "CTRL-1") or (key == "NUMPAD7") then GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 270, -331) end
-    if (key == "2") or (key == "F3") or (key == "CTRL-2") or (key == "NUMPAD8") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -292) end
-    if (key == "3") or (key == "F4") or (key == "CTRL-3") or (key == "NUMPAD9") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -369) end
-    if (key == "4") or (key == "F5") or (key == "CTRL-4") or (key == "NUMPAD2") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 388, -331) end
-    if (key == "5") or (key == "F1") or (key == "CTRL-5") or (key == "I") or (key == "T") or (key == "F") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 225, -341 ) end
-    if (key == "6") or (key == "CTRL-F1") or (key == "CTRL-F6") or (key == "CTRL-6") or (key == "L") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 115, -341 ) end
-    if (key == "7") or (key == "CTRL-F2") or (key == "CTRL-F7") or (key == "CTRL-7") or (key == "P") or (key == "C") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -370 ) end
-    if (key == "8") or (key == "CTRL-F3") or (key == "CTRL-F8") or (key == "CTRL-8") or (key == "N") or (key == "B") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -461) end
-    if (key == "9") or (key == "CTRL-F4") or (key == "CTRL-F9") or (key == "CTRL-9") or (key == "Y") or (key =="H") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 170, -420) end
-    if (key == "0") or (key == "CTRL-F5") or (key == "CTRL-F10") or (key == "CTRL-0") or (key == "O") or (key =="J") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 5, -420 ) end
-    if (key == "-") or (key == "CTRL-NUMPADMINUS") or (key == "CTRL-NUMPADDIVIDE") or (key == "CTRL-SHIFT-T") or (key == "M") or (key == "Q") or (key == "E") or (key == "W") or (key =="S") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT",12 ,-328 ) end
-    if (key == "=") or (key == "CTRL-NUMPADPLUS") or (key == "CTRL-NUMPADMULTIPLY") or (key == "LSHIFT") or (key == "CTRL-T") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 ) end
-    if (key == "TAB") or (key == "SHIFT-TAB") or (key == "SPACE") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 360, -239) end
-    if (key == "SHIFT-1") or (key == "SHIFT-2") or (key == "SHIFT-3") or (key == "SHIFT-4") or (key == "SHIFT-5") or (key == "SHIFT-6") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 568, -271 ) end
-    if (key == "'") then GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 622, -239 ) end
+    if (key == "1") or (key == "F2") or (key == "CTRL-1") or (key == "NUMPAD7") then 
+        GameTooltip:SetOwner(XIcon ,"ANCHOR_TOPLEFT", 270, -326)
+        XTip01:SetAlpha(.75) 
+    end
+    if (key == "2") or (key == "F3") or (key == "CTRL-2") or (key == "NUMPAD8") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -290)
+        XTip02:SetAlpha(.75) 
+    end
+    if (key == "3") or (key == "F4") or (key == "CTRL-3") or (key == "NUMPAD9") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 319, -363)
+        XTip03:SetAlpha(.75) 
+    end
+    if (key == "4") or (key == "F5") or (key == "CTRL-4") or (key == "NUMPAD2") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 388, -329)
+        XTip04:SetAlpha(.75) 
+    end
+    if (key == "5") or (key == "F1") or (key == "CTRL-5") or (key == "I") or (key == "T") or (key == "F") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 225, -331 )
+        XTip05:SetAlpha(.75) 
+    end
+    if (key == "6") or (key == "CTRL-F1") or (key == "CTRL-F6") or (key == "CTRL-6") or (key == "L") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 115, -331 )
+        XTip06:SetAlpha(.75) 
+    end
+    if (key == "7") or (key == "CTRL-F2") or (key == "CTRL-F7") or (key == "CTRL-7") or (key == "P") or (key == "C") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -348 )
+        XTip07:SetAlpha(.75) 
+    end
+    if (key == "8") or (key == "CTRL-F3") or (key == "CTRL-F8") or (key == "CTRL-8") or (key == "N") or (key == "B") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 95, -461)
+        XTip08:SetAlpha(.75) 
+    end
+    if (key == "9") or (key == "CTRL-F4") or (key == "CTRL-F9") or (key == "CTRL-9") or (key == "Y") or (key =="H") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 170, -400)
+        XTip09:SetAlpha(.75) 
+    end
+    if (key == "0") or (key == "CTRL-F5") or (key == "CTRL-F10") or (key == "CTRL-0") or (key == "O") or (key =="J") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 5, -400 ) 
+        XTip10:SetAlpha(.75) 
+    end
+    if (key == "-") or (key == "CTRL-NUMPADMINUS") or (key == "CTRL-NUMPADDIVIDE") or (key == "CTRL-SHIFT-T") or (key == "M") or (key == "Q") or (key == "E") or (key == "W") or (key =="S") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT",12 ,-313 )
+        XTip11:SetAlpha(.75) 
+    end
+    if (key == "=") or (key == "CTRL-NUMPADPLUS") or (key == "CTRL-NUMPADMULTIPLY") or (key == "LSHIFT") or (key == "CTRL-T") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -397 )
+        XTip12:SetAlpha(.75) 
+    end
+    if (key == "TAB") or (key == "SHIFT-TAB") or (key == "SPACE") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 320, -239)
+        XTip13:SetAlpha(.75) 
+    end
+    if (key == "SHIFT-1") or (key == "SHIFT-2") or (key == "SHIFT-3") or (key == "SHIFT-4") or (key == "SHIFT-5") or (key == "SHIFT-6") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 23, -211  )
+        XTip15:SetAlpha(.75)
+    end
+    if (key == "'") then 
+        GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 50, -239 ) 
+        XTip14:SetAlpha(.75) 
+    end
     if GetBindingAction(key,true) == "" then 
             GameTooltip:SetText(tostring(key).." Not Assigned",1.0,1.0,1.0,true)
         else 
@@ -106,14 +156,6 @@ function s360_OnKey(key)
     GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 )
     GameTooltip:SetText("ITEM COMPARISON",1.0,1.0,1.0)
     GameTooltip:Show()
- elseif (key == "LALT") or (key == "RALT") then 
-    GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 242, -331 )
-    GameTooltip:SetText("ALT",1.0,1.0,1.0)
-    GameTooltip:Show()
- elseif (key == "LCTRL") or (key == "RCTRL") then 
-    GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 242, -331 )
-    GameTooltip:SetText("CTRL",1.0,1.0,1.0)
-    GameTooltip:Show()
  elseif (key == "NUMPAD6") then 
     GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 )
     GameTooltip:SetText("NUMPAD6",1.0,1.0,1.0)
@@ -123,16 +165,217 @@ function s360_OnKey(key)
  end
 end
 
+function SetXTipAlpha()
+    XTip01:SetAlpha(.65)
+    XTip02:SetAlpha(.65)
+    XTip03:SetAlpha(.65)
+    XTip04:SetAlpha(.65)
+    XTip05:SetAlpha(.65)
+    XTip06:SetAlpha(.65)
+    XTip07:SetAlpha(.65)
+    XTip08:SetAlpha(.65)
+    XTip09:SetAlpha(.65)
+    XTip10:SetAlpha(.65)
+    XTip11:SetAlpha(.65)
+    XTip12:SetAlpha(.65)
+    XTip13:SetAlpha(.65)
+    XTip14:SetAlpha(.65)
+    XTip15:SetAlpha(.65) 
+end
+
+function SetXTipInactiveAlpha()
+    XTip01:SetAlpha(1)
+    XTip02:SetAlpha(1)
+    XTip03:SetAlpha(1)
+    XTip04:SetAlpha(1)
+    XTip05:SetAlpha(1)
+    XTip06:SetAlpha(1)
+    XTip07:SetAlpha(1)
+    XTip08:SetAlpha(1)
+    XTip09:SetAlpha(1)
+    XTip10:SetAlpha(1)
+    XTip11:SetAlpha(1)
+    XTip12:SetAlpha(1)
+    XTip13:SetAlpha(1)
+    XTip14:SetAlpha(1)
+    XTip15:SetAlpha(1)
+end
+
+function ShowMap()
+    if (IsAddOnLoaded("Soulbound360")) then
+    CreateFrame("GameTooltip", "XTip01", XIcon, "GameTooltipTemplate")
+    XTip01:SetFrameStrata("MEDIUM")
+    XTip01:SetScale(.70);
+    XTip01:SetOwner(XIcon, "ANCHOR_TOPLEFT", 642, -450 )
+    XTip01:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("1",true) ],1.0,1.0,1.0)
+    XTip01:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-1",true) ],0.0,1.0,1.0)
+    XTip01:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("F2",true) ],1.0,0.0,1.0)
+    XTip01:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("NUMPAD7",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip01:Show()
+    CreateFrame("GameTooltip", "XTip02", XIcon, "GameTooltipTemplate")
+    XTip02:SetFrameStrata("MEDIUM")
+    XTip02:SetScale(.70);
+    XTip02:SetOwner(XIcon, "ANCHOR_TOPLEFT", 588, -373 )
+    XTip02:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("2",true) ],1.0,1.0,1.0)    
+    XTip02:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-2",true) ],0.0,1.0,1.0)
+    XTip02:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("F3") ],1.0,0.0,1.0)
+    XTip02:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("NUMPAD8",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip02:Show()
+    CreateFrame("GameTooltip", "XTip03", XIcon, "GameTooltipTemplate")
+    XTip03:SetFrameStrata("MEDIUM")
+    XTip03:SetScale(.70);
+    XTip03:SetOwner(XIcon, "ANCHOR_TOPLEFT", 523, -613 )
+    XTip03:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("3",true) ],1.0,1.0,1.0)
+    XTip03:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-3",true) ],0.0,1.0,1.0)
+    XTip03:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("F4",true) ],1.0,0.0,1.0)
+    XTip03:AddDoubleLine(3,_G[ "BINDING_NAME_".. GetBindingAction("NUMPAD9",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip03:Show()
+    CreateFrame("GameTooltip", "XTip04", XIcon, "GameTooltipTemplate")
+    XTip04:SetFrameStrata("MEDIUM")
+    XTip04:SetScale(.70);
+    XTip04:SetOwner(XIcon, "ANCHOR_TOPLEFT", 648, -530 )
+    XTip04:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("4",true) ],1.0,1.0,1.0)
+    XTip04:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-4",true) ],0.0,1.0,1.0)
+    XTip04:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("F5",true) ],1.0,0.0,1.0)
+    XTip04:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("NUMPAD2",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip04:Show()
+    CreateFrame("GameTooltip", "XTip05", XIcon, "GameTooltipTemplate")
+    XTip05:SetFrameStrata("MEDIUM")
+    XTip05:SetScale(.70);
+    XTip05:SetOwner(XIcon, "ANCHOR_TOPLEFT", 231, -286 )
+    XTip05:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("5",true) ],1.0,1.0,1.0)
+    XTip05:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-5",true) ],0.0,1.0,1.0)
+    XTip05:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("F1",true) ],1.0,0.0,1.0)
+    XTip05:AddDoubleLine("2",_G[ "BINDING_NAME_".. GetBindingAction("F",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip05:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("I",true) ],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip05:AddDoubleLine("3", _G[ "BINDING_NAME_".. GetBindingAction("T",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip05:Show()
+    CreateFrame("GameTooltip", "XTip06", XIcon, "GameTooltipTemplate")
+    XTip06:SetFrameStrata("MEDIUM")
+    XTip06:SetScale(.70);
+    XTip06:SetOwner(XIcon, "ANCHOR_TOPLEFT", 506, -221  )
+    XTip06:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("6",true) ],1.0,1.0,1.0)
+    XTip06:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-6",true) ],0.0,1.0,1.0)
+    XTip06:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F1",true) ],1.0,0.0,1.0)
+    XTip06:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("L",true) ],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip06:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F6",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip06:Show()
+    CreateFrame("GameTooltip", "XTip07", XIcon, "GameTooltipTemplate")
+    XTip07:SetFrameStrata("MEDIUM")
+    XTip07:SetScale(.70);
+    XTip07:SetOwner(XIcon, "ANCHOR_TOPLEFT",-153, -626 )
+    XTip07:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("7",true) ],1.0,1.0,1.0)
+    XTip07:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-7",true) ],0.0,1.0,1.0)
+    XTip07:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F2",true) ],1.0,0.0,1.0)
+    XTip07:AddDoubleLine("2",_G[ "BINDING_NAME_".. GetBindingAction("C",true) ],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip07:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("P",true) ],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip07:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F7",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip07:Show()
+    CreateFrame("GameTooltip", "XTip08", XIcon, "GameTooltipTemplate")
+    XTip08:SetFrameStrata("MEDIUM")
+    XTip08:SetScale(.70);
+    XTip08:SetOwner(XIcon, "ANCHOR_TOPLEFT", -30, -743 )
+    XTip08:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("8",true) ],1.0,1.0,1.0)
+    XTip08:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-8",true) ],0.0,1.0,1.0)
+    XTip08:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F3",true) ],1.0,0.0,1.0)
+    XTip08:AddDoubleLine("2", _G[ "BINDING_NAME_".. GetBindingAction("B",true) ],1,1,1,0.0,1.0,1.0)
+    XTip08:AddDoubleLine("3", _G[ "BINDING_NAME_".. GetBindingAction("N",true) ],1,1,1,0.0,1.0,1.0)
+    XTip08:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F8",true) ],1,1,1,1.0,0.0,1.0)
+    XTip08:Show()
+    CreateFrame("GameTooltip", "XTip09", XIcon, "GameTooltipTemplate")
+    XTip09:SetFrameStrata("MEDIUM")
+    XTip09:SetScale(.70);
+    XTip09:SetOwner(XIcon, "ANCHOR_TOPLEFT", 333, -853 )
+    XTip09:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("9",true) ],1.0,1.0,1.0)
+    XTip09:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-9",true) ],0.0,1.0,1.0)
+    XTip09:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F4",true) ],1.0,0.0,1.0)
+    XTip09:AddDoubleLine("2",_G[ "BINDING_NAME_".. GetBindingAction("L",true) ],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip09:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("Y",true) ],1.0,1,1.0,0.0,1.0,1.0)
+    XTip09:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F9",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip09:Show()
+    CreateFrame("GameTooltip", "XTip10", XIcon, "GameTooltipTemplate")
+    XTip10:SetFrameStrata("MEDIUM")
+    XTip10:SetScale(.70);
+    XTip10:SetOwner(XIcon, "ANCHOR_TOPLEFT", 90, -853 )
+    XTip10:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("0",true) ],1.0,1.0,1.0)
+    XTip10:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-0",true) ],0.0,1.0,1.0)
+    XTip10:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F5",true) ],1.0,0.0,1.0)
+    XTip10:AddDoubleLine("2",_G[ "BINDING_NAME_".. GetBindingAction("J",true) ],1,1,1,0.0,1.0,1.0)
+    XTip10:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("O",true) ],1,1,1,0.0,1.0,1.0)
+    XTip10:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("CTRL-F10",true) ],1,1,1,1.0,0.0,1.0)
+    XTip10:Show()
+    CreateFrame("GameTooltip", "XTip11", XIcon, "GameTooltipTemplate")
+    XTip11:SetFrameStrata("MEDIUM")
+    XTip11:SetScale(.70);
+    XTip11:SetOwner(XIcon, "ANCHOR_TOPLEFT", -189, -505 ) 
+    XTip11:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("-",true) ],1.0,1.0,1.0)
+    XTip11:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-SHIFT-T",true) ],0.0,1.0,1.0)
+    XTip11:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("ESCAPE",true) ],1.0,0.0,1.0)
+    XTip11:AddDoubleLine("2",_G["BINDING_NAME_".. GetBindingAction("CTRL-NUMPADMINUS",true)],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip11:AddDoubleLine("2",_G["BINDING_NAME_".. GetBindingAction("M",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip11:AddDoubleLine("3",_G["BINDING_NAME_".. GetBindingAction("CTRL-NUMPADDIVIDE",true)],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip11:AddDoubleLine("3",_G["BINDING_NAME_".. GetBindingAction("MOUSEWHEELUP",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip11:Show()
+    CreateFrame("GameTooltip", "XTip12", XIcon, "GameTooltipTemplate")
+    XTip12:SetOwner(XIcon, "ANCHOR_TOPLEFT", 461, -744 )
+    XTip12:SetFrameStrata("MEDIUM")
+    XTip12:SetScale(.70);
+    XTip12:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("=",true) ],1.0,1.0,1.0)
+    XTip12:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("CTRL-T",true) ],0.0,1.0,1.0)
+    XTip12:AddLine("Push To Talk (NUMBER PAD 6)",1.0,0.0,1.0)
+    XTip12:AddDoubleLine("2",_G[ "BINDING_NAME_".. GetBindingAction("CTRL-NUMPADMULTIPLY",true) ],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip12:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("CTRL-NUMPADPLUS",true) ],1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip12:AddDoubleLine("2","SHIFT",1.0,1.0,1.0,1.0,0.0,1.0)    
+    XTip12:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("MOUSEWHEELDOWN",true) ],1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip12:Show()
+    CreateFrame("GameTooltip", "XTip13", XIcon, "GameTooltipTemplate")
+    XTip13:SetFrameStrata("MEDIUM")
+    XTip13:SetScale(.70);
+    XTip13:SetOwner(XIcon, "ANCHOR_TOPLEFT", 570, -291  )
+    XTip13:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("TAB",true) ] ,1.0,1.0,1.0)
+    XTip13:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("SHIFT-TAB",true) ] ,1.0,0.0,1.0)
+    XTip13:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("SPACE",true) ]  ,1.0,1.0,1.0,1.0,1.0,1.0)
+    XTip13:Show()
+    CreateFrame("GameTooltip", "XTip14", XIcon, "GameTooltipTemplate")
+    XTip14:SetFrameStrata("MEDIUM")
+    XTip14:SetScale(.70);
+    XTip14:SetOwner(XIcon, "ANCHOR_TOPLEFT", -87, -370  ) 
+    XTip14:AddLine("Right Click" ,1.0,1.0,1.0)
+    XTip14:AddLine("Left Click" ,0.0,1.0,1.0)
+    XTip14:AddLine("Autorun (Doubletap)" ,0.0,1.0,1.0)
+    XTip14:AddDoubleLine("3","Follow (Doubletap)" ,1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip14:Show()
+    CreateFrame("GameTooltip", "XTip15", XIcon, "GameTooltipTemplate")
+    XTip15:SetFrameStrata("MEDIUM")
+    XTip15:SetScale(.70);
+    XTip15:SetOwner(XIcon, "ANCHOR_TOPLEFT", 23, -251 )
+    XTip15:AddLine(_G[ "BINDING_NAME_".. GetBindingAction("SHIFT-1",true) ] ,1.0,1.0,1.0)
+    XTip15:AddDoubleLine("2",_G[ "BINDING_NAME_".. GetBindingAction("SHIFT-3",true) ] ,1.0,1.0,1.0,1.0,1.0,1.0)
+    XTip15:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("SHIFT-2",true) ] ,1.0,1.0,1.0,1.0,1.0,1.0)
+    XTip15:AddDoubleLine("2",_G[ "BINDING_NAME_".. GetBindingAction("SHIFT-6",true) ] ,1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip15:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("SHIFT-4",true) ] ,1.0,1.0,1.0,0.0,1.0,1.0)
+    XTip15:AddDoubleLine("3",_G[ "BINDING_NAME_".. GetBindingAction("SHIFT-5",true) ] ,1.0,1.0,1.0,1.0,0.0,1.0)
+    XTip15:Show()
+    if EnableActiveMap == 1 then
+        SetXTipAlpha()
+    else
+        SetXTipInactiveAlpha()
+    end
+    end
+end
+
 function BindingRefresh(event)
     if event == "UPDATE_BINDINGS" then
         if InCombatLockdown() ~= 1 then
             if EnableUserKeys == 0 then
                 ClearOverrideBindings(UIParent)
                 BindingOverrideSequence() 
+                ShowMap()
             else
                 ClearOverrideBindings(UIParent)
                 BindingOverrideSequence() 
                 BindingChainOverrideSequence() 
+                ShowMap()
             end
         end
     end
@@ -190,11 +433,13 @@ function ActiveMap()
         XIcon:EnableKeyboard(false)
         XIcon:EnableMouse(false)
         XIcon:EnableMouseWheel(1) 
+        SetXTipInactiveAlpha()
     else
         EnableActiveMap = 1
         XIcon:EnableKeyboard(true)
         XIcon:EnableMouse(true)
-        XIcon:EnableMouseWheel(1) 
+        XIcon:EnableMouseWheel(1)
+        SetXTipAlpha()
     end
 end
 
@@ -311,6 +556,7 @@ function BindingOverrideSequence()
         SetOverrideBinding(UIParent,false,"J", "TOGGLEGUILDTAB")
         SetOverrideBinding(UIParent,false,"O", "TOGGLESOCIAL")
         SetOverrideBinding(UIParent,false,"M", "TOGGLEWORLDMAP")
+        SetOverrideBinding(UIParent,false,".", "TARGETMOUSEOVER")
 end
 
 function BindingChainOverrideSequence()
@@ -380,4 +626,5 @@ function BindingChainOverrideSequence()
         if GetBindingAction("J")  ~= "" then SetOverrideBinding(UIParent,true,"J", GetBindingAction("J")) end
         if GetBindingAction("O")  ~= "" then SetOverrideBinding(UIParent,true,"O", GetBindingAction("O")) end
         if GetBindingAction("M")  ~= "" then SetOverrideBinding(UIParent,true,"M", GetBindingAction("M")) end
+        if GetBindingAction(".")  ~= "" then SetOverrideBinding(UIParent,true,".", GetBindingAction(".")) end
 end
