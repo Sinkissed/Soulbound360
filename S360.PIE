@@ -1,23 +1,10 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.52
+//0.52a
 
-//PushToTalkKey is your Ventrillo or Teamspeak push to talk key.
+//PushToTalkKey is your Ventrilo or Teamspeak push to talk key.
 //It stays on till pressed again.
-key.NUMPAD0 = var.PushToTalkKey
-
-//SwapJoysticks makes joysticks opposite.
-//Use if you are left handed.
-var.SwapJoysticks = false
-
-//SwapShoulders makes shoulders opposite
-//Use if you are left-handed.
-var.SwapShoulders = false
-
-//SwapMouseButtons changes the mouse click button.
-//One click can only be available with a modifier.
-//If you're melee use false. If you heal use true.
-var.SwapMouseButtons = false
+key.NUMPAD5 = var.PushToTalkKey
 
 //This is the order of the action bars when the trigger is pressed.
 shift+key.1+release(shift) = var.BarOff
@@ -26,6 +13,23 @@ shift+key.5+release(shift) = var.BarFullModifiedFull
 shift+key.3+release(shift) = var.BarHalf
 shift+key.4+release(shift) = var.BarHalfModifiedFull
 shift+key.6+release(shift) = var.BarHalfModifiedHalf
+
+//SeparateClicks makes left click on top of the top right shoulder
+//instead of under a modifier
+//this makes it much easier to click heal
+var.SeparateClicks = false
+
+//SwapMouseButtons switches the position of the mouse click button.
+//One click can only be available with a modifier.
+var.SwapMouseButtons = false
+
+//SwapJoysticks makes joysticks opposite.
+//Use if you are left handed.
+var.SwapJoysticks = false
+
+//SwapShoulders makes shoulders opposite
+//Use if you are left-handed.
+var.SwapShoulders = false
 
 //A lower value here will make the mouse move faster.
 var.MouseSensitivity = screen.width/32
@@ -182,6 +186,7 @@ elseif released(Var.RB) or released(Var.RT) or (HeldDown(var.RB,.1))
 endif
 
 //CLICK BINDINGS
+if var.SeparateClicks == false
 if var.SwapMouseButtons == true then
    //right mouse button
    if Mouse.RightButton==false&&var.LB&&var.LT==true then
@@ -190,7 +195,14 @@ if var.SwapMouseButtons == true then
       elseif Mouse.RightButton==true&&var.LB then
          Mouse.RightButton=1
       elseif Mouse.RightButton==true&&released(var.LB) then
+                  if var.MiddleX&&var.LT then
+            alt = 1
+         elseif var.MiddleX then
+            ctrl = 1
+         endif
          release(Mouse.RightButton)
+               release(ctrl)
+      release(alt)
    endif
    //left mouse button
    if Mouse.LeftButton==false&&var.LB&&var.LT==false&&Mouse.RightButton==false then
@@ -198,7 +210,14 @@ if var.SwapMouseButtons == true then
    elseif Mouse.LeftButton==true&&var.LB then
       Mouse.LeftButton=1
    elseif Mouse.LeftButton==true&&released(var.LB) then
+            if var.MiddleX&&var.LT then
+            alt = 1
+         elseif var.MiddleX then
+            ctrl = 1
+         endif
       release(Mouse.LeftButton)
+            release(ctrl)
+      release(alt)
    endif
 else
    //right mouse button
@@ -207,8 +226,53 @@ else
       Mouse.RightButton=1
    elseif Mouse.RightButton==true&&var.LB then
       if Mouse.LeftButton then release(Mouse.LeftButton)
-      Mouse.RightButton=1
+         Mouse.RightButton=1
       elseif Mouse.RightButton==true&&released(var.LB) then
+         if var.MiddleX&&var.LT then
+            alt = 1
+         elseif var.MiddleX then
+            ctrl = 1
+         endif
+      release(Mouse.RightButton)
+      release(ctrl)
+      release(alt)
+   endif
+   if Mouse.LeftButton==false&&var.LB&&var.LT==true&&Mouse.RightButton==false then
+      press(Mouse.LeftButton)
+   elseif Mouse.LeftButton==true&&var.LB&&Mouse.RightButton==false then
+      Mouse.LeftButton=1
+   elseif Mouse.LeftButton==true&&(released(var.LB) or released(var.LT) or pressed(Mouse.RightButton))  then
+      if var.MiddleX&&var.LT then
+         alt = 1
+      elseif var.MiddleX then
+         ctrl = 1
+      endif
+      release(Mouse.LeftButton)
+      release(ctrl)
+      release(alt)
+   endif
+endif
+else
+if var.SwapMouseButtons == true then
+   if Mouse.LeftButton==false&&var.LB&&var.LT==false then
+      Mouse.LeftButton=1
+   elseif Mouse.LeftButton==true&&var.LB then
+         Mouse.LeftButton=1
+      elseif Mouse.LeftButton==true&&released(var.LB) then
+         if var.MiddleX&&var.LT then
+            alt = 1
+         elseif var.MiddleX then
+            ctrl = 1
+         endif
+      release(Mouse.LeftButton)
+      release(ctrl)
+      release(alt)
+   endif
+   if Mouse.RightButton==false&&var.RB==true&&var.Type3==false then
+      press(Mouse.RightButton)
+   elseif Mouse.RightButton==true&&var.RB&&var.Type3==false then
+      Mouse.RightButton=1
+   elseif Mouse.RightButton==true&&released(var.RB) then
       if var.MiddleX&&var.LT then
          alt = 1
       elseif var.MiddleX then
@@ -218,11 +282,26 @@ else
       release(ctrl)
       release(alt)
    endif
-   if Mouse.LeftButton==false&&var.LB&&var.LT==true&&Mouse.RightButton==false then
+else
+   if Mouse.RightButton==false&&var.LB&&var.LT==false then
+      Mouse.RightButton=1
+   elseif Mouse.RightButton==true&&var.LB then
+         Mouse.RightButton=1
+      elseif Mouse.RightButton==true&&released(var.LB) then
+         if var.MiddleX&&var.LT then
+            alt = 1
+         elseif var.MiddleX then
+            ctrl = 1
+         endif
+      release(Mouse.RightButton)
+      release(ctrl)
+      release(alt)
+   endif
+   if Mouse.LeftButton==false&&var.RB==true&&var.Type3==false then
       press(Mouse.LeftButton)
-   elseif Mouse.LeftButton==true&&var.LB&&Mouse.RightButton==false then
+   elseif Mouse.LeftButton==true&&var.RB&&var.Type3==false then
       Mouse.LeftButton=1
-   elseif Mouse.LeftButton==true&&(released(var.LB) or released(var.LT) or pressed(Mouse.RightButton)) then
+   elseif Mouse.LeftButton==true&&released(var.RB) then
       if var.MiddleX&&var.LT then
          alt = 1
       elseif var.MiddleX then
@@ -232,6 +311,7 @@ else
       release(ctrl)
       release(alt)
    endif
+endif
 endif
 
 //KEYBOARD BINDINGS
@@ -248,7 +328,7 @@ if Var.Type1==true then
      Key.Zero = pressed(Var.DLeft)
      Key.Minus = pressed(Var.LThumb)
      Key.Equals = pressed(Var.RThumb)
-     if var.RT=0 then Key.Tab = pressed(var.RB)
+     if var.RT=0&&var.SeparateClicks == false then Key.Tab = pressed(var.RB)
      var.BarOff = pressed(var.Bar1)
      var.BarFull = pressed(var.Bar3)
      var.BarHalf = pressed(var.Bar2)
@@ -295,7 +375,7 @@ elseif var.Type3==true then
      Ctrl+F3 = pressed(Var.DDown) and not Var.Bar3
      Ctrl+F4 = pressed(Var.DRight) and not Var.Bar3
      Ctrl+F5 = pressed(Var.DLeft) and not Var.Bar3
-     Key.NUMPAD5 = pressed(Var.Start) and Var.Bar3
+     Key.f = pressed(Var.Start) and Var.Bar3
      Key.NUMPAD1 = pressed(Var.X) and Var.Bar3
      Key.NUMPAD2 = pressed(Var.Y) and Var.Bar3
      Key.NUMPAD3 = pressed(Var.A) and Var.Bar3
@@ -305,7 +385,8 @@ elseif var.Type3==true then
      Ctrl+F8 = pressed(Var.DDown) and Var.Bar3
      Ctrl+F9 = pressed(Var.DRight) and Var.Bar3
      Ctrl+F10 = pressed(Var.DLeft) and Var.Bar3
-     if var.RT=0 then Shift+Tab = pressed(var.RB)
+     if var.RT=0&&var.SeparateClicks == false then Shift+Tab = pressed(var.RB)
+     if var.RT=0&&var.SeparateClicks == true then Tab = pressed(var.RB)
      if var.bar2 then
         key.m = pressed(Var.Lthumb)
         shift = Var.Rthumb

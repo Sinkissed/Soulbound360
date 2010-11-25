@@ -114,9 +114,9 @@ function s360_OnKey(key)
     GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 242, -331 )
     GameTooltip:SetText("CTRL",1.0,1.0,1.0)
     GameTooltip:Show()
- elseif (key == "BACKSPACE") then 
+ elseif (key == "NUMPAD5") then 
     GameTooltip:SetOwner(XIcon, "ANCHOR_TOPLEFT", 240, -417 )
-    GameTooltip:SetText("BACKSPACE",1.0,1.0,1.0)
+    GameTooltip:SetText("NUMPAD5",1.0,1.0,1.0)
 	GameTooltip:AddLine("voice chat push to talk",1.0,1.0,1.0)
 	GameTooltip:AddLine("toggles on or off",1.0,1.0,1.0)
     GameTooltip:Show()
@@ -295,7 +295,7 @@ function BindingOverrideSequence()
         SetOverrideBinding(UIParent,false,"T", "ATTACKTARGET")
         SetOverrideBinding(UIParent,false,"F", "ASSISTTARGET")
 		SetOverrideBinding(UIParent,false,"ESCAPE", "TOGGLEGAMEMENU")	
-        SetOverrideBinding(UIParent,false,"NUMPAD0", "")
+        SetOverrideBinding(UIParent,false,"NUMPAD5", "")
         SetOverrideBinding(UIParent,false,"NUMPAD1", "MULTICASTSUMMONBUTTON1")
         SetOverrideBinding(UIParent,false,"NUMPAD2", "MULTICASTSUMMONBUTTON2")
         SetOverrideBinding(UIParent,false,"NUMPAD3", "MULTICASTSUMMONBUTTON3")
@@ -353,7 +353,7 @@ function BindingChainOverrideSequence()
         if GetBindingAction("T") ~= "" then SetOverrideBinding(UIParent,true,"T", GetBindingAction("T")) end
         if GetBindingAction("F") ~= "" then SetOverrideBinding(UIParent,true,"F", GetBindingAction("F")) end
 		if GetBindingAction("ESCAPE") ~= "" then SetOverrideBinding(UIParent,true,"ESCAPE", GetBindingAction("ESCAPE")) end
-        if GetBindingAction("NUMPAD0")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD0", GetBindingAction("NUMPAD0")) end
+        if GetBindingAction("NUMPAD5")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD5", GetBindingAction("NUMPAD5")) end
         if GetBindingAction("NUMPAD1")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD1", GetBindingAction("NUMPAD1")) end
         if GetBindingAction("NUMPAD2")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD2", GetBindingAction("NUMPAD2")) end
         if GetBindingAction("NUMPAD3")  ~= "" then SetOverrideBinding(UIParent,true,"NUMPAD3", GetBindingAction("NUMPAD3")) end

@@ -1,8 +1,5 @@
 Soulbound360 is a World of Warcraft addon for playing WoW with your Xbox360 controller. The addon itself is text files however USING THE CONTROLLER WITH WOW REQUIRES ANOTHER PROGRAM.
 
-video demonstration
-http://www.youtube.com/watch?v=Q0ZdRFJZVOA&fmt=22
-
 Setup
 
 1 Install the addon into your Interface/AddOns directory as usual.
@@ -31,6 +28,10 @@ Bottom left shoulder modifies all the other buttons
 -Pressing both right or left shoulders lets you jump or autorun.
 
 There are many more controls and combinations handed by the gamepad. Some controls can also be altered in the PIE file. A full diagram is displayed in game and can be toggled inside of the Interface/Addons menu. Have fun!
+
+v0.52a
+* Changed PushToTalk to NUMPAD5, 0 was taken
+* Added option for left click to go to right shoulder
 
 v0.52
 * Shaman totem calls and totemic recall now supported
