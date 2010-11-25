@@ -84,6 +84,13 @@ InterfaceOptions_AddCategory(s360.panel);
 PanelLabel = s360.panel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 PanelLabel:SetText("Soulbound360");
 PanelLabel:SetPoint("TOPLEFT", 24, -16);
+s360.panel.texture = s360.panel:CreateTexture(nil,"BACKGROUND");
+s360.panel.texture:SetTexture("Interface\\Addons\\Soulbound360\\controller.tga");
+s360.panel.texture:SetAllPoints(s360.panel)
+s360.panel.overlay = s360.panel:CreateTexture(nil,"OVERLAY");
+s360.panel.overlay:SetTexture("Interface\\Addons\\Soulbound360\\controllertext.tga");
+s360.panel.overlay:SetAllPoints(s360.panel)
+
 
 
 function HideClick()
