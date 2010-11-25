@@ -1,0 +1,146 @@
+﻿//0.12 significant changes
+//
+// stopped joy1 Y motion from swallowing fwd/backwd keyboard keys
+//
+//key bindings should be default
+//these keys should be added
+//ctrl-f follow target
+//ctrl-shift-t focus target
+//ctrl-t target focus
+
+//analog mouse sensitivity set relative to screen size
+//try to change the mouse sensitivity in the game first if its wrong
+var.MouseSensitivity = screen.width/32
+
+//these keys are global and dont change with modifiers
+Key.q = (-1.2 < Joystick1.x < -0.5)     //strafe left is left stick left
+Key.e = (0.5 < Joystick1.x < 1.2)       //strafe right is left stick right
+
+//right analog stick mouse
+if (Joystick1.pitch > .07) mouse.cursorPosx += var.MouseSensitivity^(Joystick1.pitch)     //cursor right
+if (Joystick1.pitch < -.07) mouse.cursorPosx -= -var.MouseSensitivity^1*(Joystick1.pitch) //cursor left
+if (Joystick1.yaw > .07) mouse.cursorPosy += var.MouseSensitivity^(Joystick1.yaw)         //cursor down
+if (Joystick1.yaw < -.07) mouse.cursorPosy -= -var.MouseSensitivity^1*(Joystick1.yaw)     //cursor up
+
+//vibrate when action bar 1 is activated so we know without looking
+if pressed(Joystick1.Button3) && (Joystick1.Button12 = 1) && (Joystick1.Button13 = 0)
+   Joystick1.Vibration2 = .35
+   Joystick1.Vibration1 = .35
+   wait 150ms
+   Joystick1.Vibration2 = 0
+   Joystick1.Vibration1 = 0
+endif
+
+if Joystick1.Button13==0
+//no modifier button assignment 1-0
+    if Joystick1.Button12==0
+    Key.One = Joystick1.Button3
+    Key.Two = Joystick1.Button4
+    Key.Three = Joystick1.Button1
+    Key.Four = Joystick1.Button2
+    Key.Five = Joystick1.Button8
+    Key.Six = Joystick1.Button7
+    Key.Seven = Joystick1.Pov1Up
+    Key.Eight = Joystick1.Pov1Down
+    Key.Nine = Joystick1.Pov1Right
+    Key.Zero = Joystick1.Pov1Left
+    else
+    Shift+One = pressed(Joystick1.Button3)
+    Shift+Two = pressed(Joystick1.Button4)
+    Shift+Three = pressed(Joystick1.Button1)
+    Shift+Four = pressed(Joystick1.Button2)
+    Shift+Five = pressed(Joystick1.Button8)
+    Shift+Six = pressed(Joystick1.Button7)
+    Shift+Seven = pressed(Joystick1.Pov1Up)
+    Shift+Eight = pressed(Joystick1.Pov1Down)
+    Shift+Nine = pressed(Joystick1.Pov1Right)
+    Shift+Zero = pressed(Joystick1.Pov1Left)
+    endif
+    //left analog stick forward and backward
+if key.w==0 and Joystick1.y
+   key.w = (-1.2 < Joystick1.y < -0.5)
+elseif pressed(Joystick1.y>-0.5)
+   release(key.w)
+endif
+
+if key.s==0 and Joystick1.y
+   key.s = (0.5 < Joystick1.y < 1.2)
+elseif pressed(Joystick1.y<0.5)
+   release(key.s)
+endif
+
+//left shoulders mouse buttons
+    if Mouse.RightButton==0&&Joystick1.Button12==0&&Joystick1.Button13==0
+        Mouse.RightButton = Joystick1.Button5
+    elseif Mouse.RightButton==0&&Joystick1.Button12
+       Shift+Mouse.RightButton = pressed(Joystick1.Button5)+Joystick1.Button12
+    elseif Released(Joystick1.Button5)
+        Mouse.Rightbutton=0
+    endif
+
+    if Mouse.LeftButton==0&&Joystick1.Button12==0&&Joystick1.Button13==0
+       Mouse.LeftButton = Joystick1.Button11
+    elseif Mouse.LeftButton==0&&Joystick1.Button12
+       Shift+Mouse.LeftButton = pressed(Joystick1.Button11)+Joystick1.Button11
+    elseif Released(Joystick1.Button11)
+        Mouse.Leftbutton=0
+    endif
+
+//shift button modifier assignment
+    if Joystick1.Button6==1&&Joystick1.Button12==1
+        Key.Spacebar=1
+    else
+        Key.Spacebar=0                          //quit jumping ffs
+    endif
+    if Joystick1.Button12==0
+        Key.Minus = Joystick1.Button9
+        Key.Equals = Joystick1.Button10
+        Key.Tab = Joystick1.Button6
+    else
+        Mouse.WheelUp = pressed(Joystick1.Button9)+Joystick1.Button12
+        Mouse.WheelDown = pressed(Joystick1.Button10)+Joystick1.Button12
+    endif
+else
+//xbox guide button modifier
+    if Joystick1.Button12==0
+        Key.F1 = Joystick1.Button8
+        Key.F2 = Joystick1.Button3
+        Key.F3 = Joystick1.Button4
+        Key.F4 = Joystick1.Button1
+        Key.F5 = Joystick1.Button2
+        Key.F = Joystick1.Button9
+        Shift+Tab = pressed(Joystick1.Button6)
+        Ctrl+Shift+T = pressed(Joystick1.Button7)
+        Ctrl+NumPadPlus = pressed(Joystick1.Pov1Up)
+        Ctrl+NumPadMinus =  pressed(Joystick1.Pov1Down)
+        Ctrl+Multiply =  pressed(Joystick1.Pov1Right)
+        Ctrl+Divide =  pressed(Joystick1.Pov1Left)
+        if pressed(Joystick1.Button10) then Toggle(Key.T)
+        if key.w==0 and Joystick1.y
+           key.w = (-1.2 < Joystick1.y < -0.5)
+        elseif pressed(Joystick1.y>-0.5)
+           release(key.w)
+        endif
+        if key.s==0 and Joystick1.y
+           key.s = (0.5 < Joystick1.y < 1.2)
+        elseif pressed(Joystick1.y<0.5)
+           release(key.s)
+        endif
+    else
+        Ctrl+T = pressed(Joystick1.Button6)
+        Ctrl+One =  pressed(Joystick1.Button3)
+        Ctrl+Two =  pressed(Joystick1.Button4)
+        Ctrl+Three =  pressed(Joystick1.Button1)
+        Ctrl+Four =  pressed(Joystick1.Button2)
+        Ctrl+Five =  pressed(Joystick1.Button8)
+        Ctrl+Six = pressed(Joystick1.Button7)
+        Ctrl+Seven = pressed(Joystick1.Pov1Up)
+        Ctrl+Eight = pressed(Joystick1.Pov1Down)
+        Ctrl+Nine = pressed(Joystick1.Pov1Right)
+        Ctrl+Zero = pressed(Joystick1.Pov1Left)
+        Key.Ctrl+L = pressed(Joystick1.Button9)
+        if Pressed(Joystick1.Button10) then Toggle(Shift+T)
+        Mouse.Button4 = (-1.2 < Joystick1.y < -0.5)
+        Key.Ctrl+F = pressed(0.5 < Joystick1.y < 1.2)
+    endif
+endif
