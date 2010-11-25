@@ -8,6 +8,9 @@ function RegisterKeys:OnEvent(event, arg1)
             BindingOverrideSequence() 
         elseif EnableUserKeys == 0 then
             BindingOverrideSequence() 
+        else
+            BindingOverrideSequence()
+            BindingChainOverrideSequence()
         end
         if HideButton == nil then
             HideButton = 1
@@ -25,7 +28,6 @@ function RegisterKeys:OnEvent(event, arg1)
     end
     EnableUserKeysButton:SetChecked(EnableUserKeys)
     Hide360Button:SetChecked(HideButton)
-    --Hide360Button:SetChecked(HideButton)
 end
 
 RegisterKeys:SetScript("OnEvent", RegisterKeys.OnEvent);
@@ -62,6 +64,19 @@ function s360_OnKey(key)
  end
 end
 
+function BindingRefresh(event)
+    if event == "UPDATE_BINDINGS" then
+        if EnableUserKeys == 0 then
+            ClearOverrideBindings(UIParent)
+            BindingOverrideSequence() 
+        else
+            ClearOverrideBindings(UIParent)
+            BindingOverrideSequence() 
+            BindingChainOverrideSequence() 
+        end
+    end
+end
+
 s360 = {};
 s360.panel = CreateFrame( "Frame", "Soulbound360Panel", UIParent);
 s360.panel.name = "Soulbound360";
@@ -69,6 +84,7 @@ InterfaceOptions_AddCategory(s360.panel);
 PanelLabel = s360.panel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
 PanelLabel:SetText("Soulbound360");
 PanelLabel:SetPoint("TOPLEFT", 24, -16);
+
 
 function HideClick()
     if HideButton == 1 then
@@ -97,6 +113,7 @@ function ResetClick()
     PosClick();
     HideButton = 1
     EnableUserKeys = 0
+    ClearOverrideBindings(UIParent)
     BindingOverrideSequence() 
     EnableUserKeysButton:SetChecked(EnableUserKeys)
     Hide360Button:SetChecked(HideButton)
@@ -104,10 +121,11 @@ end
 
 function UserKeys()
     if EnableUserKeys == 0 then
-        EnableUserKeys = 1
-        ClearOverrideBindings(UIParent)
+        EnableUserKeys = 1    
+        BindingChainOverrideSequence()
     else
         EnableUserKeys = 0
+        ClearOverrideBindings(UIParent)
         BindingOverrideSequence()        
     end
 end
@@ -123,7 +141,7 @@ Hide360Button:SetFontString(ButtonLabel1);
 
 EnableUserKeysButton = CreateFrame("CheckButton", "EnableUserKeysButton", s360.panel, "ChatConfigCheckButtonTemplate");
 EnableUserKeysButton:SetPoint("TOPLEFT", 20, -74);
-EnableUserKeysButton.tooltip = "Select to allow account Key Bindings instead of Soulbound360's bindings";
+EnableUserKeysButton.tooltip = "Check to allow Key Bindings set in WoW to take priority over Soulbound360's automatic bindings";
 EnableUserKeysButton:SetScript("OnClick",UserKeys);
 ButtonLabel2 = EnableUserKeysButton:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 ButtonLabel2:SetText("Enable user-defined keys");
@@ -193,9 +211,61 @@ function BindingOverrideSequence()
         SetOverrideBinding(UIParent,false,"CTRL-T", "TARGETFOCUS")
         SetOverrideBinding(UIParent,false,"TAB", "TARGETNEARESTENEMY")
         SetOverrideBinding(UIParent,false,"SHIFT-TAB", "TARGETPREVIOUSENEMY")
-        SetOverrideBinding(UIParent,false,"MOUSEWHEELDOWN", "CAMERAZOOMIN")
-        SetOverrideBinding(UIParent,false,"MOUSEWHEELUP", "CAMERAZOOMOUT")
+        SetOverrideBinding(UIParent,false,"MOUSEWHEELDOWN", "CAMERAZOOMOUT")
+        SetOverrideBinding(UIParent,false,"MOUSEWHEELUP", "CAMERAZOOMIN")
         SetOverrideBinding(UIParent,false,"SHIFT-T", "PETATTACK")
         SetOverrideBinding(UIParent,false,"T", "ATTACKTARGET")
         SetOverrideBinding(UIParent,false,"F", "ASSISTTARGET")
+end
+
+function BindingChainOverrideSequence()
+        if GetBindingAction("W", false) ~= "" then SetOverrideBinding(UIParent,true,"W", GetBindingAction("W", false)) end
+        if GetBindingAction("S") ~= "" then SetOverrideBinding(UIParent,true,"S", GetBindingAction("S")) end
+        if GetBindingAction("Q") ~= "" then SetOverrideBinding(UIParent,true,"Q", GetBindingAction("Q")) end
+        if GetBindingAction("E") ~= "" then SetOverrideBinding(UIParent,true,"E", GetBindingAction("E")) end
+        if GetBindingAction("SPACE") ~= "" then SetOverrideBinding(UIParent,true,"SPACE", GetBindingAction("SPACE")) end
+        if GetBindingAction("'") ~= "" then SetOverrideBinding(UIParent,true,"'", GetBindingAction("'")) end
+        if GetBindingAction("BUTTON4") ~= "" then SetOverrideBinding(UIParent,true,"BUTTON4", GetBindingAction("BUTTON4")) end
+        if GetBindingAction("1") ~= "" then SetOverrideBinding(UIParent,true,"1", GetBindingAction("1")) end
+        if GetBindingAction("2") ~= "" then SetOverrideBinding(UIParent,true,"2", GetBindingAction("2")) end
+        if GetBindingAction("3") ~= "" then SetOverrideBinding(UIParent,true,"3", GetBindingAction("3")) end
+        if GetBindingAction("4") ~= "" then SetOverrideBinding(UIParent,true,"4", GetBindingAction("4")) end
+        if GetBindingAction("5") ~= "" then SetOverrideBinding(UIParent,true,"5", GetBindingAction("5")) end
+        if GetBindingAction("6") ~= "" then SetOverrideBinding(UIParent,true,"6", GetBindingAction("6")) end
+        if GetBindingAction("7") ~= "" then SetOverrideBinding(UIParent,true,"7", GetBindingAction("7")) end
+        if GetBindingAction("8") ~= "" then SetOverrideBinding(UIParent,true,"8", GetBindingAction("8")) end
+        if GetBindingAction("9") ~= "" then SetOverrideBinding(UIParent,true,"9", GetBindingAction("9")) end
+        if GetBindingAction("0") ~= "" then SetOverrideBinding(UIParent,true,"0", GetBindingAction("0")) end
+        if GetBindingAction("-") ~= "" then SetOverrideBinding(UIParent,true,"-", GetBindingAction("-")) end
+        if GetBindingAction("=") ~= "" then SetOverrideBinding(UIParent,true,"=", GetBindingAction("=")) end
+        if GetBindingAction("SHIFT-1") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-1", GetBindingAction("SHIFT-1")) end
+        if GetBindingAction("SHIFT-2") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-2", GetBindingAction("SHIFT-2")) end
+        if GetBindingAction("SHIFT-3") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-3", GetBindingAction("SHIFT-3")) end
+        if GetBindingAction("SHIFT-4") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-4", GetBindingAction("SHIFT-4")) end
+        if GetBindingAction("SHIFT-5") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-5", GetBindingAction("SHIFT-5")) end
+        if GetBindingAction("SHIFT-6") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-6", GetBindingAction("SHIFT-6")) end
+        if GetBindingAction("CTRL-1") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-1", GetBindingAction("CTRL-1")) end
+        if GetBindingAction("CTRL-2") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-2", GetBindingAction("CTRL-2")) end
+        if GetBindingAction("CTRL-3") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-3", GetBindingAction("CTRL-3")) end
+        if GetBindingAction("CTRL-4") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-4", GetBindingAction("CTRL-4")) end
+        if GetBindingAction("CTRL-5") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-5", GetBindingAction("CTRL-5")) end
+        if GetBindingAction("CTRL-6") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-6", GetBindingAction("CTRL-6")) end
+        if GetBindingAction("CTRL-7") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-7", GetBindingAction("CTRL-7")) end
+        if GetBindingAction("CTRL-8") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-8", GetBindingAction("CTRL-8")) end
+        if GetBindingAction("CTRL-9") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-9", GetBindingAction("CTRL-9")) end
+        if GetBindingAction("CTRL-0") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-0", GetBindingAction("CTRL-0")) end
+        if GetBindingAction("F1") ~= "" then SetOverrideBinding(UIParent,true,"F1", GetBindingAction("F1")) end
+        if GetBindingAction("F2") ~= "" then SetOverrideBinding(UIParent,true,"F2", GetBindingAction("F2")) end
+        if GetBindingAction("F3") ~= "" then SetOverrideBinding(UIParent,true,"F3", GetBindingAction("F3")) end
+        if GetBindingAction("F4") ~= "" then SetOverrideBinding(UIParent,true,"F4", GetBindingAction("F4")) end
+        if GetBindingAction("F5") ~= "" then SetOverrideBinding(UIParent,true,"F5", GetBindingAction("F5")) end
+        if GetBindingAction("CTRL-SHIFT-T") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-SHIFT-T", GetBindingAction("CTRL-SHIFT-T")) end
+        if GetBindingAction("CTRL-T") ~= "" then SetOverrideBinding(UIParent,true,"CTRL-T", GetBindingAction("CTRL-T")) end
+        if GetBindingAction("TAB") ~= "" then SetOverrideBinding(UIParent,true,"TAB", GetBindingAction("TAB")) end
+        if GetBindingAction("SHIFT-TAB") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-TAB", GetBindingAction("SHIFT-TAB")) end
+        if GetBindingAction("MOUSEWHEELDOWN") ~= "" then SetOverrideBinding(UIParent,true,"MOUSEWHEELDOWN", GetBindingAction("MOUSEWHEELDOWN")) end
+        if GetBindingAction("MOUSEWHEELUP") ~= "" then SetOverrideBinding(UIParent,true,"MOUSEWHEELUP", GetBindingAction("MOUSEWHEELUP")) end
+        if GetBindingAction("SHIFT-T") ~= "" then SetOverrideBinding(UIParent,true,"SHIFT-T", GetBindingAction("SHIFT-T")) end
+        if GetBindingAction("T") ~= "" then SetOverrideBinding(UIParent,true,"T", GetBindingAction("T")) end
+        if GetBindingAction("F") ~= "" then SetOverrideBinding(UIParent,true,"F", GetBindingAction("F")) end
 end
