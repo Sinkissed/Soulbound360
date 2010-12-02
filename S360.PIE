@@ -1,6 +1,6 @@
 ﻿//Soulbound360
 //by Sinkissed
-//0.61
+//0.6a
 
 //Setting this variable to true allows you to heal or attack a
 //target by pressing any spell while hovering over a target.
@@ -33,15 +33,6 @@ var.MouseSensitivity = screen.width/32
 
 //InvertMouse flips the mouse's Y/vertical axis
 var.InvertMouse = false
-
-//SeparateClicks moves left click to the top right shoulder
-//instead of under a modifier. If false, Right Click MUST
-//be relased before left click can be pressed. If true,
-//Left Click has a dedicated butting allowing simpler healing
-//and left/right together to run. This will move target so that
-//it is under the modifier for Left Click. Jumping with this
-//setting will end autorun unless the modifier is also held.
-var.SeparateClicks = false
 
 //SwapMouseButtons switches the position of the mouse click button.
 //One click can only be available with a modifier.
@@ -192,7 +183,6 @@ if Var.LB and doubleclicked(var.LT) then
 endif
 
 //CLICK BINDINGS
-if var.SeparateClicks == false
 if var.SwapMouseButtons == true then
    //right mouse button BELOW
    if Mouse.RightButton==false&&var.LB&&var.LT==true then
@@ -243,53 +233,7 @@ else
       release(shift)
    endif
 endif
-else
-if var.SwapMouseButtons == true then
-   //left mouse button LEFT
-   if Mouse.LeftButton==false&&var.LB&&var.LT==false then
-      Mouse.LeftButton=1
-   elseif Mouse.LeftButton==true&&var.LB then
-         Mouse.LeftButton=1
-   elseif Mouse.LeftButton==true&&released(var.LB) then
-      if var.Bar3 then press(shift)
-      if var.Bar2 then press(ctrl)
-      release(Mouse.LeftButton)
-      release(ctrl)
-      release(shift)
-   endif
-   //right mouse button RIGHT
-   if Mouse.RightButton==false&&var.RB==true&&var.Type3==false then
-      press(Mouse.RightButton)
-   elseif Mouse.RightButton==true&&var.RB&&var.Type3==false then
-      Mouse.RightButton=1
-   elseif Mouse.RightButton==true&&released(var.RB) then
-      if var.Bar2 then press(shift)
-      release(Mouse.RightButton)
-      release(shift)
-   endif
-else
-   //right mouse button LEFT
-   if Mouse.RightButton==false&&var.LB&&var.LT==false then
-      Mouse.RightButton=1
-   elseif Mouse.RightButton==true&&var.LB then
-         Mouse.RightButton=1
-   elseif Mouse.RightButton==true&&released(var.LB) then
-      if var.Bar3 then press(shift)
-      release(Mouse.RightButton)
-      release(shift)
-   endif
-   //left mouse button RIGHT
-   if Mouse.LeftButton==false&&var.RB==true&&var.Type3==false then
-      press(Mouse.LeftButton)
-   elseif Mouse.LeftButton==true&&var.RB&&var.Type3==false then
-      Mouse.LeftButton=1
-   elseif Mouse.LeftButton==true&&released(var.RB) then
-      if var.Bar2 then press(ctrl)
-      release(Mouse.LeftButton)
-      release(ctrl)
-   endif
-endif
-endif
+
 
 //KEYBOARD BINDINGS
 if Var.Type1==true then
@@ -309,10 +253,12 @@ if Var.Type1==true then
      Key.Zero = pressed(Var.DLeft)
      Key.Minus = pressed(Var.LThumb)
      Key.Equals = pressed(Var.RThumb)
-     if var.RT=0&&var.SeparateClicks == false then Key.Tab = pressed(var.RB)
-     var.BarOff = pressed(var.Bar1)
-     var.BarFull = pressed(var.Bar3)
-     var.BarHalf = pressed(var.Bar2)
+     if var.RT=0 then Key.Tab = pressed(var.RB)
+     if var.RB=0 then
+        var.BarOff = pressed(var.Bar1)
+        var.BarFull = pressed(var.Bar3)
+        var.BarHalf = pressed(var.Bar2)
+     endif
 elseif var.Type2==true then
      Ctrl+One = pressed(Var.X)
      Ctrl+Two = pressed(Var.Y)
@@ -344,7 +290,9 @@ elseif var.Type2==true then
         ctrl+shift+t = pressed(Var.Lthumb)
         ctrl+t = pressed(Var.Rthumb)
      endif
-     var.BarHalfModifiedHalf = var.Bar2 && pressed(var.type2) and not released(var.type3)
+     if var.RB=0 then
+        var.BarHalfModifiedHalf = var.Bar2 && pressed(var.type2) and not released(var.type3)
+     endif
 elseif var.Type3==true then
      Key.F1 = pressed(Var.Start) and not Var.Bar2 and not Var.Bar3
      Key.F2 = pressed(Var.X) and not Var.Bar3
@@ -367,8 +315,6 @@ elseif var.Type3==true then
      Ctrl+F8 = pressed(Var.DDown) and Var.Bar3
      Ctrl+F9 = pressed(Var.DRight) and Var.Bar3
      Ctrl+F10 = pressed(Var.DLeft) and Var.Bar3
-     if var.RT=0&&var.SeparateClicks == false then Shift+Tab = pressed(var.RB)
-     if var.RT=0&&var.SeparateClicks == true then Tab = pressed(var.RB)
      if var.bar2 then
         key.m = pressed(Var.Lthumb)
         shift = Var.Rthumb
@@ -405,8 +351,11 @@ elseif var.Type3==true then
            var.TogglePushToTalk = 0
         endif
      endif
-     var.BarHalfModifiedFull = var.Bar2 && pressed(var.type3)
-     var.BarFullModifiedFull = var.Bar3 && pressed(var.type3)
+     if var.RT=0 then Shift+Tab = pressed(var.RB)
+     if var.RB=0 then
+        var.BarHalfModifiedFull = var.Bar2 && pressed(var.type3)
+        var.BarFullModifiedFull = var.Bar3 && pressed(var.type3)
+     endif
 endif
 
 if pressed(HeldDown(Var.Start,3)) then
