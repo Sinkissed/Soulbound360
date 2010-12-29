@@ -359,15 +359,8 @@ elseif var.Type3==true then
 endif
 
 if pressed(HeldDown(Var.Start,3)) then
-   enter = 1
-   enter = 0
-   slash = 1
-   slash = 0
-   key.s=1
-   key.s=0
-   type(360)
-   enter = 1
-   enter = 0
+   press(key.Backslash)
+   release(key.Backslash)
 endif
 
 if pressed(HeldDown(Var.Back,3)) then

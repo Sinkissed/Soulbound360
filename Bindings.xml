@@ -1,0 +1,5 @@
+<Bindings>
+	<Binding name="TOGGLES360" header="S360">
+		SlashCmdList.S360()
+	</Binding>
+</Bindings>

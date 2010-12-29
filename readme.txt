@@ -35,6 +35,10 @@ Bottom left shoulder modifies all the other buttons
 
 There are many more controls and combinations handed by the gamepad. Some controls can also be altered in the PIE file. A full diagram is displayed in game and can be toggled inside of the Interface/Addons menu. Have fun!
 
+v0.6b
+* New binding for controller map toggle
+* More dramatic transparancy on the controller map
+
 v0.6a
 * fixed mislabeled diagram
 * fixed CTRL-S occasionally getting triggered by movement controls
